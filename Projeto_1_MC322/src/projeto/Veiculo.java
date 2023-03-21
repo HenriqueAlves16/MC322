@@ -38,5 +38,10 @@ public class Veiculo {
 		this.modelo = modelo;
 	}
 
+	//toString
+	public String toString() {
+		return "Veiculo [placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + "]";
+	}
+
 
 }

@@ -46,5 +46,10 @@ public class Seguradora {
 	public void setEndereco ( String endereco ) {
 		this . endereco = endereco ;
 	}
-
+	
+	//toString
+	public String toString() {
+		return "Seguradora [nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", endereco=" + endereco
+				+ "]";
+	}
 }

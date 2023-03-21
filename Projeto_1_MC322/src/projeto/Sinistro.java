@@ -4,14 +4,18 @@ public class Sinistro {
 	private String data;
 	private String endereco;
 	private int id;
+	private static int n = 1;
 	
 	//Construtor da classe
-	public Sinistro(String data, String endereco, int id) {
+	
+	public Sinistro(String data, String endereco) {
 		this.data = data;
 		this.endereco = endereco;
-		this.id = id;
+		this.id = n;
+		n++;
 	}
-
+		
+	//Getters e setters
 	public String getData() {
 		return data;
 	}
@@ -35,7 +39,13 @@ public class Sinistro {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	//toString
+	public String toString() {
+		return "Sinistro [data=" + data + ", endereco=" + endereco + ", id=" + id + "]";
+	}
 	
+
 	
 	
 	

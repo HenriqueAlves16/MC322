@@ -11,12 +11,12 @@ class Main {
 	Sinistro sinistro3 = new Sinistro("27/12/2042", "Minas Gerais");
 	Veiculo veiculo = new Veiculo("ABC1234", "Ford", "Ka");
 		
-	System.out.println(cliente1.toString());
-	System.out.println(seguradora.toString());
-	System.out.println(sinistro1.toString());
-	System.out.println(sinistro2.toString());
-	System.out.println(sinistro3.toString());
-	System.out.println(veiculo.toString() + "\n");
+	System.out.println(cliente1);
+	System.out.println(seguradora);
+	System.out.println(sinistro1);
+	System.out.println(sinistro2);
+	System.out.println(sinistro3);
+	System.out.println(veiculo + "\n");
 	
 	System.out.printf("%s, de cpf %s, nascido em %s, residente de %s, de %s anos eh cliente da seguradora %s \n", cliente1.getNome(), cliente1.getCpf(), cliente1.getDataNascimento(), cliente1.getEndereco(), cliente1.getIdade(), seguradora.getNome());
 	System.out.printf("Os ids dos sinistros sao %s, %s e %s, do mais antigo para o mais novo\n", sinistro1.getId(), sinistro2.getId(), sinistro3.getId());
@@ -34,11 +34,6 @@ class Main {
 	System.out.printf("O CPF do cliente2 eh valido: %b/false\n", cliente2.validarCPF());
 	cliente1.setCpf("abcde45048735838");
 	System.out.printf("O CPF do cliente1 eh valido: %b/false\n\n", cliente1.validarCPF());
-	
-	/*
-	sinistro3.setId(2);
-	System.out.printf("id sinistro2: %d; id sinistro3: %d\n\n", sinistro2.getId(), sinistro3.getId());
-	*/
 	
 	veiculo.setMarca("Ferrari");
 	veiculo.setModelo("SP51");

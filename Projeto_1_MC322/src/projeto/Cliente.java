@@ -72,7 +72,7 @@ public class Cliente {
 		char dig10, dig11;
 		
 		//Remove os caracteres nao numericos
-		cpf.replaceAll("[^0-9]","");
+		cpf = cpf.replaceAll("[^0-9]","");
 		
 		//Verifica se o cpf tem 11 caracteres
 		if(cpf.length() != 11)	return false;

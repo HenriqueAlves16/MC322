@@ -1,4 +1,4 @@
-package projeto;
+package projeto.lab03;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;

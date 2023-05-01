@@ -12,8 +12,7 @@ public class Sinistro {
 	final int ID;
 	private static int n = 1;	
 	
-	//Construtor da classe
-	
+	//Construtor da classe:
 	
 	public Sinistro(String data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
 		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -26,7 +25,7 @@ public class Sinistro {
 		n++;
 	}
 		
-	//Getters e setters
+	//Getters e setters:
 	public LocalDate getData() {
 		return data;
 	}

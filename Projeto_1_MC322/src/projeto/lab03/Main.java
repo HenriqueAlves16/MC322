@@ -67,7 +67,7 @@ class Main {
 			
 			
 		}	catch(FileNotFoundException e) {
-			System.out.println("Arquivo não encontrado!");
+			System.out.println("Arquivo não encontrado! Verifique o repositório input.txt.");
 		}
 		
 	}
@@ -86,14 +86,14 @@ class Main {
 	}
 	
 	public static Cliente criaCliente(Scanner scanner) {
-		//System.out.println("Digite o nome, endereço, data de licenca (aaaa-mm-dd) e tipo de cliente ('PF' ou 'PJ'), respectivamente.");
+		//System.out.println("Digite o nome, endereço, data de licenca (dd/mm/aaaa) e tipo de cliente ('PF' ou 'PJ'), respectivamente.");
 		String nome = scanner.nextLine();
 		String endereco = scanner.nextLine();
 		String dataLicenca = scanner.nextLine();
 		String tipo = scanner.nextLine();
 		
 		if(tipo.equals("PF")) {
-			//System.out.println("Digite a escolaridade, genero, classe economica, CPF e data de nascimento (aaaa-mm-dd) do cliente, respectivamente.");
+			//System.out.println("Digite a escolaridade, genero, classe economica, CPF e data de nascimento (dd/mm/aaaa) do cliente, respectivamente.");
 			
 			String educacao = scanner.nextLine();
 			String genero = scanner.nextLine();
@@ -104,7 +104,7 @@ class Main {
 			ClientePF cliente = new ClientePF(nome, endereco, dataLicenca, tipo, educacao, genero, classeEconomica, cpf, dataNascimento);
 			return cliente;
 		}	else	{
-			//System.out.println("Digite o CNPJ e data de fundacao (aaaa-mm-dd) da instituicao, respectivamente.");
+			//System.out.println("Digite o CNPJ e data de fundacao (dd/mm/aaaa) da instituicao, respectivamente.");
 			
 			String cnpj = scanner.nextLine();
 			String dataFundacao = scanner.nextLine();

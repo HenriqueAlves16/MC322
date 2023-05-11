@@ -110,7 +110,6 @@ public class ClientePF extends Cliente {
 			fator = CalcSeguro.FATOR_60_90.getF();
 		}
 		valor = CalcSeguro.VALOR_BASE.getF() * fator * quantidadeCarros;
-		setValorSeguro(valor);
 		return valor;
 	}
 }

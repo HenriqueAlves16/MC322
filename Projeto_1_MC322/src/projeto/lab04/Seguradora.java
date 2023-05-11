@@ -120,20 +120,24 @@ public class Seguradora {
 	public void cadastrarVeiculo() {
 		System.out.println("Digite o número do documento do cliente cujo carro será cadastrado.");
 		String documento = Validacao.recebeDocumentoValido();
-		Veiculo novoVeiculo = Veiculo.criaVeiculo();
+		Veiculo novoVeiculo;
 
+		// Encontrando o cliente com documento especificado e cadastrando um veículo a ele
 		for (int i = 0; i < listaClientes.size(); i++) {
-			if ((listaClientes.get(i) instanceof ClientePF
-					&& (((ClientePF) listaClientes.get(i)).getCPF()).equals(documento))
-					|| (listaClientes.get(i) instanceof ClientePJ
-							&& (((ClientePJ) listaClientes.get(i)).getCNPJ()).equals(documento))) {
-
-				LinkedList<Veiculo> novaListaVeiculos = ((listaClientes.get(i)).getListaVeiculos());
+			Cliente clienteAtual = listaClientes.get(i);
+			if ((clienteAtual instanceof ClientePF && (((ClientePF) clienteAtual).getCPF()).equals(documento))
+					|| (clienteAtual instanceof ClientePJ && (((ClientePJ) clienteAtual).getCNPJ()).equals(documento))) {
+				novoVeiculo = Veiculo.criaVeiculo();
+				LinkedList<Veiculo> novaListaVeiculos = (clienteAtual.getListaVeiculos());
 				novaListaVeiculos.add(novoVeiculo);
 
-				(listaClientes.get(i)).setListaVeiculos(novaListaVeiculos);
+				(clienteAtual).setListaVeiculos(novaListaVeiculos);
+				System.out.println("Veículo de placa " + novoVeiculo.getPlaca() + " cadastrado para o cliente de documento " + documento + " com sucesso!");
+				this.calcularPrecoSeguroCliente(clienteAtual);
+				return;
 			}
 		}
+		System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome() + " com este documento.");
 	}
 	
 	// Método que cria uma seguradora a partir do input:
@@ -165,7 +169,7 @@ public class Seguradora {
 	
 	//Método que remove um cliente da lista de clientes. Se o nome do cliente dado na entrada for válido, retorna true; caso contrário, retorna false.
 	public boolean excluirCliente() {
-		System.out.println("Digite o documento do cliente que você deseja excluir");
+		System.out.println("Digite o documento do cliente que você deseja excluir:");
 		String documento = Validacao.recebeDocumentoValido();
 		
 		for(int i = 0; i < listaClientes.size(); i++) {
@@ -198,6 +202,7 @@ public class Seguradora {
 		System.out.println("Digite a placa do veículo que você deseja excluir:");
 		placaExcluir = scanner.nextLine();
 		
+		// Encontrando e excluindo o veículo a partir de sua placa:
 		for(int i = 0; i < listaClientes.size(); i++) {
 			Cliente cliente = listaClientes.get(i);
 			LinkedList<Veiculo> listaVeiculos = cliente.getListaVeiculos();
@@ -207,6 +212,7 @@ public class Seguradora {
 					listaVeiculos.remove(j);
 					(listaClientes.get(i)).setListaVeiculos(listaVeiculos);
 					System.out.println("Veículo excluído com sucesso!");
+					this.calcularPrecoSeguroCliente(cliente);
 					return true;
 				}
 			}
@@ -215,7 +221,7 @@ public class Seguradora {
 		return false;
 	}
 	
-	//Método que remove um sinistro a partir de seu ID. Se o ID for válido, retorna True. Caso contrário, retorna false.
+	//Método que remove um sinistro a partir de seu ID. Se o ID for válido, retorna true. Caso contrário, retorna false.
 	public boolean excluirSinistro() {
 		Scanner scanner = new Scanner(System.in);
 		int IdExcluir;
@@ -223,16 +229,21 @@ public class Seguradora {
 		System.out.println("Digite o ID do sinistro que você deseja excluir:");
 		IdExcluir = scanner.nextInt();
 		
+		// Encontrando o sinistro a partir do ID e excluindo-o:
 		for(int i = 0; i < listaSinistros.size(); i++) {
 			if((listaSinistros.get(i)).getID() == IdExcluir) {
+				Cliente cliente = listaSinistros.get(i).getCliente();
 				listaSinistros.remove(i);
 				System.out.println("Sinistro excluído com sucesso!");
+				this.calcularPrecoSeguroCliente(cliente);
 				return true;	
 			}
 		}
+		System.out.println("ID inválido. Tente novamente.");
 		return false;
 	}
 	
+	//Método que retorna uma lista de clientes do tipo especificado "PF" ou "PJ"
 	//Método que, dado um tipo de cliente "PF" ou "PJ" retorna uma lista com os clientes do tipo da entrada
 	public ArrayList<Cliente> listarClientes(String tipoCliente){
 		ArrayList<Cliente> listaTipo = new ArrayList<>();
@@ -244,9 +255,9 @@ public class Seguradora {
 		return listaTipo;
 	}
 	
+	//Método que imprime todos os clientes de cada seguradora
 	//Método que imprime todos os clientes de um dado tipo "PF" ou "PJ"
-	public void visualizarClientesSeg() {
-		int i = 1;
+	public static void visualizarClientesPorSeg() {
 		Scanner scanner = new Scanner(System.in);
 		String tipoCliente;
 		
@@ -255,12 +266,15 @@ public class Seguradora {
 		tipoCliente = scanner.nextLine();
 		while(!tipoCliente.equals("PF") && !tipoCliente.equals("PJ") && !tipoCliente.equals("TODOS")) {
 			System.out.println("Tipo de cliente inválido. Os tipos válidos são 'PF', 'PJ' e 'TODOS'. Digite novamente.");
+			tipoCliente = scanner.nextLine();
 		}
 		
 		for(Seguradora seguradora : listaSeguradoras) {
+			int i = 1;
 			//Caso de nenhum cliente cadastrado:
 			if(seguradora.listaClientes.isEmpty()) {
 				System.out.println("Nenhum cliente cadastrado na seguradora " + seguradora.getNome() + ".");
+				continue;
 			}
 						
 			//Caso escolhido TODOS:
@@ -270,15 +284,16 @@ public class Seguradora {
 					System.out.println("* Cliente " + i++);
 					System.out.println(cliente + "\n");
 				}
-				return;
+				continue;
 			}
 			
 			//Caso escolhido 'PF' ou 'PJ':
 			if(seguradora.listarClientes(tipoCliente).isEmpty()) {
 				System.out.println("Nenhum cliente do tipo " + tipoCliente + " cadastrado na seguradora " + seguradora.getNome());
+				continue;
 			}
 			System.out.println("Lista de clientes do tipo " + tipoCliente + " da seguradora " + seguradora.getNome() + ":");
-			for(Cliente cliente : listaClientes) {
+			for(Cliente cliente : seguradora.listaClientes) {
 				if(tipoCliente.equals(cliente.getTipo())) {
 					System.out.println("* Cliente " + i++);
 					System.out.println(cliente + "\n");
@@ -287,94 +302,144 @@ public class Seguradora {
 		}
 	}
 	
+	//Método que, dado o documento de um cliente, retorna este cliente
 	//Método que, a partir de um documento válido, encontra o cliente correspondente.
-	public Cliente encontraCliente(String documento) {
-		for(Cliente cliente : listaClientes) {
-			if(cliente instanceof ClientePF && (((ClientePF) cliente).getCPF()).equals(documento)) {
-				return cliente;
-			} else if(cliente instanceof ClientePJ && (((ClientePJ) cliente).getCNPJ()).equals(documento)) {
-				return cliente;
+	public static Cliente encontraCliente(String documento) {
+		for(Seguradora seguradora : listaSeguradoras) {
+			for(Cliente cliente : seguradora.listaClientes) {
+				if(cliente instanceof ClientePF && (((ClientePF) cliente).getCPF()).equals(documento)) {
+					return cliente;
+				} else if(cliente instanceof ClientePJ && (((ClientePJ) cliente).getCNPJ()).equals(documento)) {
+					return cliente;
+				}
 			}
 		}
 		System.out.println("Cliente não encontrado.");
 		return null;
 	}
 	
-	// Método que gera um sinistro:
+	// Método que gera um sinistro
 	public Sinistro gerarSinistro() {
+		//Lendo as informações:
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Digite, respectivamente, a data, endereço, placa do veículo e número do documento do cliente relativos ao sinistro.");
+		System.out.println("Digite, respectivamente, a data, endereço, número do documento do cliente e placa do veículo relativos ao sinistro.");
 		String data = scanner.nextLine();
 		String endereco = scanner.nextLine();
-		String placa = scanner.nextLine();
-		String documento = scanner.nextLine();
+		String documento;
+		String placa;
 		Cliente cliente = null;
-		LinkedList<Veiculo> listaVeiculosCliente;
 		Veiculo veiculo = null;
+		LinkedList<Veiculo> listaVeiculosCliente;		
 		
-		for(int i = 0; i < listaClientes.size(); i++) {
-			if(listaClientes.get(i) instanceof ClientePF) {
-				ClientePF clienteAux = (ClientePF) listaClientes.get(i);
-				if((clienteAux).getCPF().equals(documento)) {
-					cliente = listaClientes.get(i);
-				}
-			} else {
-				ClientePJ clienteAux = (ClientePJ) listaClientes.get(i);
-				if((clienteAux).getCNPJ().equals(documento)) {
-					cliente = listaClientes.get(i);
+		// Encontrando o cliente a partir de seu documento:
+		while(true) {
+			boolean encontrado = false;
+			documento = scanner.nextLine();
+			for(int i = 0; i < listaClientes.size(); i++) {
+				if(listaClientes.get(i) instanceof ClientePF) {
+					ClientePF clienteAux = (ClientePF) listaClientes.get(i);
+					if((clienteAux).getCPF().equals(documento)) {
+						cliente = listaClientes.get(i);
+						encontrado = true;
+						break;
+					}
+				} else {
+					ClientePJ clienteAux = (ClientePJ) listaClientes.get(i);
+					if((clienteAux).getCNPJ().equals(documento)) {
+						cliente = listaClientes.get(i);
+						encontrado = true;
+						break;						
+					}
 				}
 			}
+			if (encontrado) break;
+			System.out.println("Nenhum cliente com documento " + documento + " cadastrado na seguradora " + this.getNome() + ". Digite novamente.");
 		}
 
+		// Encontrando o veículo a partir de sua placa:
 		listaVeiculosCliente = cliente.getListaVeiculos();
 		
-		for(int i = 0; i < listaVeiculosCliente.size(); i++) {
-			if((listaVeiculosCliente.get(i).getPlaca()).equals(placa)) {
-				veiculo = listaVeiculosCliente.get(i);
+		while(true) {
+			boolean encontrado = false;
+			placa = scanner.nextLine();
+			for(int i = 0; i < listaVeiculosCliente.size(); i++) {
+				if((listaVeiculosCliente.get(i).getPlaca()).equals(placa)) {
+					veiculo = listaVeiculosCliente.get(i);
+					encontrado = true;
+					break;
+				}
 			}
+			if(encontrado)	break;
+			System.out.println("Nenhum veículo com placa " + placa + " cadastrado na seguradora " + this.getNome() + ". Digite novamente.");
 		}
 		
+		//Gerando o sinistro:
 		Sinistro novoSinistro = new Sinistro(data, endereco, this, veiculo, cliente);
 		listaSinistros.add(novoSinistro);
 		System.out.println("Sinistro gerado com sucesso!");
+		
+		//Atualizando o valor do seguro do cliente envolvido no sinistro:
+		this.calcularPrecoSeguroCliente(cliente);
+		
 		return novoSinistro;
 	}
 
+	//Método que imprime os sinistros para cada cliente da seguradora
 	// Método que imprime todos os sinistros de um dado cliente
-	public boolean visualizarSinistrosCliente() {
-		boolean i = false;
+	public void visualizarSinistrosPorCliente() {
+		String documento;
 		
-		System.out.println("Digite o número do documento do cliente que você deseja visualizar os sinistros:");
-		String documento = Validacao.recebeDocumentoValido();
+		//Caso em que não há clientes cadastrados:
+		if(listaClientes.isEmpty()) {
+			System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome());
+			return;
+		}
 		
-		//CPF com pontuação tem 14 caracteres CNPJ tem 18.
-		if(documento.length() == 14) {
-			for(Sinistro sinistro : this.listarSinistros("PF")) {
-				ClientePF cliente = (ClientePF)sinistro.getCliente();
-				if(cliente.getCPF().equals(documento)) {
-					System.out.println(sinistro);
-					i = true;
+		if(listaSinistros.isEmpty()) {
+			System.out.println("Nenhum sinistro cadastrado na seguradora " + this.getNome());
+			return;
+		}
+		
+		//Percorrendo os clientes da seguradora
+		for(Cliente cliente : listaClientes) {
+			boolean temSinistro = false;
+			
+			if(cliente instanceof ClientePF) {
+				documento = ((ClientePF) cliente).getCPF();
+			}	else	{
+				documento = ((ClientePJ) cliente).getCNPJ();
+			}
+			
+			//Percorrendo os sinistros e verificando se eles são relativos ao cliente em questão
+			for(Sinistro sinistro : listaSinistros) {
+				if(sinistro.getCliente() == cliente) {
+					if(!temSinistro) {
+						System.out.println("Lista de sinistros do cliente " + cliente.getNome() + " (" + documento + ")");
+						temSinistro = true;
+					}
+					System.out.println("   ID: " + sinistro.getID());
+					System.out.println("   Data: " + sinistro.getData());
+					System.out.println("   Endereço: " + sinistro.getEndereco());
+	                System.out.println("   Veículo: " + sinistro.getVeiculo());
 				}
 			}
-		}	else	{
-			for(Sinistro sinistro : listarSinistros("PJ")) {
-				ClientePJ cliente = (ClientePJ)sinistro.getCliente();
-				if(cliente.getCNPJ().equals(documento)) {
-					System.out.println(sinistro);
-					i = true;
-				}
-			}
+			System.out.println("Nenhum sinistro cadastrado para o cliente " + cliente.getNome() + " (" + documento + ")");
 		}
-		if(!i) {
-			System.out.println("Nenhum sinistro associado ao cliente em questão");
-		}
-		return i;
 	}
 	
 	// Método que imprime todos os sinistros da seguradora:
-	public void visualizarSinistrosSeguradora() {
-		for(Sinistro sinistro : listaSinistros) {
-			System.out.println(sinistro);
+	public static void visualizarSinistrosPorSeg() {
+		for(Seguradora seguradora: listaSeguradoras) {
+			// Caso de nenhum sinistro na seguradora:
+			if(seguradora.listaSinistros.isEmpty()) {
+				System.out.println("Nenhum sinistro cadastrado na seguradora " + seguradora.getNome());
+				continue;
+			}
+			// Caso com sinistros na seguradora:
+			System.out.println("Lista de sinistros da seguradora " + seguradora.getNome());
+			for(Sinistro sinistro : seguradora.listaSinistros) {
+				System.out.println(sinistro);
+			}
 		}
 	}
 	
@@ -393,31 +458,41 @@ public class Seguradora {
 	// Método que lista os veículos por cliente da seguradora:
 	public void listaVeiculosCliente() {
 		for (Cliente cliente : listaClientes) {
-			System.out.println(cliente.getNome() + ": " + cliente.getListaVeiculos());
-		}
-	}
-	
-	// Método que lista todos os veículos cadastrados na seguradora:
-	public void listaVeiculosSeguradora() {
-		LinkedList<Veiculo> listaTodosVeiculos= new LinkedList<>();
-		
-		for(Cliente cliente : listaClientes) {
-			for(Veiculo veiculo : cliente.getListaVeiculos()) {
-				if(! listaTodosVeiculos.contains(veiculo)) {
-					listaTodosVeiculos.add(veiculo);
+			if(cliente instanceof ClientePF) {
+				System.out.println(cliente.getNome() + "(" + ((ClientePF)cliente).getCPF() + ")" + ":");
+				for(Veiculo veiculo : cliente.getListaVeiculos()) {
+					System.out.println("   " + veiculo);
+				}
+			}	else	{
+				System.out.println(cliente.getNome() + "(" + ((ClientePJ)cliente).getCNPJ() + ")" + ":");
+				for(Veiculo veiculo : cliente.getListaVeiculos()) {
+					System.out.println("   " + veiculo);
 				}
 			}
 		}
-		
-		if(listaTodosVeiculos.isEmpty()) {
-			System.out.println("Nenhum veículo cadastrado na seguradora " + this.getNome() + ".");
-		}	else	{
-			System.out.println("Veículos cadastrados na seguradora " + this.getNome() + ":");
-			for(Veiculo veiculo : listaTodosVeiculos) {
-				System.out.println(veiculo);
+	}
+	// Método que lista todos os veículos cadastrados na seguradora:
+	public static void listaVeiculosPorSeg() {
+		for(Seguradora seguradora : listaSeguradoras) {
+			LinkedList<Veiculo> listaVeiculosSeg = new LinkedList<>();
+			for(Cliente cliente : seguradora.listaClientes) {
+				for(Veiculo veiculo : cliente.getListaVeiculos()) {
+					if(! listaVeiculosSeg.contains(veiculo)) {
+						listaVeiculosSeg.add(veiculo);
+					}
+				}
 			}
+			
+			if(listaVeiculosSeg.isEmpty()) {
+				System.out.println("Nenhum veículo cadastrado na seguradora " + seguradora.getNome() + ".");
+			}	else	{
+				System.out.println("Veículos cadastrados na seguradora " + seguradora.getNome() + ":");
+				for(Veiculo veiculo : listaVeiculosSeg) {
+					System.out.println(veiculo);
+				}
+			}
+			System.out.println("");
 		}
-		System.out.println("");
 	}
 	
 	// Método que transfere os veículos de um cliente para outro.
@@ -426,46 +501,58 @@ public class Seguradora {
 		String documentoClienteNovo;
 		Cliente clienteAntigo;
 		Cliente clienteNovo;
-		LinkedList<Veiculo> novaLista = new LinkedList<>();
-		int s = 0;
+		LinkedList<Veiculo> antigaLista;
+		LinkedList<Veiculo> novaLista;
 		
-		System.out.println("Digite, respectivamente, o documento do dono antigo e novo dos veículos.");
+		System.out.println("Digite, respectivamente, os documentos do antigo e novo dono dos veículos.");
 		documentoClienteAntigo = Validacao.recebeDocumentoValido();
 		documentoClienteNovo = Validacao.recebeDocumentoValido();
 		
 		clienteAntigo = encontraCliente(documentoClienteAntigo);
 		clienteNovo = encontraCliente(documentoClienteNovo);
-		novaLista = clienteNovo.getListaVeiculos();
-
-		for(int i = 0; i < listaClientes.size(); i++) {
-			Cliente clienteAtual = listaClientes.get(i);
-			if(clienteAtual == clienteAntigo) {
-				listaClientes.get(i).setListaVeiculos(null);
-			}	else if(clienteAtual == clienteNovo) {
-				for(Veiculo veiculo : clienteAntigo.getListaVeiculos()) {
-					novaLista.add(veiculo);
-				}
-				listaClientes.get(i).setListaVeiculos(novaLista);
-			}
-		}
 		
+		//Construindo a lista de veículos de clienteNovo:
+		novaLista = new LinkedList<>(clienteNovo.getListaVeiculos());
+		novaLista.addAll(clienteAntigo.getListaVeiculos());
+		clienteNovo.setListaVeiculos(novaLista);
+		
+		// Zerando a lista de clienteAntigo:
+		antigaLista = new LinkedList<>(clienteAntigo.getListaVeiculos());
+		antigaLista.clear();
+		clienteAntigo.setListaVeiculos(antigaLista);
+	
+		// Atualizando os valores do seguro:
+		clienteNovo.setValorSeguro(clienteNovo.getValorSeguro() + clienteAntigo.getValorSeguro());
+		clienteAntigo.setValorSeguro(0);
+		
+		System.out.println("Veículos transferidos de " + clienteAntigo.getNome() + " para " + clienteNovo.getNome() + " com sucesso!");
 	}
 	
 	//Método que calcula um preço seguro para um determinado cliente:
 	public double calcularPrecoSeguroCliente(Cliente cliente) {
-		int qtdSinistros = getListaSinistros().size();
+		int qtdSinistros = 0;
+		
+		// Contando quantos sinistros o cliente tem:
+		for(Sinistro sinistro : listaSinistros) {
+			if(sinistro.getCliente().equals(cliente)) {
+				qtdSinistros++;
+			}
+		}
+		
+		// Calculando o preço
 		double preco = cliente.calculaScore() * (1 + qtdSinistros);
+		cliente.setValorSeguro(preco);
 		return preco;
 	}
 		
 	//Método que calcula a receita da seguradora:
 	public double calcularReceitaSeguradora() {
 		double receita = 0;
-		DecimalFormat formato = new DecimalFormat("0,00");
+		DecimalFormat formato = new DecimalFormat("0.00");
 		String receitaFormatada;
 		
 		for(Cliente cliente : listaClientes) {
-			receita += cliente.calculaScore();
+			receita += this.calcularPrecoSeguroCliente(cliente);
 		}
 		
 		receitaFormatada = formato.format(receita);

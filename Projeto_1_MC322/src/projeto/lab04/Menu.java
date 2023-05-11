@@ -109,7 +109,7 @@ public class Menu {
 			Scanner scanner = new Scanner(System.in);
 
 			System.out.println("Qual tipo de cadastro você deseja realizar?");
-			System.out.println("1 - Cliente PF/PJ");
+			System.out.println("1 - Cliente");
 			System.out.println("2 - Veículo");
 			System.out.println("3 - Seguradora");
 			System.out.println("4 - Voltar");
@@ -182,26 +182,20 @@ public class Menu {
 		
 		switch (operacao) {
 		case LISTAR_CLIENTE_POR_SEG:
-			for(Seguradora seguradora : Seguradora.getListaSeguradoras()) {
-				seguradora.visualizarClientes();
-				System.out.println("");
-			}
+			Seguradora.visualizarClientesPorSeg();
 			break;
 		case LISTAR_SINISTROS_POR_SEG:
-			for(Seguradora seguradora : Seguradora.getListaSeguradoras()) {
-				seguradora.visualizarSinistrosSeguradora();
-			}
+			Seguradora.visualizarSinistrosPorSeg();
 			break;
 		case LISTAR_SINISTROS_POR_CLIENTE:	
-			seguradoraAtiva.visualizarSinistrosCliente();
+			seguradoraAtiva.visualizarSinistrosPorCliente();
 			break;
 		case LISTAR_VEICULOS_POR_CLIENTE:
 			seguradoraAtiva.listaVeiculosCliente();
 			break;
 		case LISTAR_VEICULOS_POR_SEG:
-			for(Seguradora seguradora : Seguradora.getListaSeguradoras()) {
-				seguradora.listaVeiculosSeguradora();
-			}
+			Seguradora.listaVeiculosPorSeg();
+			
 			break;
 		case VOLTAR_LISTAR:
 			break;

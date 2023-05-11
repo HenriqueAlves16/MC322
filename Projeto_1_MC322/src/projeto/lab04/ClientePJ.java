@@ -7,7 +7,7 @@ import java.util.StringJoiner;
 public class ClientePJ extends Cliente {
 	final String CNPJ;
 	private LocalDate dataFundacao;
-	int qtdeFuncionarios;
+	private int qtdeFuncionarios;
 	
 	//Metodo construtor:
 	public ClientePJ(String nome, String endereco, String dataLicenca, String tipo, String cnpj, String dataFundacao, int qtdeFuncionarios) {
@@ -72,7 +72,6 @@ public class ClientePJ extends Cliente {
 			double valor;
 			
 			valor = CalcSeguro.VALOR_BASE.getF() * (1 + (getQtdeFuncionarios()) / 100) * quantidadeCarros;
-			setValorSeguro(valor);
 			return valor;
 		}
 }

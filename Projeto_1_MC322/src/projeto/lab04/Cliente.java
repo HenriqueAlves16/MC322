@@ -108,11 +108,13 @@ public abstract class Cliente {
 		String dataLicenca = scanner.nextLine();
 		String tipo = scanner.nextLine();
 		
+		// Caso em que o tipo é inválido
 		while(!tipo.equals("PF") && !tipo.equals("PJ")) {
 			System.out.println("Tipo inválido. O tipo de cliente deve ser 'PF' ou 'PJ'. Digite novamente.");
 			tipo = scanner.nextLine();
 		}
-
+		
+		// Caso tipo == "PF"
 		if (tipo.equals("PF")) {
 			System.out.println("Digite a escolaridade, gênero, classe econômica, CPF e data de nascimento (dd/mm/aaaa) do cliente, respectivamente:");
 
@@ -123,6 +125,7 @@ public abstract class Cliente {
 			String dataNascimento = scanner.nextLine();
 
 			cliente = new ClientePF(nome, endereco, dataLicenca, tipo, educacao, genero, classeEconomica, cpf, dataNascimento);
+		//Caso tipo == "PJ"
 		} else {
 			System.out.println("Digite o CNPJ, a data de fundação (dd/mm/aaaa) e a quantidade de funcionários da instituição, respectivamente:");
 
@@ -136,6 +139,7 @@ public abstract class Cliente {
 		return cliente;
 	}
 	
+	// Método que adiciona um veículo na lista de veículos de um cliente
 	public boolean adicionaVeiculo(Veiculo veiculo) {
 		if(listaVeiculos.contains(veiculo)) {
 			System.out.println("O veículo de placa " + veiculo.getPlaca() + " já está cadastrado na lista de veículos de " + this.getNome() + ".");
@@ -146,17 +150,30 @@ public abstract class Cliente {
 		return true;
 	}
 	
-	
+	//Método que imprime todos os veículos de um dado cliente
 	public void visualizarVeiculos(Cliente cliente) {
 		for(Veiculo veiculo: cliente.listaVeiculos) {
 			System.out.println(veiculo.getModelo());
 		}
 	}
 	
+	//Método que retorna uma lista com todos os veículos de um dado cliente
 	public LinkedList<Veiculo> listaVeiculos(Cliente cliente) {
 		return cliente.listaVeiculos;
 	}
-
+	
+	// Método que, dado um cliente PF ou PJ, retorna seu documento 
+	public static String encontraDocumento(Cliente cliente) {
+		String documento;
+		if(cliente instanceof ClientePF) {
+			documento = ((ClientePF)cliente).getCPF();
+		}	else	{
+			documento = ((ClientePJ)cliente).getCNPJ();
+		}
+		return documento;
+	}
+	
+	//Método abstrato que calcula o score de um cliente PF ou PJ
 	public abstract double calculaScore();
 	
 	

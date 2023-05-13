@@ -30,6 +30,7 @@ public enum MenuOperacoes {
 		this.operacao = operacao;
 	}
 	
+	//Método que retorna uma constante do enum a partir de um inteiro target
 	public static MenuOperacoes busca(int target) {
 		for(MenuOperacoes i : MenuOperacoes.values()) {
 			if(i.operacao == target)	return i;

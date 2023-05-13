@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.StringJoiner;
 import java.util.Scanner;
 import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 
 public class Seguradora {
 	private String nome;
@@ -243,7 +244,6 @@ public class Seguradora {
 		return false;
 	}
 	
-	//Método que retorna uma lista de clientes do tipo especificado "PF" ou "PJ"
 	//Método que, dado um tipo de cliente "PF" ou "PJ" retorna uma lista com os clientes do tipo da entrada
 	public ArrayList<Cliente> listarClientes(String tipoCliente){
 		ArrayList<Cliente> listaTipo = new ArrayList<>();
@@ -254,9 +254,8 @@ public class Seguradora {
 		}
 		return listaTipo;
 	}
-	
+		
 	//Método que imprime todos os clientes de cada seguradora
-	//Método que imprime todos os clientes de um dado tipo "PF" ou "PJ"
 	public static void visualizarClientesPorSeg() {
 		Scanner scanner = new Scanner(System.in);
 		String tipoCliente;
@@ -289,20 +288,19 @@ public class Seguradora {
 			
 			//Caso escolhido 'PF' ou 'PJ':
 			if(seguradora.listarClientes(tipoCliente).isEmpty()) {
-				System.out.println("Nenhum cliente do tipo " + tipoCliente + " cadastrado na seguradora " + seguradora.getNome());
+				System.out.println("Nenhum cliente do tipo " + tipoCliente + " cadastrado na seguradora " + seguradora.getNome() + ".");
 				continue;
 			}
 			System.out.println("Lista de clientes do tipo " + tipoCliente + " da seguradora " + seguradora.getNome() + ":");
 			for(Cliente cliente : seguradora.listaClientes) {
 				if(tipoCliente.equals(cliente.getTipo())) {
-					System.out.println("* Cliente " + i++);
+					System.out.println("* Cliente " + i++ + ":");
 					System.out.println(cliente + "\n");
 				}			
 			}
 		}
 	}
 	
-	//Método que, dado o documento de um cliente, retorna este cliente
 	//Método que, a partir de um documento válido, encontra o cliente correspondente.
 	public static Cliente encontraCliente(String documento) {
 		for(Seguradora seguradora : listaSeguradoras) {
@@ -322,7 +320,7 @@ public class Seguradora {
 	public Sinistro gerarSinistro() {
 		//Lendo as informações:
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Digite, respectivamente, a data, endereço, número do documento do cliente e placa do veículo relativos ao sinistro.");
+		System.out.println("Digite, respectivamente, a data (dd/mm/aaaa), endereço, número do documento do cliente e placa do veículo relativos ao sinistro:");
 		String data = scanner.nextLine();
 		String endereco = scanner.nextLine();
 		String documento;
@@ -376,7 +374,7 @@ public class Seguradora {
 		//Gerando o sinistro:
 		Sinistro novoSinistro = new Sinistro(data, endereco, this, veiculo, cliente);
 		listaSinistros.add(novoSinistro);
-		System.out.println("Sinistro gerado com sucesso!");
+		System.out.println("Sinistro gerado com sucesso!\n");
 		
 		//Atualizando o valor do seguro do cliente envolvido no sinistro:
 		this.calcularPrecoSeguroCliente(cliente);
@@ -402,6 +400,7 @@ public class Seguradora {
 		
 		//Percorrendo os clientes da seguradora
 		for(Cliente cliente : listaClientes) {
+			int i = 1;
 			boolean temSinistro = false;
 			
 			if(cliente instanceof ClientePF) {
@@ -414,31 +413,50 @@ public class Seguradora {
 			for(Sinistro sinistro : listaSinistros) {
 				if(sinistro.getCliente() == cliente) {
 					if(!temSinistro) {
-						System.out.println("Lista de sinistros do cliente " + cliente.getNome() + " (" + documento + ")");
+						System.out.println("Lista de sinistros do cliente " + cliente.getNome() + " (" + documento + "):");
 						temSinistro = true;
 					}
+					DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					String dataSinistroFormatada = (sinistro.getData()).format(formatterSTR);
+					System.out.println("* Sinistro " + i++ + ":");
 					System.out.println("   ID: " + sinistro.getID());
-					System.out.println("   Data: " + sinistro.getData());
+	                System.out.println("   Seguradora: " + sinistro.getSeguradora().getNome());
+					System.out.println("   Data: " + dataSinistroFormatada);
 					System.out.println("   Endereço: " + sinistro.getEndereco());
-	                System.out.println("   Veículo: " + sinistro.getVeiculo());
+	                System.out.println("   Veículo: " + sinistro.getVeiculo() + "\n");
+
 				}
 			}
-			System.out.println("Nenhum sinistro cadastrado para o cliente " + cliente.getNome() + " (" + documento + ")");
+			if(!temSinistro) {
+				System.out.println("Nenhum sinistro cadastrado para o cliente " + cliente.getNome() + " (" + documento + ")\n");
+			}
 		}
 	}
 	
 	// Método que imprime todos os sinistros da seguradora:
 	public static void visualizarSinistrosPorSeg() {
 		for(Seguradora seguradora: listaSeguradoras) {
+			int i = 1;
 			// Caso de nenhum sinistro na seguradora:
 			if(seguradora.listaSinistros.isEmpty()) {
 				System.out.println("Nenhum sinistro cadastrado na seguradora " + seguradora.getNome());
 				continue;
 			}
+
 			// Caso com sinistros na seguradora:
-			System.out.println("Lista de sinistros da seguradora " + seguradora.getNome());
+			System.out.println("Lista de sinistros da seguradora " + seguradora.getNome() + ":");
 			for(Sinistro sinistro : seguradora.listaSinistros) {
-				System.out.println(sinistro);
+				
+				String documento = Cliente.encontraDocumento(sinistro.getCliente());
+				DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				String dataSinistroFormatada = (sinistro.getData()).format(formatterSTR);
+				
+				System.out.println("* Sinistro " + i++ + ":");
+				System.out.println("   ID: " + sinistro.getID());
+                System.out.println("   Cliente: " + sinistro.getCliente().getNome() + " (" + documento + ")");
+				System.out.println("   Data: " + dataSinistroFormatada);
+				System.out.println("   Endereço: " + sinistro.getEndereco());
+                System.out.println("   Veículo: " + sinistro.getVeiculo() + "\n");
 			}
 		}
 	}
@@ -457,19 +475,26 @@ public class Seguradora {
 	
 	// Método que lista os veículos por cliente da seguradora:
 	public void listaVeiculosCliente() {
+		// Caso de nenhum cliente cadastrado
+		if(listaClientes.isEmpty()) {
+			System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome() + ".\n");
+			return;
+		}
+		
+		//Caso de clientes cadastrados:
 		for (Cliente cliente : listaClientes) {
-			if(cliente instanceof ClientePF) {
-				System.out.println(cliente.getNome() + "(" + ((ClientePF)cliente).getCPF() + ")" + ":");
-				for(Veiculo veiculo : cliente.getListaVeiculos()) {
-					System.out.println("   " + veiculo);
-				}
-			}	else	{
-				System.out.println(cliente.getNome() + "(" + ((ClientePJ)cliente).getCNPJ() + ")" + ":");
-				for(Veiculo veiculo : cliente.getListaVeiculos()) {
-					System.out.println("   " + veiculo);
-				}
+			String documento = Cliente.encontraDocumento(cliente);
+			
+			System.out.println("* " + cliente.getNome() + "(" + documento + ")" + ":");
+			if(cliente.getListaVeiculos().isEmpty()) {
+				System.out.println("   Nenhum veículo cadastrado para este cliente.");
+				continue;
+			}
+			for(Veiculo veiculo : cliente.getListaVeiculos()) {
+				System.out.println("   " + veiculo);
 			}
 		}
+		System.out.println("");
 	}
 	// Método que lista todos os veículos cadastrados na seguradora:
 	public static void listaVeiculosPorSeg() {
@@ -556,7 +581,7 @@ public class Seguradora {
 		}
 		
 		receitaFormatada = formato.format(receita);
-		System.out.println("A receita total da seguradora " + this.getNome() + " é R$" + receitaFormatada);
+		System.out.println("A receita total da seguradora " + this.getNome() + " é R$" + receitaFormatada + ".\n");
 		return receita;
 	}
 	

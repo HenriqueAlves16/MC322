@@ -47,9 +47,9 @@ public class ClientePJ extends Cliente {
 	@Override
 	public String toString() {
 		StringJoiner str = new StringJoiner("\n");
-		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String dataLicencaFormatada = (getDataLicenca()).format(formatterSTR);
-		String dataFundacaoFormatada = (dataFundacao).format(formatterSTR);
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String dataLicencaFormatada = (getDataLicenca()).format(formatador);
+		String dataFundacaoFormatada = (dataFundacao).format(formatador);
 		str.add("Classe = ClientePJ");
 		str.add("nome = " + getNome());
 		str.add("endereco = " + getEndereco());

@@ -74,7 +74,7 @@ public class Condutor {
 	}
 
 	public void setListaSinistros(ArrayList<Sinistro> listaSinistros) {
-		this.listaSinistros = listaSinistros;
+		this.listaSinistros = listaSinistros ;
 	}
 
 	public String getCPF() {

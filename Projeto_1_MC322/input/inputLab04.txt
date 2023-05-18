@@ -1,0 +1,74 @@
+ABC0001
+Volkswagen
+Gol
+1990
+
+DEF0002
+Fiat
+Uno
+2015
+
+GHI0003
+Chevrolet
+Ônix
+2020
+
+Protege Seguros
+3555-0402
+protegeseguros@gmail.com
+Porto Alegre
+
++ Seguro
+3226-5967
+maiseguro@gmail.com
+Rio de Janeiro
+
+Banco dos Sonhos
+São Paulo
+25/05/2002
+PJ
+
+24.808.514/0001-36
+12/12/2010
+100
+
+Abel
+Campinas
+26/12/2015
+PF
+
+Ensino Médio
+Masculino
+Alta
+
+394.790.330-89
+31/10/1987
+
+01/05/2023
+Araras
+394.790.330-89
+DEF0002
+
+07/02/2014
+Limeira
+394.790.330-89
+DEF0002
+
+18/05/2012
+Diamantina
+394.790.330-89
+ABC0001
+
+Henrique
+Araras
+13/12/2021
+PF
+
+Ensino Médio
+Masculino 
+Média
+
+450.487.358-38
+16/04/2002
+
+

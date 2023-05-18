@@ -9,7 +9,7 @@ public class Frota {
 	Frota(String code, Veiculo veiculo){
 		this.code = code;
 		listaVeiculos = new LinkedList<Veiculo>();
-		this.addVeiculo();
+		this.adicionarVeiculo();
 	}
 
 	//gets e sets:
@@ -38,7 +38,7 @@ public class Frota {
 	//Métodos:
 	
 	//Método que adiciona um veículo na lista de veículos:
-	public boolean addVeiculo() {
+	public boolean adicionarVeiculo() {
 		return true;
 	}
 	

@@ -18,10 +18,10 @@ public abstract class Cliente {
 	//Construtor da classe
 	
 	public Cliente (String nome, String endereco, String dataLicenca, String tipo) {
-		DateTimeFormatter formatterSTR1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		this.nome = nome;
 		this.endereco = endereco;
-		this.dataLicenca = LocalDate.parse(dataLicenca, formatterSTR1);
+		this.dataLicenca = LocalDate.parse(dataLicenca, formatador);
 		this.tipo = tipo;
 		this.valorSeguro = 0;
 		listaVeiculos = new LinkedList<>();
@@ -80,8 +80,8 @@ public abstract class Cliente {
 	@Override
 	public String toString() {
 		StringJoiner str = new StringJoiner("\n");
-		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String dataLicencaFormatada = (getDataLicenca()).format(formatterSTR);
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String dataLicencaFormatada = (getDataLicenca()).format(formatador);
 		str.add("Classe = Cliente");
 		str.add("nome = " + nome);
 		str.add("endereco = " + endereco);

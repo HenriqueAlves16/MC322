@@ -8,7 +8,7 @@ public class ClientePF extends Cliente {
 	private String educacao;
 	private String genero;
 	private String classeEconomica;
-	final String CPF;
+	private final String CPF;
 	private LocalDate dataNascimento;
 	
 	//Metodo construtor:
@@ -17,12 +17,12 @@ public class ClientePF extends Cliente {
 		// chama o construtor da superclasse
 		super(nome, endereco, dataLicenca, tipo);
 		
-		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		this.educacao = educacao;
 		this.genero = genero;
 		this.classeEconomica = classeEconomica;
 		this.CPF = cpf;
-		this.dataNascimento = LocalDate.parse(dataNascimento, formatterSTR);
+		this.dataNascimento = LocalDate.parse(dataNascimento, formatador);
 	}
 
 	//Getters e setters:
@@ -75,9 +75,9 @@ public class ClientePF extends Cliente {
 	@Override
 	public String toString() {
 		StringJoiner str = new StringJoiner("\n");
-		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String dataLicencaFormatada = (getDataLicenca()).format(formatterSTR);
-		String dataNascimentoFormatada = (dataNascimento).format(formatterSTR);
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String dataLicencaFormatada = (getDataLicenca()).format(formatador);
+		String dataNascimentoFormatada = (dataNascimento).format(formatador);
 		str.add("Classe = ClientePF");
 		str.add("nome = " + getNome());
 		str.add("endereco = " + getEndereco());

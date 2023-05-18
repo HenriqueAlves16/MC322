@@ -14,9 +14,9 @@ public class ClientePJ extends Cliente {
 		// chama o construtor da superclasse
 		super(nome, endereco, dataLicenca, tipo);
 		
-		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		this.CNPJ = cnpj;
-		this.dataFundacao = LocalDate.parse(dataFundacao, formatterSTR);
+		this.dataFundacao = LocalDate.parse(dataFundacao, formatador);
 		this.qtdeFuncionarios = qtdeFuncionarios;
 	}
 

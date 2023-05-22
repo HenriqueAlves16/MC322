@@ -6,13 +6,13 @@ public enum CalcSeguro {
 	FATOR_30_60(1.0),
 	FATOR_60_90(1.5);
 	
-	private double f;
+	private double num;
 	
-	private CalcSeguro(double f) {
-		this.f = f;
+	private CalcSeguro(double num) {
+		this.num = num;
 	}
 	
-	double getF() {
-		return this.f;
+	double getNum() {
+		return this.num;
 	}
 }

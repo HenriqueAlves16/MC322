@@ -6,31 +6,30 @@ import java.util.StringJoiner;
 public class Sinistro {
 	private LocalDate data;
 	private String endereco;
-	private Seguradora seguradora;
-	private Veiculo veiculo;
-	private Cliente cliente;
+	private Condutor condutor;
+	private Seguro seguro;
 	final int ID;
 	private static int n = 1;	
 	
 	//Construtor da classe	
-	public Sinistro(String data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
+	public Sinistro(String data, String endereco, Condutor condutor, Seguro seguro) {
 		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		this.data = LocalDate.parse(data, formatterSTR);
 		this.endereco = endereco;
-		this.seguradora = seguradora;
-		this.veiculo = veiculo;
-		this.cliente = cliente;
+		this.condutor = condutor;
+		this.seguro = seguro;
 		this.ID = n;
 		n++;
 	}
 		
-	//Getters e setters
+	//Getters e setters:
+	
 	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(String data) {
-		this.data = LocalDate.parse(data);
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 
 	public String getEndereco() {
@@ -41,36 +40,28 @@ public class Sinistro {
 		this.endereco = endereco;
 	}
 
+	public Condutor getCondutor() {
+		return condutor;
+	}
+
+	public void setCondutor(Condutor condutor) {
+		this.condutor = condutor;
+	}
+
+	public Seguro getSeguro() {
+		return seguro;
+	}
+
+	public void setSeguro(Seguro seguro) {
+		this.seguro = seguro;
+	}
+
 	public int getID() {
 		return ID;
 	}
-
-	public Seguradora getSeguradora() {
-		return seguradora;
-	}
-
-	public void setSeguradora(Seguradora seguradora) {
-		this.seguradora = seguradora;
-	}
-
-	public Veiculo getVeiculo() {
-		return veiculo;
-	}
-
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 	
 	//toString
-	@Override
+	/*@Override
 	public String toString() {
 		StringJoiner str = new StringJoiner("\n");
 		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -86,5 +77,7 @@ public class Sinistro {
 
 		return str.toString();
 	}
+*/
+	
 	
 }

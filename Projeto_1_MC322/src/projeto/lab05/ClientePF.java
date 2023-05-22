@@ -63,6 +63,15 @@ public class ClientePF extends Cliente {
 		return CPF;
 	}
 	
+	public int getIdade() {
+		int idade;
+		LocalDate nasc = getDataNascimento();
+		LocalDate now = LocalDate.now();
+		idade = (int) nasc.until(now, ChronoUnit.YEARS);
+		
+		return idade;
+	}
+	
 	//toString:
 	/*@Override
 	public String toString() {

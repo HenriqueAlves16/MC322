@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Seguro {
 	private final int ID;
+	private static int geradorID;
 	private LocalDate dataInicio;
 	private LocalDate dataFim;
 	private Seguradora seguradora;
@@ -13,10 +14,10 @@ public abstract class Seguro {
 	private ArrayList<Condutor> listaCondutores;
 	
 	//Construtor:
-	Seguro(int ID, String dataInicio, String dataFim, Seguradora seguradora, double valorMensal){
+	Seguro(String dataInicio, String dataFim, Seguradora seguradora, double valorMensal){
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-		this.ID = ID;
+		
+		this.ID = ++geradorID;
 		this.dataInicio = LocalDate.parse(dataFim, formatador);
 		this.dataFim = LocalDate.parse(dataFim, formatador);
 		this.seguradora = seguradora;

@@ -100,6 +100,15 @@ public abstract class Seguro {
 		return true;
 	}
 	
+	//Método que calcula a quantidade de sinistros de todas as pessoas na lista de condutores:
+	public int quantidadeSinistrosCondutores(ArrayList<Condutor> listaCondutores) {
+		int qtdSinistros = 0;
+		for(Condutor condutor : listaCondutores) {
+			qtdSinistros += condutor.getListaSinistros().size();
+		}
+		return qtdSinistros;
+	}
+	
 	//Método que calcula o valor do seguro:
 	public abstract double calcularValor();
 	

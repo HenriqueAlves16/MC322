@@ -39,21 +39,12 @@ public class SeguroPF extends Seguro {
 	public int quantidadeSinistrosCliente(ClientePF cliente) {
 		int qtdSinistros = 0;
 		for(Seguro seguro : getSeguradora().getListaSeguros()) {
-			for(Sinistro sinistro : seguro.getListaSinistros()) {
-				String cpfClienteIteracao = sinistro.getCondutor().getCPF();
-				if(cpfClienteIteracao.equals(cliente.getCPF())) {
+			if(seguro instanceof SeguroPF) {
+				String cpfClienteIteracao = ((SeguroPF) seguro).getCliente().getCPF();
+				if(cpfClienteIteracao.equals(cliente.getCPF())){
 					qtdSinistros++;
 				}
 			}
-		}
-		return qtdSinistros;
-	}
-	
-	//Método que calcula a quantidade de sinistros de todas as pessoas na lista de condutores:
-	public int quantidadeSinistrosCondutores(ArrayList<Condutor> listaCondutores) {
-		int qtdSinistros = 0;
-		for(Condutor condutor : listaCondutores) {
-			qtdSinistros += condutor.getListaSinistros().size();
 		}
 		return qtdSinistros;
 	}
@@ -77,7 +68,9 @@ public class SeguroPF extends Seguro {
 			fatorIdade = CalcSeguro.FATOR_60_90.getNum();
 		}
 		
-		valor = CalcSeguro.VALOR_BASE.getNum() * fatorIdade * (1 + 1/(quantidadeVeiculos + 2)) * (2 + quantidadeSinistrosCliente/10) * (5 + quantidadeSinistrosCondutor/10);
+		valor = CalcSeguro.VALOR_BASE.getNum() * fatorIdade * (1 + 1/(quantidadeVeiculos + 2)) * 
+				(2 + quantidadeSinistrosCliente/10) * (5 + quantidadeSinistrosCondutor/10);
+		
 		return valor;
 	}
 		

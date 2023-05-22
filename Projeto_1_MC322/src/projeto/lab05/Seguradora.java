@@ -115,7 +115,7 @@ public class Seguradora {
 	
 	//Métodos:
 	
-	//Método que, dado um tipo de cliente "PF" ou "PJ" retorna uma lista com os clientes do tipo da entrada
+	//Método que, dado um tipo de cliente "PF" ou "PJ" retorna uma lista com os clientes do tipo da entrada:
 	public ArrayList<Cliente> listarClientes(String tipoCliente){
 		ArrayList<Cliente> listaTipo = new ArrayList<>();
 		for(Cliente cliente : listaClientes) {
@@ -128,7 +128,7 @@ public class Seguradora {
 		return listaTipo;
 	}
 			
-	//Método que imprime todos os clientes de cada seguradora
+	//Método que imprime todos os clientes de cada seguradora:
 	public static void visualizarClientesPorSeg() {
 		Scanner scanner = new Scanner(System.in);
 		String tipoCliente;
@@ -171,6 +171,12 @@ public class Seguradora {
 			}
 		}
 	}
+	
+	//Método que gera um seguro a partir do input:
+	public Seguro gerarSeguro() {
+		System.out.println("Digite as datas de início e fim (dd/mm/aaaa) e documentos dos condutores.");
+	}
+	
 	// Método que cadastra um novo cliente na seguradora
 	public boolean cadastrarCliente(Cliente novoCliente) {
 		novoCliente.setValorSeguro(calcularPrecoSeguroCliente(novoCliente));

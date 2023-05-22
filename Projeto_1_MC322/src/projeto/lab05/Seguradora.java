@@ -165,11 +165,9 @@ public class Seguradora {
 				continue;
 			}
 			System.out.println("Lista de clientes do tipo " + tipoCliente + " da seguradora " + seguradora.getNome() + ":");
-			for(Cliente cliente : seguradora.listaClientes) {
-				if(tipoCliente.equals(cliente.getTipo())) {
-					System.out.println("* Cliente " + i++ + ":");
-					System.out.println(cliente + "\n");
-				}			
+			for(Cliente cliente : seguradora.listarClientes(tipoCliente)) {
+				System.out.println("* Cliente " + i++ + ":");
+				System.out.println(cliente + "\n");
 			}
 		}
 	}

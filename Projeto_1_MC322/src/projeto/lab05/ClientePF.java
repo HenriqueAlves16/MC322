@@ -3,49 +3,30 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.StringJoiner;
+import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
-	private String educacao;
-	private String genero;
-	private String classeEconomica;
 	private final String CPF;
+	private String genero;
+	private String educacao;
 	private LocalDate dataNascimento;
+	private ArrayList<Veiculo> listaVeiculos;
 	
 	//Metodo construtor:
-	public ClientePF(String nome, String endereco, String dataLicenca, String tipo, String educacao, 
-			String genero, String classeEconomica, String cpf, String dataNascimento) {
+	public ClientePF(String nome, String endereco, String telefone, String email, String CPF, String genero, String educacao, String dataNascimento) {
 		// chama o construtor da superclasse
-		super(nome, endereco, dataLicenca, tipo);
+		super(nome, endereco, telefone, email);
 		
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		this.educacao = educacao;
+		this.CPF = CPF;
 		this.genero = genero;
-		this.classeEconomica = classeEconomica;
-		this.CPF = cpf;
+		this.educacao = educacao;
 		this.dataNascimento = LocalDate.parse(dataNascimento, formatador);
+		this.listaVeiculos = new ArrayList<Veiculo>();
 	}
 
 	//Getters e setters:
-	public String getCPF() {
-		return CPF;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(String dataNascimento) {
-		this.dataNascimento = LocalDate.parse(dataNascimento);
-	}
 	
-	public String getEducacao() {
-		return educacao;
-	}
-
-	public void setEducacao(String educacao) {
-		this.educacao = educacao;
-	}
-
 	public String getGenero() {
 		return genero;
 	}
@@ -54,29 +35,40 @@ public class ClientePF extends Cliente {
 		this.genero = genero;
 	}
 
-	public String getClasseEconomica() {
-		return classeEconomica;
+	public String getEducacao() {
+		return educacao;
 	}
 
-	public void setClasseEconomica(String classeEconomica) {
-		this.classeEconomica = classeEconomica;
+	public void setEducacao(String educacao) {
+		this.educacao = educacao;
 	}
-	
-	public int getIdade() {
-		int idade;
-		LocalDate nasc = getDataNascimento();
-		LocalDate now = LocalDate.now();
-		idade = (int) nasc.until(now, ChronoUnit.YEARS);
-		
-		return idade;
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public ArrayList<Veiculo> getListaVeiculos() {
+		return listaVeiculos;
+	}
+
+	public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
+		this.listaVeiculos = listaVeiculos;
+	}
+
+	public String getCPF() {
+		return CPF;
 	}
 	
 	//toString:
-	@Override
+	/*@Override
 	public String toString() {
 		StringJoiner str = new StringJoiner("\n");
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String dataLicencaFormatada = (getDataLicenca()).format(formatador);
+		
 		String dataNascimentoFormatada = (dataNascimento).format(formatador);
 		str.add("Classe = ClientePF");
 		str.add("nome = " + getNome());
@@ -94,23 +86,14 @@ public class ClientePF extends Cliente {
 		}
 		return str.toString();
 	}
-			
-	// Método que calcula o score de um ClientePF
-	@Override
-	public double calculaScore() {
-		int quantidadeCarros = getListaVeiculos().size();
-		double fator;
-		double valor;
-		
-		if(getIdade() < 31) {
-			fator = CalcSeguro.FATOR_18_30.getF();
-		}	else if(getIdade() < 61) {
-			fator = CalcSeguro.FATOR_30_60.getF();
-		}	else	{
-			fator = CalcSeguro.FATOR_60_90.getF();
-		}
-		valor = CalcSeguro.VALOR_BASE.getF() * fator * quantidadeCarros;
-		return valor;
+*/
+	// Métodos:
+	public boolean cadastrarVeiculo() {
+		return true;
+	}
+	
+	public boolean removerVeiculo() {
+		return true;
 	}
 }
 

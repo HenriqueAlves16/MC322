@@ -1,39 +1,38 @@
 package projeto.lab05;
-import java.time.LocalDate;
-import java.util.StringJoiner;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public abstract class Cliente {
 	
 	private String nome; 
+	private String telefone;
 	private String endereco;
-	private LocalDate dataLicenca;
-	private String tipo;
-	private double valorSeguro;
-	private LinkedList<Veiculo> listaVeiculos;
-	
+	private String email;
 	
 	//Construtor da classe
 	
-	public Cliente (String nome, String endereco, String dataLicenca, String tipo) {
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public Cliente (String nome, String endereco, String telefone, String email) {
 		this.nome = nome;
+		this.telefone = telefone;
 		this.endereco = endereco;
-		this.dataLicenca = LocalDate.parse(dataLicenca, formatador);
-		this.tipo = tipo;
-		this.valorSeguro = 0;
-		listaVeiculos = new LinkedList<>();
+		this.email = email;
 	}
 	
-	//Getters e setters
-	public String getNome()	{
+	//Getters e setters:
+	
+	public String getNome() {
 		return nome;
 	}
-	
-	public void setNome (String nome) {
+
+	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	public String getEndereco() {
@@ -43,57 +42,20 @@ public abstract class Cliente {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
-	public LocalDate getDataLicenca() {
-		return dataLicenca;
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setDataLicenca(LocalDate dataLicenca) {
-		this.dataLicenca = dataLicenca;
-	}
-
-	public LinkedList<Veiculo> getListaVeiculos() {
-		return listaVeiculos;
-	}
-
-	public void setListaVeiculos(LinkedList<Veiculo> listaVeiculos) {
-		this.listaVeiculos = listaVeiculos;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	
-	public double getValorSeguro() {
-		return valorSeguro;
-	}
-	
-	public void setValorSeguro(double valorSeguro) {
-		this.valorSeguro = valorSeguro;
-	}
-
 	//toString:
 	@Override
 	public String toString() {
-		StringJoiner str = new StringJoiner("\n");
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String dataLicencaFormatada = (getDataLicenca()).format(formatador);
-		str.add("Classe = Cliente");
-		str.add("nome = " + nome);
-		str.add("endereco = " + endereco);
-		str.add("dataLicenca = " + dataLicencaFormatada);
-		str.add("tipo = " + tipo);
-		str.add("listaVeiculos :");
-		for(Veiculo veiculo : listaVeiculos) {
-			str.add(" ".repeat(4) + veiculo.toString());
-		}
-		return str.toString();
+		return "Cliente [nome=" + nome + ", telefone=" + telefone + ", endereco=" + endereco + ", email=" + email + "]";
 	}
-	
 
 	
 	// Metodos:
@@ -139,30 +101,7 @@ public abstract class Cliente {
 		}
 		return cliente;
 	}
-	
-	// Método que adiciona um veículo na lista de veículos de um cliente
-	public boolean adicionaVeiculo(Veiculo veiculo) {
-		if(listaVeiculos.contains(veiculo)) {
-			System.out.println("O veículo de placa " + veiculo.getPlaca() + " já está cadastrado na lista de veículos de " + this.getNome() + ".");
-			return false;
-		}
-		listaVeiculos.add(veiculo);
-		System.out.println("O veículo de placa " + veiculo.getPlaca() + "foi adicionado com sucesso na lista de veículos do cliente " + this.getNome() + "!");
-		return true;
-	}
-	
-	//Método que imprime todos os veículos de um dado cliente
-	public void visualizarVeiculos(Cliente cliente) {
-		for(Veiculo veiculo: cliente.listaVeiculos) {
-			System.out.println(veiculo.getModelo());
-		}
-	}
-	
-	//Método que retorna uma lista com todos os veículos de um dado cliente
-	public LinkedList<Veiculo> listaVeiculos(Cliente cliente) {
-		return cliente.listaVeiculos;
-	}
-	
+		
 	// Método que, dado um cliente PF ou PJ, retorna seu documento 
 	public static String encontraDocumento(Cliente cliente) {
 		String documento;
@@ -173,9 +112,5 @@ public abstract class Cliente {
 		}
 		return documento;
 	}
-	
-	//Método abstrato que calcula o score de um cliente PF ou PJ
-	public abstract double calculaScore();
-	
 	
 }

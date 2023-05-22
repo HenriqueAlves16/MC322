@@ -2,78 +2,65 @@ package projeto.lab05;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
+import java.util.ArrayList;
 
 
 public class ClientePJ extends Cliente {
-	final String CNPJ;
+	private final String CNPJ;
 	private LocalDate dataFundacao;
-	private int qtdeFuncionarios;
+	private ArrayList<Frota> listaFrota;
 	
 	//Metodo construtor:
-	public ClientePJ(String nome, String endereco, String dataLicenca, String tipo, String cnpj, String dataFundacao, int qtdeFuncionarios) {
+	public ClientePJ(String nome, String endereco, String telefone, String email, String CNPJ, String dataFundacao) {
 		// chama o construtor da superclasse
-		super(nome, endereco, dataLicenca, tipo);
+		super(nome, endereco, telefone, email);
 		
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		this.CNPJ = cnpj;
+		this.CNPJ = CNPJ;
 		this.dataFundacao = LocalDate.parse(dataFundacao, formatador);
-		this.qtdeFuncionarios = qtdeFuncionarios;
 	}
 
 	//Getters e setters:
-	public String getCNPJ() {
-		return CNPJ;
-	}
-
+	
 	public LocalDate getDataFundacao() {
 		return dataFundacao;
 	}
 
+	public void setDataFundacao(LocalDate dataFundacao) {
+		this.dataFundacao = dataFundacao;
+	}
 
-	public void setDataFundacao(String dataFundacao) {
-		this.dataFundacao = LocalDate.parse(dataFundacao);
+	public ArrayList<Frota> getListaFrota() {
+		return listaFrota;
 	}
-	
-	public int getQtdeFuncionarios() {
-		return qtdeFuncionarios;
+
+	public void setListaFrota(ArrayList<Frota> listaFrota) {
+		this.listaFrota = listaFrota;
 	}
-	
-	public void setQtdeFuncionarios(int qtd) {
-		this.qtdeFuncionarios = qtd;
+
+	public String getCNPJ() {
+		return CNPJ;
 	}
-	
-		
+
+
 	//toString:
 	@Override
 	public String toString() {
-		StringJoiner str = new StringJoiner("\n");
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String dataLicencaFormatada = (getDataLicenca()).format(formatador);
-		String dataFundacaoFormatada = (dataFundacao).format(formatador);
-		str.add("Classe = ClientePJ");
-		str.add("nome = " + getNome());
-		str.add("endereco = " + getEndereco());
-		str.add("dataLicenca = " + dataLicencaFormatada);
-		str.add("tipo = " + getTipo());
-		str.add("CNPJ = " + CNPJ);
-		str.add("dataFundacao = " + dataFundacaoFormatada);
-		str.add("listaVeiculos :");
-		for(Veiculo veiculo : getListaVeiculos()) {
-			str.add(" ".repeat(4) + veiculo.toString());
-		}
-		return str.toString();
-
+		return "ClientePJ [CNPJ=" + CNPJ + ", dataFundacao=" + dataFundacao + ", listaFrota=" + listaFrota + "]";
 	}	
 	
-	// Método que calcula o score de um ClientePJ
-	@Override
-		public double calculaScore() {
-			int quantidadeCarros = getListaVeiculos().size();
-			double valor;
-			
-			valor = CalcSeguro.VALOR_BASE.getF() * (1 + (getQtdeFuncionarios()) / 100) * quantidadeCarros;
-			return valor;
-		}
+	// Métodos:
+	public boolean cadastrarFrota() {
+		return true;
+	}
+	
+	public boolean atualizarFrota() {
+		return true;
+	}
+	
+	public boolean listarVeiculosPorFrota() {
+		return true;
+	}
 }
 
 

@@ -7,22 +7,24 @@ import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 
 public class Seguradora {
+	private final String CNPJ;
 	private String nome;
 	private String telefone;
-	private String email;
 	private String endereco;
-	private LinkedList<Sinistro> listaSinistros;
+	private String email;
 	private ArrayList<Cliente> listaClientes;
-	private static LinkedList<Seguradora> listaSeguradoras = new LinkedList<>();
+	private ArrayList<Seguro> listaSeguros;
+	private static LinkedList<Seguradora> listaSeguradoras;
 
 	
 	// Construtor
-	public Seguradora(String nome, String telefone, String email, String endereco) {
+	public Seguradora(String CNPJ, String nome, String telefone, String endereco, String email) {
+		this.CNPJ = CNPJ;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
-		this.listaSinistros = new LinkedList<>();
+		this.listaSeguros = new ArrayList<>();
 		this.listaClientes = new ArrayList<>();
 		
 		if (listaSeguradoras == null) {
@@ -31,44 +33,36 @@ public class Seguradora {
 	}
 	
 	// Getters e setters
-	public String getNome()	{
+	public String getNome() {
 		return nome;
 	}
-	
-	public void setNome (String nome) {
+
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getTelefone() {
 		return telefone;
 	}
-	
-	public void setTelefone (String telefone) {
+
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
+
 	public String getEndereco() {
 		return endereco;
 	}
-	
+
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
-	public LinkedList<Sinistro> getListaSinistros() {
-		return listaSinistros;
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setListaSinistros(LinkedList<Sinistro> listaSinistros) {
-		this.listaSinistros = listaSinistros;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public ArrayList<Cliente> getListaClientes() {
@@ -78,13 +72,29 @@ public class Seguradora {
 	public void setListaClientes(ArrayList<Cliente> listaClientes) {
 		this.listaClientes = listaClientes;
 	}
-	
-	public static LinkedList<Seguradora> getListaSeguradoras(){
+
+	public ArrayList<Seguro> getListaSeguros() {
+		return listaSeguros;
+	}
+
+	public void setListaSeguros(ArrayList<Seguro> listaSeguros) {
+		this.listaSeguros = listaSeguros;
+	}
+
+	public static LinkedList<Seguradora> getListaSeguradoras() {
 		return listaSeguradoras;
 	}
 
+	public static void setListaSeguradoras(LinkedList<Seguradora> listaSeguradoras) {
+		Seguradora.listaSeguradoras = listaSeguradoras;
+	}
+
+	public String getCNPJ() {
+		return CNPJ;
+	}
+
 	//toString
-	@Override
+	/*@Override
 	public String toString() {
 		StringJoiner str = new StringJoiner("\n");
 		str.add("Classe = Seguradora");
@@ -101,9 +111,68 @@ public class Seguradora {
 		}
 		return str.toString();
 	}
+	*/
 	
 	//Métodos:
 	
+	//Método que, dado um tipo de cliente "PF" ou "PJ" retorna uma lista com os clientes do tipo da entrada
+	public ArrayList<Cliente> listarClientes(String tipoCliente){
+		ArrayList<Cliente> listaTipo = new ArrayList<>();
+		for(Cliente cliente : listaClientes) {
+			if(tipoCliente.equals("PF") && cliente instanceof ClientePF) {
+				listaTipo.add(cliente);
+			}	else if(tipoCliente.equals("PJ") && cliente instanceof ClientePJ) {
+				listaTipo.add(cliente);
+			}
+		}
+		return listaTipo;
+	}
+			
+	//Método que imprime todos os clientes de cada seguradora
+	public static void visualizarClientesPorSeg() {
+		Scanner scanner = new Scanner(System.in);
+		String tipoCliente;
+		
+		//Lendo um tipo válido de cliente:
+		System.out.println("Digite o tipo de cliente que você deseja visualizar ('PF', 'PJ' ou 'TODOS').");
+		tipoCliente = scanner.nextLine();
+		while(!tipoCliente.equals("PF") && !tipoCliente.equals("PJ") && !tipoCliente.equals("TODOS")) {
+			System.out.println("Tipo de cliente inválido. Os tipos válidos são 'PF', 'PJ' e 'TODOS'. Digite novamente.");
+			tipoCliente = scanner.nextLine();
+		}
+		
+		for(Seguradora seguradora : listaSeguradoras) {
+			int i = 1;
+			//Caso de nenhum cliente cadastrado:
+			if(seguradora.listaClientes.isEmpty()) {
+				System.out.println("Nenhum cliente cadastrado na seguradora " + seguradora.getNome() + ".");
+				continue;
+			}
+						
+			//Caso escolhido TODOS:
+			if(tipoCliente.equals("TODOS")) {
+				System.out.println("Lista de clientes da seguradora " + seguradora.getNome() + ":");
+				for(Cliente cliente : seguradora.listaClientes) {
+					System.out.println("* Cliente " + i++);
+					System.out.println(cliente + "\n");
+				}
+				continue;
+			}
+			
+			//Caso escolhido 'PF' ou 'PJ':
+			if(seguradora.listarClientes(tipoCliente).isEmpty()) {
+				System.out.println("Nenhum cliente do tipo " + tipoCliente + " cadastrado na seguradora " + seguradora.getNome() + ".");
+				continue;
+			}
+			System.out.println("Lista de clientes do tipo " + tipoCliente + " da seguradora " + seguradora.getNome() + ":");
+			for(Cliente cliente : seguradora.listaClientes) {
+				if(tipoCliente.equals(cliente.getTipo())) {
+					System.out.println("* Cliente " + i++ + ":");
+					System.out.println(cliente + "\n");
+				}			
+			}
+		}
+	}
 	// Método que cadastra um novo cliente na seguradora
 	public boolean cadastrarCliente(Cliente novoCliente) {
 		novoCliente.setValorSeguro(calcularPrecoSeguroCliente(novoCliente));
@@ -242,63 +311,6 @@ public class Seguradora {
 		}
 		System.out.println("ID inválido. Tente novamente.");
 		return false;
-	}
-	
-	//Método que, dado um tipo de cliente "PF" ou "PJ" retorna uma lista com os clientes do tipo da entrada
-	public ArrayList<Cliente> listarClientes(String tipoCliente){
-		ArrayList<Cliente> listaTipo = new ArrayList<>();
-		for(Cliente cliente : listaClientes) {
-			if(tipoCliente.equals(cliente.getTipo())) {
-				listaTipo.add(cliente);
-			}
-		}
-		return listaTipo;
-	}
-		
-	//Método que imprime todos os clientes de cada seguradora
-	public static void visualizarClientesPorSeg() {
-		Scanner scanner = new Scanner(System.in);
-		String tipoCliente;
-		
-		//Lendo um tipo válido de cliente:
-		System.out.println("Digite o tipo de cliente que você deseja visualizar ('PF', 'PJ' ou 'TODOS').");
-		tipoCliente = scanner.nextLine();
-		while(!tipoCliente.equals("PF") && !tipoCliente.equals("PJ") && !tipoCliente.equals("TODOS")) {
-			System.out.println("Tipo de cliente inválido. Os tipos válidos são 'PF', 'PJ' e 'TODOS'. Digite novamente.");
-			tipoCliente = scanner.nextLine();
-		}
-		
-		for(Seguradora seguradora : listaSeguradoras) {
-			int i = 1;
-			//Caso de nenhum cliente cadastrado:
-			if(seguradora.listaClientes.isEmpty()) {
-				System.out.println("Nenhum cliente cadastrado na seguradora " + seguradora.getNome() + ".");
-				continue;
-			}
-						
-			//Caso escolhido TODOS:
-			if(tipoCliente.equals("TODOS")) {
-				System.out.println("Lista de clientes da seguradora " + seguradora.getNome() + ":");
-				for(Cliente cliente : seguradora.listaClientes) {
-					System.out.println("* Cliente " + i++);
-					System.out.println(cliente + "\n");
-				}
-				continue;
-			}
-			
-			//Caso escolhido 'PF' ou 'PJ':
-			if(seguradora.listarClientes(tipoCliente).isEmpty()) {
-				System.out.println("Nenhum cliente do tipo " + tipoCliente + " cadastrado na seguradora " + seguradora.getNome() + ".");
-				continue;
-			}
-			System.out.println("Lista de clientes do tipo " + tipoCliente + " da seguradora " + seguradora.getNome() + ":");
-			for(Cliente cliente : seguradora.listaClientes) {
-				if(tipoCliente.equals(cliente.getTipo())) {
-					System.out.println("* Cliente " + i++ + ":");
-					System.out.println(cliente + "\n");
-				}			
-			}
-		}
 	}
 	
 	//Método que, a partir de um documento válido, encontra o cliente correspondente.

@@ -93,10 +93,12 @@ public abstract class Seguro {
 	public boolean desautorizarCondutor() {
 		return true;
 	}
+	
 	//Método que adiciona um condutor da lista de condutores (autoriza sua condução):
 	public boolean autorizarCondutor() {
 		return true;
 	}
+	
 	//Método que calcula o valor do seguro:
 	public abstract double calcularValor();
 	

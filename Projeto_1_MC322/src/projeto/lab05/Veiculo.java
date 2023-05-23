@@ -53,17 +53,4 @@ public class Veiculo {
 		return "Veiculo [placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + ", anoFabricacao=" + anoFabricacao + "]";
 	}
 
-	//Método que cria veículo com input:
-	public static Veiculo criaVeiculo() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Digite a placa, marca, modelo e ano do veiculo, respectivamente: ");
-		
-		String placa = scanner.nextLine();
-		String marca = scanner.nextLine();
-		String modelo = scanner.nextLine();
-		int ano = scanner.nextInt();
-		scanner.nextLine();
-		Veiculo veiculo = new Veiculo(placa, marca, modelo, ano);
-		return veiculo;
-	}
 }

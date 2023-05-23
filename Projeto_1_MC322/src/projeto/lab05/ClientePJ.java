@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.StringJoiner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class ClientePJ extends Cliente {
@@ -58,11 +59,25 @@ public class ClientePJ extends Cliente {
 	public String toString() {
 		return "ClientePJ [CNPJ=" + CNPJ + ", dataFundacao=" + dataFundacao + ", listaFrota=" + listaFrotas + "]";
 	}	
-	
+
 	// Métodos:
-	public boolean cadastrarFrota() {
+	
+	// Método que cadastra uma frota para na lista de frotas deste ClientePJ:
+	public boolean cadastrarFrota(Frota frota) {
+		ArrayList<Frota> listaFrotas = getListaFrotas();
+		if(listaFrotas.contains(frota)) {
+			System.out.println("A frota já está cadastrada.");
+			return false;
+		}
+		
+		listaFrotas.add(frota);
+		setListaFrotas(listaFrotas);
+		System.out.println("Frota cadastrada com sucesso!");
+
 		return true;
 	}
+	
+	
 	
 	public boolean atualizarFrota() {
 		return true;

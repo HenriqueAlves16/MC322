@@ -91,7 +91,7 @@ public class ClientePF extends Cliente {
 */
 	// Métodos:
 	
-	// Método que cadastra um veículo para um determinado cliente da seguradora:
+	// Método que cadastra um veículo na lista de veículos deste ClientePF:
 	public boolean cadastrarVeiculo(Veiculo veiculo) {
 		ArrayList<Veiculo> listaVeiculos = getListaVeiculos();
 		if(listaVeiculos.contains(veiculo)) {

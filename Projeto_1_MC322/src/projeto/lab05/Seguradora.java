@@ -238,6 +238,17 @@ public class Seguradora {
 		cadastrarSeguro(seguro);
 		return seguro;
 	}	
+
+	//Método que remove um seguro da lista se seguros desta Seguradora. Se ele não está nela, retorna false; caso contrário, retorna true:
+	public boolean cancelarSeguro(Seguro seguro) {
+		ArrayList<Seguro> listaSeguros = getListaSeguros();
+		if(!listaSeguros.contains(seguro))	return false;
+		
+		listaSeguros.remove(seguro);
+		setListaSeguros(listaSeguros);
+		
+		return true;
+	}
 	
 	// Método que cadastra um novo cliente na seguradora
 	public boolean cadastrarCliente(Cliente novoCliente) {

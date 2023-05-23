@@ -1,12 +1,14 @@
 package projeto.lab05;
 
+import java.util.Scanner;
+
 public class SeguroPJ extends Seguro {
 	private Frota frota;
 	private ClientePJ cliente;
 	
 	//Construtor:
-	SeguroPJ(String dataInicio, String dataFim, Seguradora seguradora, double valorMensal, Frota frota, ClientePJ cliente){
-		super(dataInicio, dataFim, seguradora, valorMensal);
+	SeguroPJ(String dataInicio, String dataFim, Seguradora seguradora, Frota frota, ClientePJ cliente){
+		super(dataInicio, dataFim, seguradora);
 		this.frota = frota;
 		this.cliente = cliente;
 	}
@@ -36,6 +38,20 @@ public class SeguroPJ extends Seguro {
 
 	//Métodos:
 	
+	//Método que lê informações para criar um sinistro e o cadastra na lista de sinistros:
+	public boolean gerarSinistro() {
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite, respectivamente, a data (dd/mm/aaaa), endereço, número do documento do condutor relativo ao sinistro:");
+		String data = scanner.nextLine();
+		String endereco = scanner.nextLine();
+		String documento = Validacao.recebeDocumentoValido();
+		Condutor condutor = encontraCondutor(documento);
+		
+		Sinistro sinistro = new Sinistro(data, endereco, condutor, this);
+		return cadastrarSinistro(sinistro);
+	}
+
 	//Método que calcula a quantidade de sinistros de um ClientePJ na seguradora:
 	public int quantidadeSinistrosCliente(ClientePJ cliente) {
 		int qtdSinistros = 0;
@@ -65,9 +81,5 @@ public class SeguroPJ extends Seguro {
 		return valor;	
 	}
 		
-	//Método que gera sinistros:
-	public boolean gerarSinistro() {
-		return true;
-	}
-	
+
 }

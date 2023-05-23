@@ -172,10 +172,72 @@ public class Seguradora {
 		}
 	}
 	
+	//Método que encontra um veículo a partir de sua placa:
+	public Veiculo encontraVeiculo(String placa, ClientePF cliente) {
+		Veiculo veiculo = null;
+		for(int i = 0; i < cliente.getListaVeiculos().size(); i++) {
+			if((cliente.getListaVeiculos().get(i).getPlaca()).equals(placa)) {
+				veiculo = cliente.getListaVeiculos().get(i);
+				break;
+			}
+		}
+		return veiculo;
+	}
+	
+	//Método que encontra uma frota a partir de seu código:
+		public Frota encontraVeiculo(String code, ClientePJ cliente) {
+			Frota frota = null;
+			for(int i = 0; i < cliente.getListaFrotas().size(); i++) {
+				if((cliente.getListaFrotas().get(i).getCode()).equals(code)) {
+					frota = cliente.getListaFrotas().get(i);
+					break;
+				}
+			}
+			return frota;
+		}
+	
+	//Método que cadastra um seguro na lista de seguros deste Seguradora. Se o seguro já está cadastrado, retorna false. Retorna true caso contrário:
+	public boolean cadastrarSeguro(Seguro seguro) {
+		ArrayList<Seguro> listaSeguros = getListaSeguros();
+		if(listaSeguros.contains(seguro)) {
+			System.out.println("O seguro já está cadastrado.");
+			return false;
+		}
+		
+		listaSeguros.add(seguro);
+		setListaSeguros(listaSeguros);
+		System.out.println("Seguro cadastrado com sucesso!");
+		
+		return true;
+	}
+	
 	//Método que gera um seguro a partir do input:
 	public Seguro gerarSeguro() {
-		System.out.println("Digite as datas de início e fim (dd/mm/aaaa) e documentos dos condutores.");
-	}
+		Seguro seguro;
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Digite as datas de início e fim (dd/mm/aaaa), documento do cliente titular do seguro.");
+		String dataInicio = scanner.nextLine();
+		String dataFim = scanner.nextLine();
+		String documento = Validacao.recebeDocumentoValido();
+		Cliente cliente = encontraCliente(documento);
+		
+		//Documento válido com tamanho 14 é um CPF (com pontuação). Se tem outro tamanho, é CNPJ
+		if(documento.length() == 14) {
+			System.out.println("Digite a placa do veículo cujo seguro será feito");
+			String placa = scanner.nextLine();
+			Veiculo veiculo = encontraVeiculo(placa, (ClientePF) cliente);
+			seguro = new SeguroPF(dataInicio, dataFim, this, veiculo, (ClientePF) cliente);
+		}	else	{
+			System.out.println("Digite o código da frota cujo seguro será feito");
+			String code = scanner.nextLine();
+			Frota frota = encontraVeiculo(code, (ClientePJ) cliente);
+			seguro = new SeguroPJ(dataInicio, dataFim, this, frota, (ClientePJ) cliente);
+		}
+		
+		cadastrarSeguro(seguro);
+		return seguro;
+	}	
 	
 	// Método que cadastra um novo cliente na seguradora
 	public boolean cadastrarCliente(Cliente novoCliente) {
@@ -332,74 +394,7 @@ public class Seguradora {
 		return null;
 	}
 	
-	// Método que gera um sinistro
-	public Sinistro gerarSinistro() {
-		//Lendo as informações:
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Digite, respectivamente, a data (dd/mm/aaaa), endereço, número do documento do cliente e placa do veículo relativos ao sinistro:");
-		String data = scanner.nextLine();
-		String endereco = scanner.nextLine();
-		String documento;
-		String placa;
-		Cliente cliente = null;
-		Veiculo veiculo = null;
-		LinkedList<Veiculo> listaVeiculosCliente;		
-		
-		// Encontrando o cliente a partir de seu documento:
-		while(true) {
-			boolean encontrado = false;
-			documento = scanner.nextLine();
-			for(int i = 0; i < listaClientes.size(); i++) {
-				if(listaClientes.get(i) instanceof ClientePF) {
-					ClientePF clienteAux = (ClientePF) listaClientes.get(i);
-					if((clienteAux).getCPF().equals(documento)) {
-						cliente = listaClientes.get(i);
-						encontrado = true;
-						break;
-					}
-				} else {
-					ClientePJ clienteAux = (ClientePJ) listaClientes.get(i);
-					if((clienteAux).getCNPJ().equals(documento)) {
-						cliente = listaClientes.get(i);
-						encontrado = true;
-						break;						
-					}
-				}
-			}
-			if (encontrado) break;
-			System.out.println("Nenhum cliente com documento " + documento + " cadastrado na seguradora " + this.getNome() + ". Digite novamente.");
-		}
-
-		// Encontrando o veículo a partir de sua placa:
-		listaVeiculosCliente = cliente.getListaVeiculos();
-		
-		while(true) {
-			boolean encontrado = false;
-			placa = scanner.nextLine();
-			for(int i = 0; i < listaVeiculosCliente.size(); i++) {
-				if((listaVeiculosCliente.get(i).getPlaca()).equals(placa)) {
-					veiculo = listaVeiculosCliente.get(i);
-					encontrado = true;
-					break;
-				}
-			}
-			if(encontrado)	break;
-			System.out.println("Nenhum veículo com placa " + placa + " cadastrado na seguradora " + this.getNome() + ". Digite novamente.");
-		}
-		
-		//Gerando o sinistro:
-		Sinistro novoSinistro = new Sinistro(data, endereco, this, veiculo, cliente);
-		listaSinistros.add(novoSinistro);
-		System.out.println("Sinistro gerado com sucesso!\n");
-		
-		//Atualizando o valor do seguro do cliente envolvido no sinistro:
-		this.calcularPrecoSeguroCliente(cliente);
-		
-		return novoSinistro;
-	}
-
 	//Método que imprime os sinistros para cada cliente da seguradora
-	// Método que imprime todos os sinistros de um dado cliente
 	public void visualizarSinistrosPorCliente() {
 		String documento;
 		

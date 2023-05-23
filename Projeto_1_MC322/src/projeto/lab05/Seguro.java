@@ -1,5 +1,6 @@
 package projeto.lab05;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -14,14 +15,14 @@ public abstract class Seguro {
 	private ArrayList<Condutor> listaCondutores;
 	
 	//Construtor:
-	Seguro(String dataInicio, String dataFim, Seguradora seguradora, double valorMensal){
+	Seguro(String dataInicio, String dataFim, Seguradora seguradora){
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 		this.ID = ++geradorID;
 		this.dataInicio = LocalDate.parse(dataFim, formatador);
 		this.dataFim = LocalDate.parse(dataFim, formatador);
 		this.seguradora = seguradora;
-		this.valorMensal = valorMensal;
+		this.valorMensal = calcularValor();
 		this.listaSinistros = new ArrayList<Sinistro>();
 		this.listaCondutores = new ArrayList<Condutor>();		
 	}
@@ -56,10 +57,6 @@ public abstract class Seguro {
 		return valorMensal;
 	}
 
-	public void setValorMensal(double valorMensal) {
-		this.valorMensal = valorMensal;
-	}
-
 	public ArrayList<Sinistro> getListaSinistros() {
 		return listaSinistros;
 	}
@@ -90,13 +87,27 @@ public abstract class Seguro {
 	
 	//Métodos:
 	
-	//Método que retira um condutor da lista de condutores (desautoriza sua condução):
-	public boolean desautorizarCondutor() {
+	//Método que inclui um Condutor na lista de condutores. Se ele já está nela retorna false; caso contrário, retorna true:
+	public boolean autorizarCondutor(Condutor condutor) {
+		ArrayList<Condutor> listaCondutores = getListaCondutores();
+		if(listaCondutores.contains(condutor))	return false;
+		
+		listaCondutores.add(condutor);
+		setListaCondutores(listaCondutores);
+		atualizaValorMensal();
+
 		return true;
 	}
 	
-	//Método que adiciona um condutor da lista de condutores (autoriza sua condução):
-	public boolean autorizarCondutor() {
+	//Método que exclui um Condutor da lista de condutores Se ele não está nela retorna false; caso contrário, retorna true:
+	public boolean desautorizarCondutor(Condutor condutor) {
+		ArrayList<Condutor> listaCondutores = getListaCondutores();
+		if(!listaCondutores.contains(condutor))	return false;
+		
+		listaCondutores.remove(condutor);
+		setListaCondutores(listaCondutores);
+		atualizaValorMensal();
+		
 		return true;
 	}
 	
@@ -109,10 +120,44 @@ public abstract class Seguro {
 		return qtdSinistros;
 	}
 	
+	//Método que, a partir de um documento válido, retorna o condutor correspondente.
+	public Condutor encontraCondutor(String documento) {
+		for(Condutor condutor : listaCondutores) {
+			if(condutor.getCPF().equals(documento)) {
+				return condutor;
+			}
+		}
+		
+		System.out.println("Condutor não encontrado.");
+		return null;
+	}
+	
+	//Método que cadastra um sinistro na lista de sinistros deste Seguro. Se o sinistro já está cadastrado, retorna false. Retorna true caso contrário:
+	public boolean cadastrarSinistro(Sinistro sinistro) {
+		ArrayList<Sinistro> listaSinistros = getListaSinistros();
+		if(listaSinistros.contains(sinistro)) {
+			System.out.println("O sinistro já está cadastrado.");
+			return false;
+		}
+		
+		listaSinistros.add(sinistro);
+		setListaSinistros(listaSinistros);
+		atualizaValorMensal();
+		System.out.println("Sinistro cadastrado com sucesso!");
+
+
+		return true;
+	}
+	
+	//Método que atualiza o valor mensal do seguro:
+	public void atualizaValorMensal() {
+		this.valorMensal = calcularValor();
+	}
+	
+	//Método que lê informações para criar um sinistro e o cadastra na lista de sinistros:
+	public abstract boolean gerarSinistro();
+	
 	//Método que calcula o valor do seguro:
 	public abstract double calcularValor();
-	
-	//Método que gera sinistros:
-	public abstract boolean gerarSinistro();
 	
 }

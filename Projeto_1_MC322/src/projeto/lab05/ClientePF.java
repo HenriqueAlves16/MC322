@@ -122,10 +122,6 @@ public class ClientePF extends Cliente {
 		return veiculo;
 	}
 	
-	public boolean removerVeiculo() {
-		return true;
-	}
-	
 	//Método que remove um veículo cadastrado para este ClientePF a partir de sua placa. Se a placa for válida, retorna true. Caso contrário, retorna false.
 	public boolean excluirVeiculo() {
 		Scanner scanner = new Scanner(System.in);

@@ -96,4 +96,8 @@ public class Condutor {
 		return true;
 	}
 	
+	public String getIdentificacao() {
+		return "(" + getNome() + ")";
+	}
+	
 }

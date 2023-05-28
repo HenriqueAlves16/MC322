@@ -80,7 +80,27 @@ public class ClientePJ extends Cliente {
 	
 	
 	public boolean atualizarFrota() {
-		return true;
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Selecione o número da operação que você deseja fazer na frota:");
+		System.out.println("1 - Adicionar veículo");
+		System.out.println("2 - Remover veículo");
+		System.out.println("3 - Remover frota");
+
+		int op = scanner.nextInt();
+		scanner.nextLine();
+		
+		switch(op) {
+			case 1:
+				adicionar
+				break;
+			case 2:
+				remover
+				break;
+			case 3:
+				remover tudo
+				break;
+		}
 	}
 	
 	public boolean listarVeiculosPorFrota() {

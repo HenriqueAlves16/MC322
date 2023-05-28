@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class Frota {
 	private String code;
-	private LinkedList<Veiculo> listaVeiculos;
+	private ArrayList<Veiculo> listaVeiculos;
 	
 	//Construtor:
 	Frota(String code, Veiculo veiculo){
 		this.code = code;
-		listaVeiculos = new LinkedList<Veiculo>();
+		listaVeiculos = new ArrayList<Veiculo>();
 		this.adicionarVeiculo(veiculo);
 	}
 
@@ -23,11 +23,11 @@ public class Frota {
 		this.code = code;
 	}
 
-	public LinkedList<Veiculo> getListaVeiculos() {
+	public ArrayList<Veiculo> getListaVeiculos() {
 		return listaVeiculos;
 	}
 
-	public void setListaVeiculos(LinkedList<Veiculo> listaVeiculos) {
+	public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
 		this.listaVeiculos = listaVeiculos;
 	}
 

@@ -126,6 +126,15 @@ public class ClientePJ extends Cliente {
 		return qtdVeiculos;
 	}
 	
+	//Método que retorna uma lista contendo todos os veículos de todas as frotas:
+	public ArrayList<Veiculo> getListaVeiculos(){
+		ArrayList<Veiculo> listaVeiculos = new ArrayList<Veiculo>();
+		for(Frota frota: getListaFrotas()) {
+			listaVeiculos.addAll(frota.getListaVeiculos());
+		}
+		return listaVeiculos;
+	}
+	
 	//Método que imprime todos os veículos do cliente:
 	public void visualizarVeiculos() {
 		for(Frota frota : getListaFrotas()) {

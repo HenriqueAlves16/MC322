@@ -464,8 +464,18 @@ public class Seguradora {
 	}
 		//Método que, dado um tipo de cliente "PF" ou "PJ" retorna uma lista com todos os sinistros do tipo de cliente da entrada
 
-	// Método que lista os veículos por cliente da seguradora:
-	public void visualizarVeiculosPorClientes() {
+	//Método que retorna uma lista com os veículos associados à seguradora:
+	public ArrayList<Veiculo> listarVeiculos() {
+		ArrayList<Veiculo> listaVeiculosSeguradora = new ArrayList<Veiculo>();
+		for(Cliente cliente : getListaClientes()) {
+			listaVeiculosSeguradora.addAll(cliente.getListaVeiculos());
+		}
+		return listaVeiculosSeguradora;
+	}
+	
+	
+	// Método que imprime os veículos por cliente da seguradora:
+	public void visualizarVeiculosPorCliente() {
 		// Caso de nenhum cliente cadastrado
 		if(listaClientes.isEmpty()) {
 			System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome() + ".\n");
@@ -479,77 +489,35 @@ public class Seguradora {
 	}
 	// Método que lista todos os veículos cadastrados na seguradora:
 	
-	public static void listaVeiculosPorSeg() {
+	//Método que imprime todos os veículos relacionados a cada seguradora
+	public static void visualizarVeiculosPorSeg() {
 		for(Seguradora seguradora : listaSeguradoras) {
-			ArrayList<Veiculo> listaVeiculosSeg = new ArrayList<Veiculo>();
-			for(Cliente cliente : seguradora.listaClientes) {
-				for(Veiculo veiculo : cliente.getListaVeiculos()) {
-					if(! listaVeiculosSeg.contains(veiculo)) {
-						listaVeiculosSeg.add(veiculo);
-					}
-				}
+			System.out.println("* Lista de veículos da seguradora" + seguradora.getNome() + ":");
+			ArrayList<Veiculo> listaVeiculos = seguradora.listarVeiculos();
+			for(Veiculo veiculo : listaVeiculos) {
+				System.out.println("    - " + veiculo);
 			}
-			
-			if(listaVeiculosSeg.isEmpty()) {
-				System.out.println("Nenhum veículo cadastrado na seguradora " + seguradora.getNome() + ".");
-			}	else	{
-				System.out.println("Veículos cadastrados na seguradora " + seguradora.getNome() + ":");
-				for(Veiculo veiculo : listaVeiculosSeg) {
-					System.out.println(veiculo);
-				}
-			}
-			System.out.println("");
 		}
 	}
 	
-	// Método que transfere os veículos de um cliente para outro.
-	public void transferirSeguro() {
-		String documentoClienteAntigo;
-		String documentoClienteNovo;
-		Cliente clienteAntigo;
-		Cliente clienteNovo;
-		LinkedList<Veiculo> antigaLista;
-		LinkedList<Veiculo> novaLista;
-		
-		System.out.println("Digite, respectivamente, os documentos do antigo e novo dono dos veículos.");
-		documentoClienteAntigo = Validacao.recebeDocumentoValido();
-		documentoClienteNovo = Validacao.recebeDocumentoValido();
-		
-		clienteAntigo = encontraCliente(documentoClienteAntigo);
-		clienteNovo = encontraCliente(documentoClienteNovo);
-		
-		//Construindo a lista de veículos de clienteNovo:
-		novaLista = new LinkedList<>(clienteNovo.getListaVeiculos());
-		novaLista.addAll(clienteAntigo.getListaVeiculos());
-		clienteNovo.setListaVeiculos(novaLista);
-		
-		// Zerando a lista de clienteAntigo:
-		antigaLista = new LinkedList<>(clienteAntigo.getListaVeiculos());
-		antigaLista.clear();
-		clienteAntigo.setListaVeiculos(antigaLista);
-	
-		// Atualizando os valores do seguro:
-		clienteNovo.setValorSeguro(clienteNovo.getValorSeguro() + clienteAntigo.getValorSeguro());
-		clienteAntigo.setValorSeguro(0);
-		
-		System.out.println("Veículos transferidos de " + clienteAntigo.getNome() + " para " + clienteNovo.getNome() + " com sucesso!");
-	}
-		//Método que calcula um preço seguro para um determinado cliente:
-
-		
+	//Método que calcula a receita total da seguradora:
 	//Método que calcula a receita da seguradora:
 	public double calcularReceitaSeguradora() {
 		double receita = 0;
 		DecimalFormat formato = new DecimalFormat("0.00");
 		String receitaFormatada;
 		
-		for(Cliente cliente : listaClientes) {
-			receita += this.calcularPrecoSeguroCliente(cliente);
+		for(Seguro seguro : getListaSeguros()) {
+			receita += seguro.calcularValor();
 		}
 		
-		receitaFormatada = formato.format(receita);
-		System.out.println("A receita total da seguradora " + this.getNome() + " é R$" + receitaFormatada + ".\n");
+		receitaFormatada = formato.format(receita);S
 		return receita;
+	}
+	
+	//Método que imprime a receita da seguradora:
+	public void visualizarReceita() {
+		System.out.println("A receita total da seguradora " + this.getNome() + " é R$" + calcularReceitaSeguradora() + ".\n");
 	}
 	
 }

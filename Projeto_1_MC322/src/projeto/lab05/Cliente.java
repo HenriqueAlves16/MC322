@@ -1,5 +1,6 @@
 package projeto.lab05;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public abstract class Cliente {
 	
@@ -105,7 +106,12 @@ public abstract class Cliente {
 	//Método que, dado um cliente PF ou PJ, retorna seu documento 
 	public abstract String getDocumento();
 	
+	//Método que retorna uma lista de veículos associada ao cliente:
+	public abstract ArrayList<Veiculo> getListaVeiculos();
+	
 	//Método que imprime os veículos do cliente:
 	public abstract void visualizarVeiculos();
+	
+	
 	
 }

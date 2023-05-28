@@ -102,15 +102,10 @@ public abstract class Cliente {
 		return cliente;
 	}
 		
-	// Método que, dado um cliente PF ou PJ, retorna seu documento 
-	public static String encontraDocumento(Cliente cliente) {
-		String documento;
-		if(cliente instanceof ClientePF) {
-			documento = ((ClientePF)cliente).getCPF();
-		}	else	{
-			documento = ((ClientePJ)cliente).getCNPJ();
-		}
-		return documento;
-	}
+	//Método que, dado um cliente PF ou PJ, retorna seu documento 
+	public abstract String getDocumento();
+	
+	//Método que imprime os veículos do cliente:
+	public abstract void visualizarVeiculos();
 	
 }

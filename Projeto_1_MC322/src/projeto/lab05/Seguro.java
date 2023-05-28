@@ -160,4 +160,7 @@ public abstract class Seguro {
 	//Método que calcula o valor do seguro:
 	public abstract double calcularValor();
 	
+	//Método abstrato que retorna o cliente do seguro:
+	public abstract Cliente getCliente();
+	
 }

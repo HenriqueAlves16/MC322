@@ -42,7 +42,7 @@ public class ClientePJ extends Cliente {
 		this.listaFrotas = listaFrota;
 	}
 
-	public String getCNPJ() {
+	public String getDocumento() {
 		return CNPJ;
 	}
 
@@ -124,6 +124,17 @@ public class ClientePJ extends Cliente {
 			qtdVeiculos += frota.getListaVeiculos().size();
 		}
 		return qtdVeiculos;
+	}
+	
+	//Método que imprime todos os veículos do cliente:
+	public void visualizarVeiculos() {
+		for(Frota frota : getListaFrotas()) {
+			System.out.println("* Frota " + frota.getCode() + ":");
+			for(Veiculo veiculo : frota.getListaVeiculos()) {
+				System.out.println("    - " + veiculo.toString());
+			}
+			System.out.println("");
+		}
 	}
 }
 

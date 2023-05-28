@@ -61,7 +61,7 @@ public class ClientePF extends Cliente {
 		this.listaVeiculos = listaVeiculos;
 	}
 
-	public String getCPF() {
+	public String getDocumento() {
 		return CPF;
 	}
 	
@@ -153,6 +153,14 @@ public class ClientePF extends Cliente {
 		idade = (int) nasc.until(now, ChronoUnit.YEARS);
 		
 		return idade;
+	}
+	
+	//Método que imprime todos os veículos do cliente:
+	public void visualizarVeiculos() {
+		int i = 0;
+		for(Veiculo veiculo : listaVeiculos) {
+			System.out.println("* Veículo " + ++i + ":" + veiculo.toString());
+		}
 	}
 }
 

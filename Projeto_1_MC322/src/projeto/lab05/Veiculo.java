@@ -1,5 +1,4 @@
 package projeto.lab05;
-import java.util.Scanner;
 
 public class Veiculo {
 	private String placa;
@@ -50,7 +49,7 @@ public class Veiculo {
 
 	//toString
 	public String toString() {
-		return "Veiculo [placa=" + placa + ", marca=" + marca + ", modelo=" + modelo + ", anoFabricacao=" + anoFabricacao + "]";
+		return this.marca + " " + this.modelo + " " + this.anoFabricacao + " - " + this.placa;
 	}
 
 }

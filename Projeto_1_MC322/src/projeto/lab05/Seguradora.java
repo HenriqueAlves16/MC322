@@ -331,7 +331,7 @@ public class Seguradora {
 		ArrayList<Sinistro> listaSinistrosPorCliente = getSinistrosPorCliente();
 		//Caso em que não há clientes cadastrados:
 		if(listaClientes.isEmpty()) {
-			System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome());
+			System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome() + ":");
 			return;
 		}
 		
@@ -342,34 +342,32 @@ public class Seguradora {
 		}
 		
 		//Caso em que há sinistros:
+		System.out.println("Lista de sinistros por cliente da seguradora " + this.getNome());
 		for(Cliente clienteSeguradora : getListaClientes()) {
+			boolean temSinistro = false;
 			String documentoClienteSeguradora = clienteSeguradora.getDocumento();
-			System.out.println("* " + clienteSeguradora.getNome() + "(" + documentoClienteSeguradora + ")" + ":");
+			System.out.println("* " + clienteSeguradora + ":");
 
 			for(Sinistro sinistro : getSinistrosPorCliente()) {
 				Seguro seguro = sinistro.getSeguro();
-				Cliente clienteSinistro = null;
-
-				if(seguro instanceof SeguroPF) clienteSinistro = ((SeguroPF)seguro).getCliente();
-				if(seguro instanceof SeguroPJ) clienteSinistro = ((SeguroPJ)seguro).getCliente();
+				Cliente clienteSinistro = seguro.getCliente();
 				
 				String documentoClienteSinistro = clienteSinistro.getDocumento();
 				
 				if(documentoClienteSeguradora.equals(documentoClienteSinistro)) {
 					int i = 0;
+					temSinistro = true;
 					DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					String dataSinistroFormatada = (sinistro.getData()).format(formatterSTR);
-					System.out.println("* Sinistro " + ++i + ":");
+					System.out.println("- Sinistro " + ++i + ":");
 					System.out.println("   ID: " + sinistro.getID());
-	                System.out.println("   Seguradora: " + this.getNome());
 					System.out.println("   Data: " + dataSinistroFormatada);
 					System.out.println("   Endereço: " + sinistro.getEndereco());
-	                System.out.println("   Condutor: " + sinistro.getCondutor().getIdentificacao() + "\n");
-					
-				}	else	{
-					System.out.println("Nenhum sinistro cadastrado para o cliente " + clienteSeguradora.getNome() + " (" + documentoClienteSeguradora + ")\n");
-
-				}
+	                System.out.println("   Condutor: " + sinistro.getCondutor() + "\n");	
+				}	
+			}
+			if(!temSinistro) {
+				System.out.println("Nenhum sinistro cadastrado para o cliente " + clienteSeguradora + "\n");
 			}
 		}
 	}

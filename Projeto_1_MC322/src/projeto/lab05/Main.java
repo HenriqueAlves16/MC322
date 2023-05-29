@@ -56,7 +56,7 @@ class Main {
 		seguradora1.cadastrarCliente(cliente1);
 		seguradora1.cadastrarCliente(cliente2);
 		seguradora1.cadastrarCliente(cliente3);
-		Seguradora.visualizarClientesPorSeg();
+		//Seguradora.visualizarClientesPorSeg();
 		
 		// Adicionando veículos para os ClientePF:		
 		cliente2.cadastrarVeiculo(veiculo1);
@@ -122,6 +122,7 @@ class Main {
 		Sinistro sinistro3 = new Sinistro("14/07/2023", "Monte Verde", condutor1, seguro3);
 		Sinistro sinistro4 = new Sinistro("24/10/2022", "Extrema", condutor3, seguro1);
 		System.out.println("");
+		seguradora1.visualizarSinistrosPorCliente();
 
 		/*
 		// Calculando a receita total da seguradora:

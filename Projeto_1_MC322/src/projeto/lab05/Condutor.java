@@ -84,7 +84,7 @@ public class Condutor {
 	//toString():
 	@Override
 	public String toString() {
-		return getNome() + " - " + getCPF();
+		return getNome() + " (" + getCPF() + ")";
 	}
 	
 	//Métodos:

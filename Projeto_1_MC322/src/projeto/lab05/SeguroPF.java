@@ -37,7 +37,7 @@ public class SeguroPF extends Seguro {
 	@Override
 	public String toString() {
 		String info = "ID: " + getID();
-		info = info + ", Seguradora: " + getSeguradora().getNome();
+		info = info + "Seguradora: " + getSeguradora().getNome();
 		info = info + ", Cliente: " + getCliente().getNome();
 		info = info + ", Placa do veículo: " + getVeiculo().getPlaca();
 		return info;

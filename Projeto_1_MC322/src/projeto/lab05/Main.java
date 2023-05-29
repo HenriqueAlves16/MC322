@@ -59,7 +59,7 @@ class Main {
 		System.out.println(frota2);
 		System.out.println(frota3);
 
-		//Criando seguros para os clientes:
+		//Criando seguros para os clientes:	
 		SeguroPJ seguro1 = new SeguroPJ("10/02/2015", "14/09/2015", seguradora1, frota2, cliente1);
 		SeguroPJ seguro2 = new SeguroPJ("18/06/2016", "14/09/2018", seguradora1, frota3, cliente1);
 		SeguroPF seguro3 = new SeguroPF("29/05/2023", "29/12/2024", seguradora1, veiculo1, cliente2);

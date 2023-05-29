@@ -53,7 +53,9 @@ public class SeguroPJ extends Seguro {
 		Condutor condutor = encontraCondutor(documento);
 		
 		Sinistro sinistro = new Sinistro(data, endereco, condutor, this);
-		return cadastrarSinistro(sinistro);
+		boolean sucesso = cadastrarSinistro(sinistro);
+		atualizaValorMensal();
+		return sucesso;
 	}
 
 	//Método que calcula o valor do seguroPJ:

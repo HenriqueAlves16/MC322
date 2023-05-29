@@ -77,16 +77,7 @@ public abstract class Seguro {
 		return ID;
 	}
 
-	//toString():
-	@Override
-	public String toString() {
-		return "Seguro [ID=" + ID + ", dataInicio=" + dataInicio + ", dataFim=" + dataFim + ", seguradora=" + seguradora
-				+ ", valorMensal=" + valorMensal + ", listaSinistros=" + listaSinistros + ", listaCondutores="
-				+ listaCondutores + "]";
-	}
-	
 	//Métodos:
-	
 	//Método que inclui um Condutor na lista de condutores. Se ele já está nela retorna false; caso contrário, retorna true:
 	public boolean autorizarCondutor(Condutor condutor) {
 		ArrayList<Condutor> listaCondutores = getListaCondutores();
@@ -119,7 +110,7 @@ public abstract class Seguro {
 		}
 		return qtdSinistros;
 	}
-	
+
 	//Método que calcula a quantidade de sinistros de um cliente na seguradora:
 	public int quantidadeSinistrosCliente(Cliente cliente) {
 		int qtdSinistros = 0;

@@ -37,10 +37,7 @@ class Main {
 		ClientePJ cliente1 = new ClientePJ("Banco dos Sonhos", "São Paulo", "1111-1111", "banco@sonhos.com", "24.808.514/0001-36", "12/12/2010", 100);
 		ClientePF cliente2 = new ClientePF("Abel", "Campinas", "0000-0000", "abel@theweekend.com", "394.790.330-89", "Masculino", "Ensino Médio", "31/10/1987");
 		ClientePF cliente3 = new ClientePF("Paulo", "Rio de Janeiro", "3333-3333", "paulo@gmail.com", "658.105.880-77", "Masculino", "Ensino Fundamental", "07/10/1980");
-		System.out.println(cliente1);
-		System.out.println(cliente2);
-		System.out.println(cliente3);
-		
+
 		//Criando condutores:
 		Condutor condutor1 = new Condutor("394.790.330-89", "Abel", "0000-0000", "Campinas", "abel@theweekend.com", "31/10/1987");
 		Condutor condutor2 = new Condutor("977.847.313-70", "Chris", "1111-1111", "São Paulo", "chris@gmail.com", "15/02/1977");
@@ -49,7 +46,6 @@ class Main {
 		Condutor condutor5 = new Condutor("348.267.572-47", "Bruno", "5555-5555", "Porto Alegre", "brunomars@hotmail.com", "20/09/1992");
 		Condutor condutor6 = new Condutor("498.731.734-63", "Ed", "2222-2222", "Brasília", "edsheeran@yahoo.com", "12/03/1988");
 		Condutor condutor7 = new Condutor("232.774.411-30", "Laura", "5555-5555", "Maceió", "laura@gmail.com", "12/09/1995");
-		System.out.println(condutor3);
 	
 		// Criando uma seguradora:
 		Seguradora seguradora1 = new Seguradora("23.831.847/0001-13", "Protege Seguros", "3555-0402", "Porto Alegre", "protegeseguros@gmail.com");
@@ -60,7 +56,7 @@ class Main {
 		seguradora1.cadastrarCliente(cliente1);
 		seguradora1.cadastrarCliente(cliente2);
 		seguradora1.cadastrarCliente(cliente3);
-		System.out.println("");
+		Seguradora.visualizarClientesPorSeg();
 		
 		// Adicionando veículos para os ClientePF:		
 		cliente2.cadastrarVeiculo(veiculo1);
@@ -109,9 +105,23 @@ class Main {
 		seguro2.visualizarListaCondutores();
 		seguro4.visualizarListaCondutores();
 
+		//Cadastrando alguns seguros na seguradora:
+		seguradora1.cadastrarSeguro(seguro1);
+		seguradora1.cadastrarSeguro(seguro2);
+		seguradora1.cadastrarSeguro(seguro3);
+		seguradora1.visualizarSegurosCliente();
+		
+		//Alterando a lista de seguros:
+		seguradora1.cancelarSeguro(seguro1);
+		seguradora1.cadastrarSeguro(seguro4);
+		seguradora1.visualizarSegurosCliente();
 
 		// Gerando sinistro:
-		
+		Sinistro sinistro1 = new Sinistro("24/04/2015", "Araraquara", condutor4, seguro4);
+		Sinistro sinistro2 = new Sinistro("26/08/2017", "Limeira", condutor1, seguro1);
+		Sinistro sinistro3 = new Sinistro("14/07/2023", "Monte Verde", condutor1, seguro3);
+		Sinistro sinistro4 = new Sinistro("24/10/2022", "Extrema", condutor3, seguro1);
+		System.out.println("");
 
 		/*
 		// Calculando a receita total da seguradora:

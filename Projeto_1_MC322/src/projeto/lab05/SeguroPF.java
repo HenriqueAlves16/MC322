@@ -36,29 +36,28 @@ public class SeguroPF extends Seguro {
 	//toString():
 	@Override
 	public String toString() {
-		String info = "";
-		info = info + "Seguradora: " + getSeguradora().getNome();
+		String info = "ID: " + getID();
+		info = info + ", Seguradora: " + getSeguradora().getNome();
 		info = info + ", Cliente: " + getCliente().getNome();
 		info = info + ", Placa do veículo: " + getVeiculo().getPlaca();
 		return info;
 	}
 	
-	//Métodos:
+	//Métodos:	
 	//Método que lê informações para criar um sinistro e o cadastra na lista de sinistros:
-		public boolean gerarSinistro() {
-			Scanner scanner = new Scanner(System.in);
-			
-			System.out.println("Digite, respectivamente, a data (dd/mm/aaaa), endereço, número do documento do condutor relativo ao sinistro:");
-			String data = scanner.nextLine();
-			String endereco = scanner.nextLine();
-			String documento = Validacao.recebeDocumentoValido();
-			Condutor condutor = encontraCondutor(documento);
-			
-			Sinistro sinistro = new Sinistro(data, endereco, condutor, this);
-			boolean sucesso = cadastrarSinistro(sinistro);
-			atualizaValorMensal();
-			return sucesso;
-		}
+	public boolean gerarSinistro() {
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite, respectivamente, a data (dd/mm/aaaa), endereço, número do documento do condutor relativo ao sinistro:");
+		String data = scanner.nextLine();
+		String endereco = scanner.nextLine();
+		String documento = Validacao.recebeDocumentoValido();
+		Condutor condutor = encontraCondutor(documento);
+		
+		Sinistro sinistro = new Sinistro(data, endereco, condutor, this);
+		boolean sucesso = cadastrarSinistro(sinistro);
+		return sucesso;
+	}
 	
 	//Método que calcula o valor do seguroPJ:
 	public double calcularValor() {

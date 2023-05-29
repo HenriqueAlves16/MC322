@@ -35,8 +35,8 @@ public class SeguroPJ extends Seguro {
 	//toString():
 	@Override
 	public String toString() {
-		String info = "";
-		info = info + "Seguradora: " + getSeguradora().getNome();
+		String info = "ID: " + getID();
+		info = info + ", Seguradora: " + getSeguradora().getNome();
 		info = info + ", Cliente: " + getCliente().getNome();
 		info = info + ", Código da frota: " + getFrota().getCode();
 		return info;
@@ -56,7 +56,12 @@ public class SeguroPJ extends Seguro {
 		
 		Sinistro sinistro = new Sinistro(data, endereco, condutor, this);
 		boolean sucesso = cadastrarSinistro(sinistro);
-		atualizaValorMensal();
+		
+		if(sucesso) {
+			System.out.println("Sinistro cadastrado com sucesso para o condutor " + condutor + "!");
+		}	else	{
+			System.out.println("Sinistro já cadastrado.");
+		}
 		return sucesso;
 	}
 

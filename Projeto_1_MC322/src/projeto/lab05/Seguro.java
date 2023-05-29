@@ -110,8 +110,7 @@ public abstract class Seguro {
 			System.out.println("Condutor " + ++i + ": " + condutor);
 		}
 		System.out.println("");
-	}
-	
+	}	
 	
 	//Método que calcula a quantidade de sinistros de todas as pessoas na lista de condutores:
 	public int quantidadeSinistrosCondutores(ArrayList<Condutor> listaCondutores) {
@@ -152,16 +151,12 @@ public abstract class Seguro {
 	public boolean cadastrarSinistro(Sinistro sinistro) {
 		ArrayList<Sinistro> listaSinistros = getListaSinistros();
 		if(listaSinistros.contains(sinistro)) {
-			System.out.println("O sinistro já está cadastrado.");
 			return false;
 		}
 		
 		listaSinistros.add(sinistro);
 		setListaSinistros(listaSinistros);
 		atualizaValorMensal();
-		System.out.println("Sinistro cadastrado com sucesso!");
-
-
 		return true;
 	}
 	

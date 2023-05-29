@@ -139,7 +139,7 @@ public class Seguradora {
 			if(tipoCliente.equals("TODOS")) {
 				System.out.println("Lista de clientes da seguradora " + seguradora.getNome() + ":");
 				for(Cliente cliente : seguradora.listaClientes) {
-					System.out.println("* Cliente " + i++);
+					System.out.println("* Cliente " + i++ + ":");
 					System.out.println(cliente + "\n");
 				}
 				continue;
@@ -290,6 +290,7 @@ public class Seguradora {
 		}
 		
 		//Caso de clientes cadastrados:
+		System.out.println("Lista de seguros por cliente na seguradora " + getNome() + ":");
 		for (Cliente cliente : listaClientes) {
 			boolean temSeguro = false;
 			String documento = cliente.getDocumento();
@@ -301,9 +302,9 @@ public class Seguradora {
 					temSeguro = true;
 					System.out.println(seguro);
 				}
-				if(!temSeguro) {
-					System.out.println("Nenhum seguro cadastrado para o cliente " + cliente.getNome() + "(" + documento + ")");
-				}
+			}
+			if(!temSeguro) {
+				System.out.println("Nenhum seguro cadastrado para o cliente " + cliente.getNome() + "(" + documento + ")");
 			}
 			System.out.println("");
 		}
@@ -374,7 +375,6 @@ public class Seguradora {
 	}
 	
 	//Método que cria uma seguradora a partir do input:
-	// Método que cria uma seguradora a partir do input:
 	public static Seguradora criaSeguradora() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Digite o CNPJ, nome, telefone, email e endereço da seguradora, respectivamente:");
@@ -390,7 +390,6 @@ public class Seguradora {
 	}
 
 	//Método que cadastra uma seguradora na lista de seguradoras
-	// Método que cadastra uma nova seguradora:
 	public static boolean cadastrarSeguradora() {
 		Seguradora novaSeguradora = criaSeguradora();
 		if (listaSeguradoras.contains(novaSeguradora)) {
@@ -403,7 +402,6 @@ public class Seguradora {
 		return true;
 	}
 
-	//Método que exclui um sinistro a partir do input
 	//Método que remove um sinistro a partir de seu ID. Se o ID for válido, retorna true. Caso contrário, retorna false.
 	public boolean excluirSinistro() {
 		Scanner scanner = new Scanner(System.in);
@@ -441,14 +439,12 @@ public class Seguradora {
 	}
 
 	//Método que imprime os sinistros por seguradora:
-	// Método que imprime todos os sinistros da seguradora:
 	public static void visualizarSinistrosPorSeg() {
 		for(Seguradora seguradora: listaSeguradoras) {
 			System.out.println("* Seguradora " + seguradora.getNome() + ":");
 			seguradora.visualizarSinistrosPorCliente();
 		}
 	}
-		//Método que, dado um tipo de cliente "PF" ou "PJ" retorna uma lista com todos os sinistros do tipo de cliente da entrada
 
 	//Método que retorna uma lista com os veículos associados à seguradora:
 	public ArrayList<Veiculo> listarVeiculos() {
@@ -458,8 +454,7 @@ public class Seguradora {
 		}
 		return listaVeiculosSeguradora;
 	}
-	
-	
+
 	// Método que imprime os veículos por cliente da seguradora:
 	public void visualizarVeiculosPorCliente() {
 		// Caso de nenhum cliente cadastrado
@@ -487,7 +482,6 @@ public class Seguradora {
 	}
 	
 	//Método que calcula a receita total da seguradora:
-	//Método que calcula a receita da seguradora:
 	public double calcularReceitaSeguradora() {
 		double receita = 0;
 		DecimalFormat formato = new DecimalFormat("0.00");

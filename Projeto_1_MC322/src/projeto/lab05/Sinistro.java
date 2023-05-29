@@ -61,23 +61,11 @@ public class Sinistro {
 	}
 	
 	//toString
-	/*@Override
+	@Override
 	public String toString() {
-		StringJoiner str = new StringJoiner("\n");
-		DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		String dataFormatada = (data).format(formatterSTR);
-		
-		str.add("Classe: Sinistro");
-		str.add("Data: " + dataFormatada);
-		str.add("Endereco: " + endereco);
-		str.add("Seguradora: " + seguradora.getNome());
-		str.add("Veiculo: " + veiculo);
-		str.add("Cliente: " + cliente);
-		str.add("ID: " + ID);
-
-		return str.toString();
+		return "ID do sinistro: " + getID() + ", Condutor: " + getCondutor() + ", Seguro: " + getSeguro();
 	}
-*/
+
 	
 	
 }

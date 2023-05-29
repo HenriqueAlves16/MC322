@@ -69,7 +69,8 @@ public abstract class Cliente {
 
 		String nome = scanner.nextLine();
 		String endereco = scanner.nextLine();
-		String dataLicenca = scanner.nextLine();
+		String telefone = scanner.nextLine();
+		String email = scanner.nextLine();
 		String tipo = scanner.nextLine();
 		
 		// Caso em que o tipo é inválido
@@ -88,7 +89,7 @@ public abstract class Cliente {
 			String cpf = Validacao.recebeDocumentoValido();
 			String dataNascimento = scanner.nextLine();
 
-			cliente = new ClientePF(nome, endereco, dataLicenca, tipo, educacao, genero, classeEconomica, cpf, dataNascimento);
+			cliente = new ClientePF(nome, endereco, telefone, email, cpf, genero, educacao, dataNascimento);
 		//Caso tipo == "PJ"
 		} else {
 			System.out.println("Digite o CNPJ, a data de fundação (dd/mm/aaaa) e a quantidade de funcionários da instituição, respectivamente:");
@@ -98,7 +99,7 @@ public abstract class Cliente {
 			int qtdFuncionarios = scanner.nextInt();
 			scanner.nextLine();
 			
-			cliente = new ClientePJ(nome, endereco, dataLicenca, tipo, cnpj, dataFundacao, qtdFuncionarios);
+			cliente = new ClientePJ(nome, endereco, telefone, email, cnpj, dataFundacao, qtdFuncionarios);
 		}
 		return cliente;
 	}

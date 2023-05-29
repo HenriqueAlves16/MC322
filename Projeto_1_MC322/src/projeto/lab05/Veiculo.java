@@ -1,4 +1,5 @@
 package projeto.lab05;
+import java.util.Scanner;
 
 public class Veiculo {
 	private String placa;
@@ -52,4 +53,17 @@ public class Veiculo {
 		return this.marca + " " + this.modelo + " " + this.anoFabricacao + " - " + this.placa;
 	}
 
+	//Método que cria veículo com input:
+		public static Veiculo criaVeiculo() {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Digite a placa, marca, modelo e ano do veiculo, respectivamente: ");
+			
+			String placa = scanner.nextLine();
+			String marca = scanner.nextLine();
+			String modelo = scanner.nextLine();
+			int ano = scanner.nextInt();
+			scanner.nextLine();
+			Veiculo veiculo = new Veiculo(placa, marca, modelo, ano);
+			return veiculo;
+		}
 }

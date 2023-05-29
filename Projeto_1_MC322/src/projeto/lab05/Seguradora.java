@@ -511,7 +511,7 @@ public class Seguradora {
 			receita += seguro.calcularValor();
 		}
 		
-		receitaFormatada = formato.format(receita);S
+		receitaFormatada = formato.format(receita);
 		return receita;
 	}
 	

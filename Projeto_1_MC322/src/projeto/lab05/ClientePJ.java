@@ -77,7 +77,101 @@ public class ClientePJ extends Cliente {
 		return true;
 	}
 	
+	//Método que adiciona veículo na frota:
+	public boolean adicionaVeiculoFrota(String code, Veiculo veiculo) {
+		boolean adicionado = false;
+		for(int i = 0; i < listaFrotas.size(); i++) {
+			Frota frota = listaFrotas.get(i);
+			ArrayList<Veiculo> listaVeiculosFrota = new ArrayList<Veiculo>(frota.getListaVeiculos());
+			
+			if(frota.getCode().equals(code)) {
+				listaVeiculosFrota.add(veiculo);
+				frota.setListaVeiculos(listaVeiculosFrota);
+				return true;
+			}
+		}
+		return false;
+	}
 	
+	//Método que recebe o input para adicionar veículo em alguma frota
+	public boolean leituraAdicionaVeiculo() {
+		System.out.println("Escreva o código da frota e as informações do veículo que você deseja adicionar:");
+		Scanner scanner = new Scanner(System.in);
+		String code = scanner.nextLine();
+		Veiculo veiculo = Veiculo.criaVeiculo();
+		boolean sucesso = adicionaVeiculoFrota(code, veiculo);
+		
+		if(sucesso) {
+			System.out.println("Veículo adicionado com sucesso!");
+		}	else	{
+			System.out.println("Falha ao adicionar veículo. Tente novamente.");
+		}
+		return sucesso;
+	}
+	
+	//Método que remove veículo da frota:
+	public boolean removeVeiculoFrota(String placa) {
+		boolean removido = false;
+		for(int i = 0; i < listaFrotas.size(); i++) {
+			Frota frota = listaFrotas.get(i);
+			ArrayList<Veiculo> listaVeiculosFrota = new ArrayList<Veiculo>(frota.getListaVeiculos());
+			
+			for(int j = 0; j < frota.getListaVeiculos().size(); j++) {
+				Veiculo veiculo = frota.getListaVeiculos().get(j);
+				if(veiculo.getPlaca().equals(placa)) {
+					listaVeiculosFrota.remove(veiculo);
+					frota.setListaVeiculos(listaVeiculosFrota);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	//Método que recebe o input para remover veículo de alguma frota
+	public boolean leituraRemoveVeiculo() {
+		System.out.println("Escreva a placa do veículo que você deseja remover:");
+		Scanner scanner = new Scanner(System.in);
+		String placa = scanner.nextLine();
+		boolean sucesso = removeVeiculoFrota(placa);
+		
+		if(sucesso) {
+			System.out.println("Veículo removido com sucesso!");
+		}	else	{
+			System.out.println("Falha ao remover veículo. Tente novamente.");
+		}
+		return sucesso;
+	}
+	
+	//Método que remove veículo da frota:
+	public boolean removeFrota(String code) {
+		ArrayList<Frota> listaFrotas = new ArrayList<Frota>(getListaFrotas());
+		
+		for(int i = 0; i < listaFrotas.size(); i++) {
+			Frota frota = listaFrotas.get(i);
+			if(frota.getCode().equals(code)) {
+				listaFrotas.remove(i);
+				setListaFrotas(listaFrotas);
+				return true;
+			}
+		}
+		return false;
+	}
+		
+	//Método que recebe o input para remover uma frota inteira:
+	public boolean leituraRemoveFrota() {
+		System.out.println("Escreva o código da frota que você deseja remover:");
+		Scanner scanner = new Scanner(System.in);
+		String code = scanner.nextLine();
+		boolean sucesso = removeVeiculoFrota(code);
+		
+		if(sucesso) {
+			System.out.println("Frota removida com sucesso!");
+		}	else	{
+			System.out.println("Falha ao remover frota. Tente novamente.");
+		}
+		return sucesso;
+	}
 	
 	public boolean atualizarFrota() {
 		Scanner scanner = new Scanner(System.in);
@@ -92,19 +186,13 @@ public class ClientePJ extends Cliente {
 		
 		switch(op) {
 			case 1:
-				adicionar
-				break;
+				return leituraAdicionaVeiculo();
 			case 2:
-				remover
-				break;
+				return leituraRemoveVeiculo();
 			case 3:
-				remover tudo
-				break;
+				return leituraRemoveFrota();
 		}
-	}
-	
-	public boolean listarVeiculosPorFrota() {
-		return true;
+		return false;
 	}
 	
 	//Método que retorna a quantidade de tempo passada após a fundação deste ClientePJ

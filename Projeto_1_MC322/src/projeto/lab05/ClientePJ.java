@@ -54,12 +54,6 @@ public class ClientePJ extends Cliente {
 		this.qtdeFuncionarios = qtdeFuncionarios;
 	}
 
-	//toString:
-	@Override
-	public String toString() {
-		return "ClientePJ [CNPJ=" + CNPJ + ", dataFundacao=" + dataFundacao + ", listaFrota=" + listaFrotas + "]";
-	}	
-
 	// Métodos:
 	
 	// Método que cadastra uma frota para na lista de frotas deste ClientePJ:

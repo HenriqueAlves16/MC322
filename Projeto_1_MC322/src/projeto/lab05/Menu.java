@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
 	
-	Seguradora seguradoraAtiva = null;
+	/*Seguradora seguradoraAtiva = null;
 	
 	//Verifica se alguma seguradora está cadastrada. Se não houver nenhuma, cadastra uma.
 	public void verificaSeguradoraCadastrada() {
@@ -252,5 +252,5 @@ public class Menu {
 			System.out.println("Opção inválida!");
 		}
 	}
-	
+	*/
 }

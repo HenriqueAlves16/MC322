@@ -52,20 +52,6 @@ public class SeguroPF extends Seguro {
 			return cadastrarSinistro(sinistro);
 		}
 	
-	//Método que calcula a quantidade de sinistros do ClientePF na seguradora:
-	public int quantidadeSinistrosCliente(ClientePF cliente) {
-		int qtdSinistros = 0;
-		for(Seguro seguro : getSeguradora().getListaSeguros()) {
-			if(seguro instanceof SeguroPF) {
-				String cpfClienteIteracao = ((SeguroPF) seguro).getCliente().getCPF();
-				if(cpfClienteIteracao.equals(cliente.getCPF())){
-					qtdSinistros++;
-				}
-			}
-		}
-		return qtdSinistros;
-	}
-	
 	//Método que calcula o valor do seguroPJ:
 	public double calcularValor() {
 		double valor;

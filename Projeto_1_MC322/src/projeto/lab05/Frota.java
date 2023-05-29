@@ -34,7 +34,7 @@ public class Frota {
 	//toString():
 	@Override
 	public String toString() {
-		return "Frota [code=" + code + ", listaVeiculos=" + listaVeiculos + "]";
+		return "Código da frota: " + code + "\nLista de veículos:\n" + veiculosFrota();
 	}
 
 	
@@ -75,6 +75,16 @@ public class Frota {
 		
 		System.out.println("O veículo cuja placa é" + placaExcluir + "não está cadastrado na frota" + this.getCode());
 		return false;
+	}
+	
+	//Método que devolve uma string com a lista de veículos da frota:
+	public String veiculosFrota() {
+		String lista = "";
+		for(Veiculo veiculo : this.getListaVeiculos()) {
+			lista += veiculo.toString();
+			lista += "\n";
+		}
+		return lista;
 	}
 
 }

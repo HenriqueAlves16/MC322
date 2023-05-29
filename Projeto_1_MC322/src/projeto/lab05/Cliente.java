@@ -55,7 +55,7 @@ public abstract class Cliente {
 	//toString:
 	@Override
 	public String toString() {
-		return "Cliente [nome=" + nome + ", telefone=" + telefone + ", endereco=" + endereco + ", email=" + email + "]";
+		return getNome() + " - " + getDocumento();
 	}
 
 	

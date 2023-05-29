@@ -13,12 +13,12 @@ class Main {
 
 		// Criando clientes:
 
-		Cliente cliente1 = new ClientePF("Abel", "Campinas", "26/12/2015", "PF", "Ensino Médio", "Masculino", "Alta", "394.790.330-89", "31/10/1987");
-		Cliente cliente2 = new ClientePJ("Banco dos Sonhos", "São Paulo", "25/05/2002", "PJ", "24.808.514/0001-36", "12/12/2010", 100);
-		Cliente cliente3 = new ClientePF("Paulo", "Campinas", "07/12/2012", "PF", "Ensino Fundamental", "Masculino","Baixa", "658.105.880-77", "07/10/1980");
+		Cliente cliente1 = new ClientePF("Abel", "Campinas", "0000-0000", "abel@theweekend.com", "394.790.330-89", "Masculino", "Ensino Médio", "31/10/1987");
+		Cliente cliente2 = new ClientePJ("Banco dos Sonhos", "São Paulo", "1111-1111", "banco@sonhos.com", "24.808.514/0001-36", "12/12/2010", 100);
+		Cliente cliente3 = new ClientePF("Paulo", "Rio de Janeiro", "3333-3333", "paulo@gmail.com", "658.105.880-77", "Masculino", "Ensino Fundamental", "07/10/1980");
 
 		// Criando uma seguradora:
-		Seguradora seguradora1 = new Seguradora("Protege Seguros", "3555-0402", "protegeseguros@gmail.com", "Porto Alegre");
+		Seguradora seguradora1 = new Seguradora("23.831.847/0001-13", "Protege Seguros", "3555-0402", "Porto Alegre", "protegeseguros@gmail.com");
 		Seguradora.getListaSeguradoras().add(seguradora1);
 		
 		// Adicionando veículos:

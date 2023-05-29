@@ -64,31 +64,7 @@ public class ClientePF extends Cliente {
 	public String getDocumento() {
 		return CPF;
 	}
-	
-	//toString:
-	/*@Override
-	public String toString() {
-		StringJoiner str = new StringJoiner("\n");
-		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
-		String dataNascimentoFormatada = (dataNascimento).format(formatador);
-		str.add("Classe = ClientePF");
-		str.add("nome = " + getNome());
-		str.add("endereco = " + getEndereco());
-		str.add("dataLicenca = " + dataLicencaFormatada);
-		str.add("tipo = " + getTipo());
-		str.add("educacao = " + educacao);
-		str.add("genero = " + genero);
-		str.add("classeEconomica = " + classeEconomica);
-		str.add("CPF = " + CPF);
-		str.add("dataNascimento = " + dataNascimentoFormatada);
-		str.add("listaVeiculos :");
-		for(Veiculo veiculo : getListaVeiculos()) {
-			str.add(" ".repeat(4) + veiculo.toString());
-		}
-		return str.toString();
-	}
-*/
+
 	// Métodos:
 	
 	// Método que cadastra um veículo na lista de veículos deste ClientePF:

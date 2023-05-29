@@ -120,6 +120,20 @@ public abstract class Seguro {
 		return qtdSinistros;
 	}
 	
+	//Método que calcula a quantidade de sinistros de um cliente na seguradora:
+	public int quantidadeSinistrosCliente(Cliente cliente) {
+		int qtdSinistros = 0;
+		for(Seguro seguro : getSeguradora().getListaSeguros()) {
+			if(seguro instanceof SeguroPF) {
+				String cpfClienteIteracao = ((SeguroPF) seguro).getCliente().getDocumento();
+				if(cpfClienteIteracao.equals(cliente.getDocumento())){
+					qtdSinistros++;
+				}
+			}
+		}
+		return qtdSinistros;
+	}
+	
 	//Método que, a partir de um documento válido, retorna o condutor correspondente.
 	public Condutor encontraCondutor(String documento) {
 		for(Condutor condutor : listaCondutores) {

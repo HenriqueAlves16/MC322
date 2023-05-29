@@ -52,20 +52,6 @@ public class SeguroPJ extends Seguro {
 		return cadastrarSinistro(sinistro);
 	}
 
-	//Método que calcula a quantidade de sinistros de um ClientePJ na seguradora:
-	public int quantidadeSinistrosCliente(ClientePJ cliente) {
-		int qtdSinistros = 0;
-		for(Seguro seguro : getSeguradora().getListaSeguros()) {
-			if(seguro instanceof SeguroPJ) {
-				String cnpjClienteIteracao = ((SeguroPJ) seguro).getCliente().getCNPJ();
-				if(cnpjClienteIteracao.equals(cliente.getCNPJ())){
-					qtdSinistros++;
-				}
-			}
-		}
-		return qtdSinistros;
-	}
-	
 	//Método que calcula o valor do seguroPJ:
 	public double calcularValor() {
 		double valor;

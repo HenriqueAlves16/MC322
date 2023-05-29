@@ -8,7 +8,7 @@ public class SeguroPF extends Seguro {
 	private ClientePF cliente;
 	
 	//Construtor:
-	SeguroPF(String dataInicio, String dataFim, Seguradora seguradora, Veiculo veiculo, ClientePF cliente){
+	public SeguroPF(String dataInicio, String dataFim, Seguradora seguradora, Veiculo veiculo, ClientePF cliente){
 		super(dataInicio, dataFim, seguradora);
 		this.veiculo = veiculo;
 		this.cliente = cliente;
@@ -34,7 +34,11 @@ public class SeguroPF extends Seguro {
 	//toString():
 	@Override
 	public String toString() {
-		return "SeguroPF [veiculo=" + veiculo + ", cliente=" + cliente + "]";
+		String info = "";
+		info = info + "Seguradora: " + getSeguradora();
+		info = info + ", Cliente: " + getCliente().getNome();
+		info = info + ", Placa do veículo: " + getVeiculo().getPlaca();
+		return info;
 	}
 	
 	//Métodos:

@@ -13,6 +13,11 @@ public class Frota {
 		listaVeiculos = new ArrayList<Veiculo>();
 		this.adicionarVeiculo(veiculo);
 	}
+	
+	Frota(String code, ArrayList<Veiculo> listaVeiculos){
+		this.code = code;
+		this.listaVeiculos = listaVeiculos;
+	}
 
 	//gets e sets:
 	public String getCode() {

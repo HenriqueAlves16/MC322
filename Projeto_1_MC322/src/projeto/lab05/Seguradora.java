@@ -94,24 +94,10 @@ public class Seguradora {
 	}
 
 	//toString
-	/*@Override
+	@Override
 	public String toString() {
-		StringJoiner str = new StringJoiner("\n");
-		str.add("Classe = Seguradora");
-		str.add("nome = " + nome);
-		str.add("telefone = " + telefone);
-		str.add("email = " + email);
-		str.add("endereco = " + endereco);
-		str.add("listaClientes:");
-		for(Cliente cliente : listaClientes) {
-			str.add(" ".repeat(4) + cliente.toString());
-		}
-		for(Sinistro sinistro : listaSinistros) {
-			str.add(" ".repeat(4) + sinistro.toString());
-		}
-		return str.toString();
+		return getNome() + " - " + getCNPJ();
 	}
-	*/
 	
 	//Métodos:
 	
@@ -237,7 +223,7 @@ public class Seguradora {
 		
 		cadastrarSeguro(seguro);
 		return seguro;
-	}	
+	}
 
 	//Método que remove um seguro da lista se seguros desta Seguradora. Se ele não está nela, retorna false; caso contrário, retorna true:
 	public boolean cancelarSeguro(Seguro seguro) {

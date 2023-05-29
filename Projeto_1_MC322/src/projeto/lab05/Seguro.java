@@ -10,7 +10,6 @@ public abstract class Seguro {
 	private LocalDate dataInicio;
 	private LocalDate dataFim;
 	private Seguradora seguradora;
-	private double valorMensal;
 	private ArrayList<Sinistro> listaSinistros;
 	private ArrayList<Condutor> listaCondutores;
 	
@@ -22,7 +21,6 @@ public abstract class Seguro {
 		this.dataInicio = LocalDate.parse(dataFim, formatador);
 		this.dataFim = LocalDate.parse(dataFim, formatador);
 		this.seguradora = seguradora;
-		this.valorMensal = calcularValor();
 		this.listaSinistros = new ArrayList<Sinistro>();
 		this.listaCondutores = new ArrayList<Condutor>();		
 	}
@@ -51,10 +49,6 @@ public abstract class Seguro {
 
 	public void setSeguradora(Seguradora seguradora) {
 		this.seguradora = seguradora;
-	}
-
-	public double getValorMensal() {
-		return valorMensal;
 	}
 
 	public ArrayList<Sinistro> getListaSinistros() {
@@ -101,6 +95,23 @@ public abstract class Seguro {
 		
 		return true;
 	}
+	
+	//Método que imprime a lista de condutores do seguro:
+	public void visualizarListaCondutores() {
+		int i = 0;
+		if(getListaCondutores().size() == 0) {
+			System.out.println("Nenhum condutor autorizado para o seguro de ID " + getID() + ".");
+			return;
+		}
+		
+		System.out.println("Lista de condutores do seguro de ID " + getID() + ":");
+		
+		for(Condutor condutor : getListaCondutores()) {
+			System.out.println("Condutor " + ++i + ": " + condutor);
+		}
+		System.out.println("");
+	}
+	
 	
 	//Método que calcula a quantidade de sinistros de todas as pessoas na lista de condutores:
 	public int quantidadeSinistrosCondutores(ArrayList<Condutor> listaCondutores) {
@@ -155,9 +166,7 @@ public abstract class Seguro {
 	}
 	
 	//Método que atualiza o valor mensal do seguro:
-	public void atualizaValorMensal() {
-		this.valorMensal = calcularValor();
-	}
+	public abstract void atualizaValorMensal();
 	
 	//Método que lê informações para criar um sinistro e o cadastra na lista de sinistros:
 	public abstract boolean gerarSinistro();

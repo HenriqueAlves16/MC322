@@ -6,12 +6,14 @@ import java.util.Scanner;
 public class SeguroPF extends Seguro {
 	private Veiculo veiculo;
 	private ClientePF cliente;
+	private double valorMensal;
 	
 	//Construtor:
 	public SeguroPF(String dataInicio, String dataFim, Seguradora seguradora, Veiculo veiculo, ClientePF cliente){
 		super(dataInicio, dataFim, seguradora);
 		this.veiculo = veiculo;
 		this.cliente = cliente;
+		this.valorMensal = calcularValor();
 	}
 
 	//gets e sets:
@@ -35,7 +37,7 @@ public class SeguroPF extends Seguro {
 	@Override
 	public String toString() {
 		String info = "";
-		info = info + "Seguradora: " + getSeguradora();
+		info = info + "Seguradora: " + getSeguradora().getNome();
 		info = info + ", Cliente: " + getCliente().getNome();
 		info = info + ", Placa do veículo: " + getVeiculo().getPlaca();
 		return info;
@@ -83,4 +85,7 @@ public class SeguroPF extends Seguro {
 		return valor;
 	}
 	
+	public void atualizaValorMensal() {
+		this.valorMensal = calcularValor();
+	}
 }

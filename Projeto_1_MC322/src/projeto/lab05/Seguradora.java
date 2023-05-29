@@ -24,8 +24,8 @@ public class Seguradora {
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
-		this.listaSeguros = new ArrayList<>();
-		this.listaClientes = new ArrayList<>();
+		this.listaSeguros = new ArrayList<Seguro>();
+		this.listaClientes = new ArrayList<Cliente>();
 		
 		if (listaSeguradoras == null) {
 			listaSeguradoras = new LinkedList<>();

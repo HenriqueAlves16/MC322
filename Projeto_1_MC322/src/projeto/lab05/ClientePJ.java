@@ -22,6 +22,8 @@ public class ClientePJ extends Cliente {
 		this.CNPJ = CNPJ;
 		this.dataFundacao = LocalDate.parse(dataFundacao, formatador);
 		this.qtdeFuncionarios = qtdeFuncionarios;
+		this.listaFrotas = new ArrayList<Frota>();
+
 	}
 
 	//Getters e setters:
@@ -59,6 +61,7 @@ public class ClientePJ extends Cliente {
 	// Método que cadastra uma frota para na lista de frotas deste ClientePJ:
 	public boolean cadastrarFrota(Frota frota) {
 		ArrayList<Frota> listaFrotas = getListaFrotas();
+		
 		if(listaFrotas.contains(frota)) {
 			System.out.println("A frota já está cadastrada.");
 			return false;
@@ -202,8 +205,12 @@ public class ClientePJ extends Cliente {
 	//Método que retorna a quantidade de veículos associados a este ClientePJ
 	public int totalVeiculos() {
 		int qtdVeiculos = 0;
-		for(Frota frota : getListaFrotas()) {
-			qtdVeiculos += frota.getListaVeiculos().size();
+		try {
+			for(Frota frota : getListaFrotas()) {
+				qtdVeiculos += frota.getListaVeiculos().size();
+			}
+		} catch(NullPointerException e) {
+			System.out.println("Nenhum veículo na lista de frotas do cliente " + getNome() + ".");
 		}
 		return qtdVeiculos;
 	}

@@ -5,12 +5,14 @@ import java.util.Scanner;
 public class SeguroPJ extends Seguro {
 	private Frota frota;
 	private ClientePJ cliente;
+	private double valorMensal;
 	
 	//Construtor:
 	public SeguroPJ(String dataInicio, String dataFim, Seguradora seguradora, Frota frota, ClientePJ cliente){
 		super(dataInicio, dataFim, seguradora);
 		this.frota = frota;
 		this.cliente = cliente;
+		this.valorMensal = calcularValor();
 	}
 
 	//gets e sets:
@@ -34,7 +36,7 @@ public class SeguroPJ extends Seguro {
 	@Override
 	public String toString() {
 		String info = "";
-		info = info + "Seguradora: " + getSeguradora();
+		info = info + "Seguradora: " + getSeguradora().getNome();
 		info = info + ", Cliente: " + getCliente().getNome();
 		info = info + ", Código da frota: " + getFrota().getCode();
 		return info;
@@ -61,7 +63,7 @@ public class SeguroPJ extends Seguro {
 	//Método que calcula o valor do seguroPJ:
 	public double calcularValor() {
 		double valor;
-		int quantidadeFunc = getCliente().getQtdeFuncionarios();
+		int quantidadeFunc = this.getCliente().getQtdeFuncionarios();
 		int quantidadeVeiculos = getCliente().totalVeiculos();
 		int anosPosFundacao = getCliente().getIdade();
 		int quantidadeSinistrosCliente = quantidadeSinistrosCliente(this.getCliente());
@@ -71,6 +73,10 @@ public class SeguroPJ extends Seguro {
 				(1 + 1/(anosPosFundacao + 2)) * (2 + quantidadeSinistrosCliente / 10) * (5 + quantidadeSinistrosCondutor / 10);
 		
 		return valor;	
+	}
+	
+	public void atualizaValorMensal() {
+		this.valorMensal = calcularValor();
 	}
 		
 

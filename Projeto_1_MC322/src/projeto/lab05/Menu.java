@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
 	
-	/*Seguradora seguradoraAtiva = null;
+	Seguradora seguradoraAtiva = null;
 	
 	//Verifica se alguma seguradora está cadastrada. Se não houver nenhuma, cadastra uma.
 	public void verificaSeguradoraCadastrada() {
@@ -53,10 +53,9 @@ public class Menu {
 			System.out.println("1 - Cadastro");
 			System.out.println("2 - Listar");
 			System.out.println("3 - Excluir");
-			System.out.println("4 - Gerar sinistro");
-			System.out.println("5 - Transferir seguro");
-			System.out.println("6 - Calcular a receita da seguradora");
-			System.out.println("7 - Alterar a seguradora ativa");
+			System.out.println("4 - Transferir seguro");
+			System.out.println("5 - Calcular a receita da seguradora");
+			System.out.println("6 - Alterar a seguradora ativa");
 			System.out.println("0 - Sair");
 	
 			c = scanner.nextInt();
@@ -82,11 +81,8 @@ public class Menu {
 			case EXCLUIR:
 				exibirSubMenuExcluir();
 				break;
-			case GERAR_SINISTRO:
-				seguradoraAtiva.gerarSinistro();
-				break;
 			case TRANSFERIR_SEGURO:
-				seguradoraAtiva.transferirSeguro();
+				//seguradoraAtiva.transferirSeguro();
 				break;
 			case CALCULAR_RECEITA_SEGURADORA:
 				seguradoraAtiva.calcularReceitaSeguradora();
@@ -110,9 +106,13 @@ public class Menu {
 
 			System.out.println("Qual tipo de cadastro você deseja realizar?");
 			System.out.println("1 - Cliente");
-			System.out.println("2 - Veículo");
-			System.out.println("3 - Seguradora");
-			System.out.println("4 - Voltar");
+			System.out.println("2 - Frota");
+			System.out.println("3 - Veículo");
+			System.out.println("4 - Seguro");
+			System.out.println("5 - Condutor");
+			System.out.println("6 - Sinistro");
+			System.out.println("7 - Seguradora");
+			System.out.println("8 - Voltar");
 	
 			d = scanner.nextInt();
 			scanner.nextLine();
@@ -158,10 +158,14 @@ public class Menu {
 			System.out.println("O que você deseja listar?");
 			System.out.println("1 - Clientes por seguradora");
 			System.out.println("2 - Sinistros por seguradora");
-			System.out.println("3 - Sinistros por cliente");
-			System.out.println("4 - Veículos por cliente");
-			System.out.println("5 - Veículos por seguradora");
-			System.out.println("6 - Voltar");
+			System.out.println("3 - Veículos por seguradora");
+			System.out.println("4 - Seguros por seguradora");
+			System.out.println("5 - Sinistros por cliente");
+			System.out.println("6 - Seguros por cliente");
+			System.out.println("7 - Veículos por cliente");
+			System.out.println("8 - Condutores por seguro");
+			System.out.println("9 - Sinistros por seguro");
+			System.out.println("10 - Voltar");
 	
 			e = scanner.nextInt();
 			scanner.nextLine();
@@ -214,9 +218,12 @@ public class Menu {
 	
 			System.out.println("O que você deseja excluir?");
 			System.out.println("1 - Cliente");
-			System.out.println("2 - Veículo");
-			System.out.println("3 - Sinistro");
-			System.out.println("4 - Voltar");
+			System.out.println("2 - Frota");
+			System.out.println("3 - Veículo");
+			System.out.println("4 - Seguro");
+			System.out.println("5 - Condutor");
+			System.out.println("6 - Sinistro");
+			System.out.println("7 - Voltar");
 	
 			f = scanner.nextInt();
 			scanner.nextLine();
@@ -252,5 +259,5 @@ public class Menu {
 			System.out.println("Opção inválida!");
 		}
 	}
-	*/
+	
 }

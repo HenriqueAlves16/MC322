@@ -55,7 +55,7 @@ public abstract class Cliente {
 	//toString:
 	@Override
 	public String toString() {
-		return getNome() + " - " + getDocumento();
+		return getNome() + " (" + getDocumento() + ")";
 	}
 
 	

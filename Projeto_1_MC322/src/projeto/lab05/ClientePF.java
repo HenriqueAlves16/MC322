@@ -134,7 +134,7 @@ public class ClientePF extends Cliente {
 	public void visualizarVeiculos() {
 		int i = 0;
 		for(Veiculo veiculo : listaVeiculos) {
-			System.out.println("* Veículo " + ++i + ":" + veiculo.toString());
+			System.out.println("* Veículo " + ++i + ": " + veiculo.toString());
 		}
 	}
 }

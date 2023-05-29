@@ -231,7 +231,6 @@ public class ClientePJ extends Cliente {
 			for(Veiculo veiculo : frota.getListaVeiculos()) {
 				System.out.println("    - " + veiculo.toString());
 			}
-			System.out.println("");
 		}
 	}
 }

@@ -29,9 +29,6 @@ class Main {
 		Frota frota1 = new Frota("frota1", veiculo6);
 		Frota frota2 = new Frota("frota2", listaVeiculosFrota2);
 		Frota frota3 = new Frota("frota3", listaVeiculosFrota3);
-		System.out.println(frota1);
-		System.out.println(frota2);
-		System.out.println(frota3);
 		
 		// Criando clientes:
 		ClientePJ cliente1 = new ClientePJ("Banco dos Sonhos", "São Paulo", "1111-1111", "banco@sonhos.com", "24.808.514/0001-36", "12/12/2010", 100);
@@ -58,16 +55,18 @@ class Main {
 		seguradora1.cadastrarCliente(cliente3);
 		//Seguradora.visualizarClientesPorSeg();
 		
-		// Adicionando veículos para os ClientePF:		
+		// Adicionando frotas e veículos para os clientes:	
+		cliente1.cadastrarFrota(frota1);
+		cliente1.cadastrarFrota(frota2);
+		cliente1.cadastrarFrota(frota3);
+		
 		cliente2.cadastrarVeiculo(veiculo1);
 		cliente2.cadastrarVeiculo(veiculo2);
 
 		cliente3.cadastrarVeiculo(veiculo3);
 		
-		//Adicionando as frotas para o clientePJ:
-		cliente1.cadastrarFrota(frota1);
-		cliente1.cadastrarFrota(frota2);
-		cliente1.cadastrarFrota(frota3);
+		seguradora1.visualizarVeiculosPorCliente();
+		Seguradora.visualizarVeiculosPorSeg();
 
 		//Criando seguros para os clientes:
 		SeguroPJ seguro1 = new SeguroPJ("10/02/2015", "14/09/2015", seguradora1, frota2, cliente1);
@@ -122,7 +121,9 @@ class Main {
 		Sinistro sinistro3 = new Sinistro("14/07/2023", "Monte Verde", condutor1, seguro3);
 		Sinistro sinistro4 = new Sinistro("24/10/2022", "Extrema", condutor3, seguro1);
 		System.out.println("");
+		
 		seguradora1.visualizarSinistrosPorCliente();
+		Seguradora.visualizarSinistrosPorSeg();
 
 		/*
 		// Calculando a receita total da seguradora:

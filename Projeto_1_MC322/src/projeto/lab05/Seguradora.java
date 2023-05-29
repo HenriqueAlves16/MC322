@@ -171,16 +171,16 @@ public class Seguradora {
 	}
 	
 	//Método que encontra uma frota a partir de seu código:
-		public Frota encontraVeiculo(String code, ClientePJ cliente) {
-			Frota frota = null;
-			for(int i = 0; i < cliente.getListaFrotas().size(); i++) {
-				if((cliente.getListaFrotas().get(i).getCode()).equals(code)) {
-					frota = cliente.getListaFrotas().get(i);
-					break;
-				}
+	public Frota encontraVeiculo(String code, ClientePJ cliente) {
+		Frota frota = null;
+		for(int i = 0; i < cliente.getListaFrotas().size(); i++) {
+			if((cliente.getListaFrotas().get(i).getCode()).equals(code)) {
+				frota = cliente.getListaFrotas().get(i);
+				break;
 			}
-			return frota;
 		}
+		return frota;
+	}
 	
 	//Método que cadastra um seguro na lista de seguros deste Seguradora. Se o seguro já está cadastrado, retorna false. Retorna true caso contrário:
 	public boolean cadastrarSeguro(Seguro seguro) {
@@ -331,18 +331,18 @@ public class Seguradora {
 		ArrayList<Sinistro> listaSinistrosPorCliente = getSinistrosPorCliente();
 		//Caso em que não há clientes cadastrados:
 		if(listaClientes.isEmpty()) {
-			System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome() + ":");
+			System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome() + ".");
 			return;
 		}
 		
 		//Caso em que nenhum cliente possui sinistro:
 		if(listaSinistrosPorCliente.isEmpty()) {
-			System.out.println("Nenhum sinistro para clientes da seguradora " + this.getNome());
+			System.out.println("Nenhum sinistro para clientes da seguradora " + this.getNome() + ".");
 			return;
 		}
 		
 		//Caso em que há sinistros:
-		System.out.println("Lista de sinistros por cliente da seguradora " + this.getNome());
+		System.out.println("Lista de sinistros por cliente da seguradora " + this.getNome() + ":\n");
 		for(Cliente clienteSeguradora : getListaClientes()) {
 			boolean temSinistro = false;
 			String documentoClienteSeguradora = clienteSeguradora.getDocumento();
@@ -436,6 +436,7 @@ public class Seguradora {
 		return null;
 	}
 
+	
 	//Método que imprime os sinistros por seguradora:
 	public static void visualizarSinistrosPorSeg() {
 		for(Seguradora seguradora: listaSeguradoras) {
@@ -463,7 +464,9 @@ public class Seguradora {
 		
 		//Caso de clientes cadastrados:
 		for (Cliente cliente : listaClientes) {
+			System.out.println("Veículos do cliente " + cliente + ":");
 			cliente.visualizarVeiculos();
+			System.out.println("");
 		}
 	}
 	// Método que lista todos os veículos cadastrados na seguradora:
@@ -478,6 +481,8 @@ public class Seguradora {
 			}
 		}
 	}
+	
+	//Método que calcula a receita total da seguradora:
 	
 	//Método que calcula a receita total da seguradora:
 	public double calcularReceitaSeguradora() {

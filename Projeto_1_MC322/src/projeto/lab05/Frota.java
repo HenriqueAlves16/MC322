@@ -44,6 +44,30 @@ public class Frota {
 
 	
 	//Métodos:
+	//Método que cria uma frota a partir do input:
+	public static Frota criarFrota() {
+		Scanner scanner = new Scanner(System.in);
+		ArrayList<Veiculo> listaVeiculos = new ArrayList<Veiculo>();
+		
+		System.out.println("Digite a o código da frota:");
+		String code = scanner.nextLine();
+		
+		System.out.println("Digite a quantidade de veículos que você deseja cadastrar na frota:");
+		int i = 0, qtd = scanner.nextInt();
+		
+		scanner.nextLine();
+		do {
+			System.out.println("Veiculo " + i + ":");
+			Veiculo veiculo = Veiculo.criaVeiculo();
+			listaVeiculos.add(veiculo);
+			i++;
+		}	while(i < qtd);
+		
+		System.out.println("Frota criada com sucesso!\n");
+		Frota frota = new Frota(code, listaVeiculos);
+		return frota;
+	}
+	
 	
 	// Método que cadastra um veículo na lista de veículos da Frota:
 	public boolean adicionarVeiculo(Veiculo veiculo) {

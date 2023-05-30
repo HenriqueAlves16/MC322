@@ -158,6 +158,38 @@ public class Seguradora {
 		}
 	}
 	
+	//Método que atualiza a frota de um ClientePJ:
+	public void atualizarFrota(MenuOperacoes op) {
+		System.out.println("Digite o CNPJ do cliente com quem você deseja operar:");
+		Scanner scanner = new Scanner(System.in);
+		String cnpj = Validacao.recebeDocumentoValido();
+		ClientePJ cliente = (ClientePJ)Seguradora.encontraCliente(cnpj);
+		switch(op) {
+			case ATUALIZAR_FROTA:
+				cliente.atualizarFrota();
+				break;
+			case CADASTRAR_FROTA:
+				cliente.cadastrarFrota(Frota.criarFrota());
+				break;
+			default:
+				System.out.println("Operação inválida.");
+		}
+	}
+	
+	//Método que cadastra um veículo para um cliente:
+	public void cadastrarVeiculo() {
+		System.out.println("Digite o documento do cliente com quem você deseja operar:");
+		Scanner scanner = new Scanner(System.in);
+		String documento = Validacao.recebeDocumentoValido();
+		Cliente cliente = Seguradora.encontraCliente(documento);
+		try {
+			((ClientePF)cliente).cadastrarVeiculo(Veiculo.criaVeiculo());
+		} catch (ClassCastException e) {
+			System.out.println("Esta operação vale apenas para clientes do tipo pessoa física.");
+			System.out.println("Para cadastrar um veículo em uma frota, acesse a operação 'Atualizar frota'.");
+		}
+	}
+	
 	//Método que encontra um veículo a partir de sua placa:
 	public Veiculo encontraVeiculo(String placa, ClientePF cliente) {
 		Veiculo veiculo = null;

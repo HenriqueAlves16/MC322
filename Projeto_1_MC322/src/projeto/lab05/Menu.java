@@ -81,6 +81,9 @@ public class Menu {
 			case EXCLUIR:
 				exibirSubMenuExcluir();
 				break;
+			case ATUALIZAR_FROTA:
+				seguradoraAtiva.atualizarFrota(operacao);
+				break;
 			case TRANSFERIR_SEGURO:
 				//seguradoraAtiva.transferirSeguro();
 				break;
@@ -134,8 +137,20 @@ public class Menu {
 			case CADASTRAR_CLIENTE:
 				seguradoraAtiva.cadastrarCliente(Cliente.criaCliente());
 				break;
+			case CADASTRAR_FROTA:
+				seguradoraAtiva.atualizarFrota(operacao);
+				break;
 			case CADASTRAR_VEICULO:
 				seguradoraAtiva.cadastrarVeiculo();
+				break;
+			case CADASTRAR_SEGURO:
+				seguradoraAtiva.cadastrarSeguro();
+				break;
+			case CADASTRAR_CONDUTOR:
+				seguradoraAtiva.cadastrarCondutor();
+				break;
+			case CADASTRAR_SINISTRO:
+				Seguradora.cadastrarSinistro();
 				break;
 			case CADASTRAR_SEGURADORA:
 				Seguradora.cadastrarSeguradora();
@@ -191,15 +206,26 @@ public class Menu {
 		case LISTAR_SINISTROS_POR_SEG:
 			Seguradora.visualizarSinistrosPorSeg();
 			break;
+		case LISTAR_VEICULOS_POR_SEG:	
+			seguradoraAtiva.visualizarSinistrosPorCliente();
+			break;
+		case LISTAR_SEGUROS_POR_SEG:	
+			seguradoraAtiva.visualizarSinistrosPorCliente();
+			break;
 		case LISTAR_SINISTROS_POR_CLIENTE:	
 			seguradoraAtiva.visualizarSinistrosPorCliente();
 			break;
-		case LISTAR_VEICULOS_POR_CLIENTE:
+		case LISTAR_SEGUROS_POR_CLIENTE:
 			seguradoraAtiva.listaVeiculosCliente();
 			break;
-		case LISTAR_VEICULOS_POR_SEG:
+		case LISTAR_VEICULOS_POR_CLIENTE:
 			Seguradora.listaVeiculosPorSeg();
-			
+			break;
+		case LISTAR_CONDUTORES_POR_SEGURO:
+			Seguradora.listaVeiculosPorSeg();
+			break;
+		case LISTAR_SINISTROS_POR_SEGURO:
+			Seguradora.listaVeiculosPorSeg();
 			break;
 		case VOLTAR_LISTAR:
 			break;
@@ -247,8 +273,17 @@ public class Menu {
 		case EXCLUIR_CLIENTE:
 			seguradoraAtiva.excluirCliente();
 			break;
+		case EXCLUIR_FROTA:
+			seguradoraAtiva.excluirVeiculo();
+			break;
 		case EXCLUIR_VEICULO:
 			seguradoraAtiva.excluirVeiculo();
+			break;
+		case EXCLUIR_SEGURO:
+			seguradoraAtiva.excluirVeiculo();
+			break;
+		case EXCLUIR_CONDUTOR:
+			seguradoraAtiva.excluirSinistro();
 			break;
 		case EXCLUIR_SINISTRO:
 			seguradoraAtiva.excluirSinistro();

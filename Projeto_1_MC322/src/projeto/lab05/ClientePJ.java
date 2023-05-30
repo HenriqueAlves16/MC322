@@ -182,11 +182,11 @@ public class ClientePJ extends Cliente {
 		scanner.nextLine();
 		
 		switch(op) {
-			case 1:
+			case '1':
 				return leituraAdicionaVeiculo();
-			case 2:
+			case '2':
 				return leituraRemoveVeiculo();
-			case 3:
+			case '3':
 				return leituraRemoveFrota();
 		}
 		return false;

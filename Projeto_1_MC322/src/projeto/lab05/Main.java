@@ -5,7 +5,7 @@ class Main {
 	public static void main(String[] args) {
 		
 		// Criando veículos:
-		Veiculo veiculo1 = new Veiculo("ABC0001", "Volkswagen", "Gol", 1990);
+		/*Veiculo veiculo1 = new Veiculo("ABC0001", "Volkswagen", "Gol", 1990);
 		Veiculo veiculo2 = new Veiculo("DEF0002", "Fiat", "Uno",  2015);
 		Veiculo veiculo3 = new Veiculo("GHI0003", "Chevrolet", "Ônix", 2020);
 		Veiculo veiculo4 = new Veiculo("JKL0004", "Volkswagen", "Fusca",  2000);
@@ -125,14 +125,14 @@ class Main {
 		seguradora1.visualizarSinistrosPorCliente();
 		Seguradora.visualizarSinistrosPorSeg();
 
-		/*
+		
 		// Calculando a receita total da seguradora:
 		seguradora1.calcularReceitaSeguradora();
-		
+		*/
 		// Chamando o menu interativo. Note que ainda nenhuma seguradoraa foi cadastrada na lista de seguradoras
 		Menu menu = new Menu();
 	    menu.exibirMenuPrincipal();
 	    System.out.println("Programa finalizado.");
-	    */
+	    
 	}
 }

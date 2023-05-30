@@ -78,23 +78,23 @@ public abstract class Cliente {
 			System.out.println("Tipo inválido. O tipo de cliente deve ser 'PF' ou 'PJ'. Digite novamente.");
 			tipo = scanner.nextLine();
 		}
-		
+
 		// Caso tipo == "PF"
 		if (tipo.equals("PF")) {
-			System.out.println("Digite a escolaridade, gênero, classe econômica, CPF e data de nascimento (dd/mm/aaaa) do cliente, respectivamente:");
+			System.out.println("Digite CPF, gênero, escolaridade e data de nascimento (dd/mm/aaaa) do cliente, respectivamente:");
 
-			String educacao = scanner.nextLine();
-			String genero = scanner.nextLine();
-			String classeEconomica = scanner.nextLine();
 			String cpf = Validacao.recebeDocumentoValido();
+			String genero = scanner.nextLine();
+			String escolaridade = scanner.nextLine();
 			String dataNascimento = scanner.nextLine();
 
-			cliente = new ClientePF(nome, endereco, telefone, email, cpf, genero, educacao, dataNascimento);
+			cliente = new ClientePF(nome, endereco, telefone, email, cpf, genero, escolaridade, dataNascimento);
+		
 		//Caso tipo == "PJ"
 		} else {
 			System.out.println("Digite o CNPJ, a data de fundação (dd/mm/aaaa) e a quantidade de funcionários da instituição, respectivamente:");
 
-			String cnpj = scanner.nextLine();
+			String cnpj = Validacao.recebeDocumentoValido();
 			String dataFundacao = scanner.nextLine();
 			int qtdFuncionarios = scanner.nextInt();
 			scanner.nextLine();

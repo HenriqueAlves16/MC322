@@ -1,5 +1,6 @@
 package projeto.lab05;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.StringJoiner;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Seguradora {
 	private String email;
 	private ArrayList<Cliente> listaClientes;
 	private ArrayList<Seguro> listaSeguros;
-	private static LinkedList<Seguradora> listaSeguradoras;
+	private static ArrayList<Seguradora> listaSeguradoras;
 
 	
 	// Construtor
@@ -28,7 +29,7 @@ public class Seguradora {
 		this.listaClientes = new ArrayList<Cliente>();
 		
 		if (listaSeguradoras == null) {
-			listaSeguradoras = new LinkedList<>();
+			listaSeguradoras = new ArrayList<Seguradora>();
 		}		
 	}
 	
@@ -81,11 +82,11 @@ public class Seguradora {
 		this.listaSeguros = listaSeguros;
 	}
 
-	public static LinkedList<Seguradora> getListaSeguradoras() {
+	public static ArrayList<Seguradora> getListaSeguradoras() {
 		return listaSeguradoras;
 	}
 
-	public static void setListaSeguradoras(LinkedList<Seguradora> listaSeguradoras) {
+	public static void setListaSeguradoras(ArrayList<Seguradora> listaSeguradoras) {
 		Seguradora.listaSeguradoras = listaSeguradoras;
 	}
 
@@ -181,19 +182,31 @@ public class Seguradora {
 	
 	//Método que atualiza a frota de um ClientePJ:
 	public void atualizarFrota(MenuOperacoes op) {
+		if(getListaClientes().isEmpty()) {
+			System.out.println("Nenhum cliente cadastrado na seguradora " + this.getNome() + ".");
+			return;
+		}
+		
 		System.out.println("Digite o CNPJ do cliente com quem você deseja operar:");
 		Scanner scanner = new Scanner(System.in);
 		String cnpj = Validacao.recebeDocumentoValido();
-		ClientePJ cliente = (ClientePJ)Seguradora.encontraCliente(cnpj);
-		switch(op) {
-			case ATUALIZAR_FROTA:
-				cliente.atualizarFrota();
-				break;
-			case CADASTRAR_FROTA:
-				cliente.cadastrarFrota(Frota.criarFrota());
-				break;
-			default:
-				System.out.println("Operação inválida.");
+		Cliente cliente = encontraCliente(cnpj);
+		try {
+			ClientePJ clientePJ = (ClientePJ)cliente;
+			switch(op) {
+				case ATUALIZAR_FROTA:
+					clientePJ.atualizarFrota();
+					break;
+				case CADASTRAR_FROTA:
+					clientePJ.cadastrarFrota(Frota.criarFrota());
+					break;
+				default:
+					System.out.println("Operação inválida.");
+			}
+		} catch(NullPointerException e) {
+			return;
+		}	catch(ClassCastException e) {
+			System.out.println("CNPJ inválido.");
 		}
 	}
 	
@@ -291,17 +304,32 @@ public class Seguradora {
 	//Método que exclui um seguro a partir de dados do input:
 	public void leituraExcluirSeguro() {
 		Scanner scanner = new Scanner(System.in);
+		int id;
 		
 		System.out.println("Digite o ID do seguro que você deseja excluir:");
-		int id = scanner.nextInt();
+		try {
+			id = scanner.nextInt();
+		} catch (InputMismatchException e) {
+			System.out.println("O ID deve ser um inteiro.");
+			return;
+		}
 		scanner.nextLine();
 		
 		Seguro seguro = encontraSeguro(id);
-		cancelarSeguro(seguro);
+		if(cancelarSeguro(seguro)) {
+			System.out.println("Seguro removido com sucesso!");
+		}	else {
+			System.out.println("Falha ao excluir o seguro.");
+		}
 	}
 	
 	//Método que exclui um veículo a partir de informações do input:
 	public void excluirVeiculo() {
+		if(getListaClientes().isEmpty()) {
+			System.out.println("Nenhum cliente cadastrado na seguradora " + getNome() + ".");
+			return;
+		}
+		
 		System.out.println("Digite o CPF do cliente que você deseja excluir o veículo:");
 		String cpf = Validacao.recebeDocumentoValido();
 		Cliente cliente = encontraCliente(cpf);
@@ -311,6 +339,8 @@ public class Seguradora {
 		} catch (ClassCastException e) {
 			System.out.println("Esta operação vale apenas para clientes do tipo pessoa física.");
 			System.out.println("Para excluir um veículo de uma frota, acesse a operação 'Atualizar frota'.");
+		} catch (NullPointerException e) {
+			System.out.println("Cliente não encontrado.");
 		}
 	
 	}
@@ -318,13 +348,20 @@ public class Seguradora {
 	//Método que desautoriza um condutor em um seguro:
 	public void excluirCondutor() {
 		Scanner scanner = new Scanner(System.in);
+		int id;
 		
 		System.out.println("Digite o CPF do condutor que será excluído:");
 		String cpf = scanner.nextLine();
 		
 		System.out.println("Digite o ID do seguro relativo ao condutor que será excluído:");
-		int id = scanner.nextInt();
-		scanner.nextLine();
+		try {
+			id = scanner.nextInt();
+		} catch(InputMismatchException e) {
+			System.out.println("O ID deve ser um inteiro.");
+			return;
+		} finally {
+			scanner.nextLine();
+		}
 		
 		Seguro seguro = encontraSeguro(id);
 		Condutor condutor = seguro.encontraCondutor(cpf);
@@ -391,6 +428,11 @@ public class Seguradora {
 	
 	//Método que remove um cliente da lista de clientes. Se o nome do cliente dado na entrada for válido, retorna true; caso contrário, retorna false.
 	public boolean excluirCliente() {
+		if(getListaClientes().isEmpty()) {
+			System.out.println("Nenhum cliente cadastrado na seguradora " + getNome() + ".");
+			return false;
+		}
+		
 		System.out.println("Digite o documento do cliente que você deseja excluir:");
 		String documento = Validacao.recebeDocumentoValido();
 		
@@ -515,6 +557,10 @@ public class Seguradora {
 	
 	//Método que imprime os condutores autorizados por seguro:
 	public void visualizarCondutoresPorSeguro() {
+		if(getListaSeguros().isEmpty()) {
+			System.out.println("Nenhum seguro cadastrado na seguradora " + getNome() + ".");
+			return;
+		}
 		for(Seguro seguro : getListaSeguros()) {
 			seguro.visualizarListaCondutores();
 		}
@@ -522,6 +568,10 @@ public class Seguradora {
 	
 	//Método que imprime os sinistros por seguro:
 	public void visualizarSinistrosPorSeguro() {
+		if(getListaSeguros().isEmpty()) {
+			System.out.println("Nenhum seguro cadastrado na seguradora " + getNome() + ".");
+			return;
+		}
 		for(Seguro seguro : getListaSeguros()) {
 			seguro.visualizarListaSinistros();
 		}
@@ -562,7 +612,12 @@ public class Seguradora {
 		Scanner scanner = new Scanner(System.in);
 		int IdExcluir;
 		System.out.println("Digite o ID do sinistro que você deseja excluir:");
-		IdExcluir = scanner.nextInt();
+		try {
+			IdExcluir = scanner.nextInt();
+		} catch (InputMismatchException e) {
+			System.out.println("O ID deve ser um inteiro.");
+			return false;
+		}
 		
 		// Encontrando o sinistro a partir do ID e excluindo-o:
 		for(int i = 0; i < listaSeguros.size(); i++) {

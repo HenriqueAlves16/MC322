@@ -8,7 +8,12 @@ public class Menu {
 	
 	//Verifica se alguma seguradora está cadastrada. Se não houver nenhuma, cadastra uma.
 	public void verificaSeguradoraCadastrada() {
-		if(Seguradora.getListaSeguradoras().isEmpty()) {
+		try {
+			if(Seguradora.getListaSeguradoras().isEmpty()) {
+				System.out.println("Nenhuma seguradora cadastrada. Cadastre uma seguradora para começar.");
+				Seguradora.cadastrarSeguradora();
+			}
+		} catch(NullPointerException e) {
 			System.out.println("Nenhuma seguradora cadastrada. Cadastre uma seguradora para começar.");
 			Seguradora.cadastrarSeguradora();
 		}
@@ -17,6 +22,11 @@ public class Menu {
 	// Definindo uma seguradora ativa:
 	public Seguradora definirSeguradoraAtiva() {
 		Scanner scanner = new Scanner(System.in);
+		if(Seguradora.getListaSeguradoras().size() == 1) {
+			Seguradora seguradora = Seguradora.getListaSeguradoras().get(0);
+			System.out.println("Seguradora " + seguradora.getNome() + " definida como ativa.");
+			return seguradora;
+		}
 		
 		System.out.println("Digite o nome da seguradora com a qual você deseja fazer as operações: ");
 		String nomeSeguradora = scanner.nextLine();
@@ -53,9 +63,10 @@ public class Menu {
 			System.out.println("1 - Cadastro");
 			System.out.println("2 - Listar");
 			System.out.println("3 - Excluir");
-			System.out.println("4 - Transferir seguro");
-			System.out.println("5 - Calcular a receita da seguradora");
-			System.out.println("6 - Alterar a seguradora ativa");
+			System.out.println("4 - Atualizar Frota");
+			System.out.println("5 - Transferir Seguro");
+			System.out.println("6 - Calcular a receita da seguradora");
+			System.out.println("7 - Alterar a seguradora ativa");
 			System.out.println("0 - Sair");
 	
 			c = scanner.nextInt();
@@ -88,7 +99,7 @@ public class Menu {
 				//seguradoraAtiva.transferirSeguro();
 				break;
 			case CALCULAR_RECEITA_SEGURADORA:
-				seguradoraAtiva.calcularReceitaSeguradora();
+				seguradoraAtiva.visualizarReceita();
 				break;
 			case ALTERAR_SEGURADORA_ATIVA:
 				seguradoraAtiva = definirSeguradoraAtiva();
@@ -244,12 +255,11 @@ public class Menu {
 	
 			System.out.println("O que você deseja excluir?");
 			System.out.println("1 - Cliente");
-			System.out.println("2 - Frota");
-			System.out.println("3 - Veículo");
-			System.out.println("4 - Seguro");
-			System.out.println("5 - Condutor");
-			System.out.println("6 - Sinistro");
-			System.out.println("7 - Voltar");
+			System.out.println("2 - Veículo");
+			System.out.println("3 - Seguro");
+			System.out.println("4 - Condutor");
+			System.out.println("5 - Sinistro");
+			System.out.println("6 - Voltar");
 	
 			f = scanner.nextInt();
 			scanner.nextLine();

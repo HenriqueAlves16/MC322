@@ -158,6 +158,27 @@ public class Seguradora {
 		}
 	}
 	
+	//Método que imprime todos os seguros por seguradora:
+	public static void visualizarSegurosPorSeg() {
+		Scanner scanner = new Scanner(System.in);
+		String tipoSeguro;
+		
+		for(Seguradora seguradora : listaSeguradoras) {
+			int i = 1;
+			//Caso de nenhum cliente cadastrado:
+			if(seguradora.listaClientes.isEmpty()) {
+				System.out.println("Nenhum cliente cadastrado na seguradora " + seguradora.getNome() + ".");
+				continue;
+			}
+						
+			System.out.println("Lista de seguros da seguradora " + seguradora.getNome() + ":");
+			for(Seguro seguro : seguradora.getListaSeguros()) {
+				System.out.println("* Seguro " + i++ + ":");
+				System.out.println(seguro + "\n");
+			}			
+		}
+	}
+	
 	//Método que atualiza a frota de um ClientePJ:
 	public void atualizarFrota(MenuOperacoes op) {
 		System.out.println("Digite o CNPJ do cliente com quem você deseja operar:");
@@ -440,6 +461,20 @@ public class Seguradora {
 		}
 	}
 	
+	//Método que imprime os condutores autorizados por seguro:
+	public void visualizarCondutoresPorSeguro() {
+		for(Seguro seguro : getListaSeguros()) {
+			seguro.visualizarListaCondutores();
+		}
+	}
+	
+	//Método que imprime os sinistros por seguro:
+	public void visualizarSinistrosPorSeguro() {
+		for(Seguro seguro : getListaSeguros()) {
+			seguro.visualizarListaSinistros();
+		}
+	}
+	
 	//Método que cria uma seguradora a partir do input:
 	public static Seguradora criaSeguradora() {
 		Scanner scanner = new Scanner(System.in);
@@ -525,6 +560,7 @@ public class Seguradora {
 	}
 
 	// Método que imprime os veículos por cliente da seguradora:
+	//Método que imprime os veículos por cliente cadastrado na seguradora:
 	public void visualizarVeiculosPorCliente() {
 		// Caso de nenhum cliente cadastrado
 		if(listaClientes.isEmpty()) {
@@ -539,6 +575,7 @@ public class Seguradora {
 			System.out.println("");
 		}
 	}
+	
 	// Método que lista todos os veículos cadastrados na seguradora:
 	
 	//Método que imprime todos os veículos relacionados a cada seguradora
@@ -555,6 +592,7 @@ public class Seguradora {
 	//Método que calcula a receita total da seguradora:
 	
 	//Método que calcula a receita total da seguradora:
+	//Método que calcula a receita total da seguradora
 	public double calcularReceitaSeguradora() {
 		double receita = 0;
 		DecimalFormat formato = new DecimalFormat("0.00");

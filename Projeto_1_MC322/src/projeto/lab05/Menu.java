@@ -207,25 +207,25 @@ public class Menu {
 			Seguradora.visualizarSinistrosPorSeg();
 			break;
 		case LISTAR_VEICULOS_POR_SEG:	
-			seguradoraAtiva.visualizarSinistrosPorCliente();
+			Seguradora.visualizarVeiculosPorSeg();
 			break;
 		case LISTAR_SEGUROS_POR_SEG:	
-			seguradoraAtiva.visualizarSinistrosPorCliente();
+			Seguradora.visualizarSegurosPorSeg();
 			break;
 		case LISTAR_SINISTROS_POR_CLIENTE:	
 			seguradoraAtiva.visualizarSinistrosPorCliente();
 			break;
 		case LISTAR_SEGUROS_POR_CLIENTE:
-			seguradoraAtiva.listaVeiculosCliente();
+			seguradoraAtiva.visualizarSegurosCliente();
 			break;
 		case LISTAR_VEICULOS_POR_CLIENTE:
-			Seguradora.listaVeiculosPorSeg();
+			seguradoraAtiva.visualizarVeiculosPorCliente();
 			break;
 		case LISTAR_CONDUTORES_POR_SEGURO:
-			Seguradora.listaVeiculosPorSeg();
+			seguradoraAtiva.visualizarCondutoresPorSeguro();
 			break;
 		case LISTAR_SINISTROS_POR_SEGURO:
-			Seguradora.listaVeiculosPorSeg();
+			seguradoraAtiva.visualizarSinistrosPorSeguro();
 			break;
 		case VOLTAR_LISTAR:
 			break;

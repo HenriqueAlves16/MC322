@@ -112,6 +112,22 @@ public abstract class Seguro {
 		System.out.println("");
 	}	
 	
+	//Método que imprime a lista de sinistros do seguro:
+		public void visualizarListaSinistros() {
+			int i = 0;
+			if(getListaSinistros().size() == 0) {
+				System.out.println("Nenhum sinistro para o seguro de ID " + getID() + ".");
+				return;
+			}
+			
+			System.out.println("Lista de sinistros do seguro de ID " + getID() + ":");
+			
+			for(Sinistro sinistro : getListaSinistros()) {
+				System.out.println("Sinistro " + ++i + ": " + sinistro);
+			}
+			System.out.println("");
+		}	
+	
 	//Método que calcula a quantidade de sinistros de todas as pessoas na lista de condutores:
 	public int quantidadeSinistrosCondutores(ArrayList<Condutor> listaCondutores) {
 		int qtdSinistros = 0;

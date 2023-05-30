@@ -213,7 +213,7 @@ public class Seguradora {
 		}
 		return frota;
 	}
-	
+
 	//Método que cadastra um seguro na lista de seguros deste Seguradora. Se o seguro já está cadastrado, retorna false. Retorna true caso contrário:
 	public boolean cadastrarSeguro(Seguro seguro) {
 		ArrayList<Seguro> listaSeguros = getListaSeguros();
@@ -240,8 +240,7 @@ public class Seguradora {
 		String documento = Validacao.recebeDocumentoValido();
 		Cliente cliente = encontraCliente(documento);
 		
-		//Documento válido com tamanho 14 é um CPF (com pontuação). Se tem outro tamanho, é CNPJ
-		if(documento.length() == 14) {
+		if(cliente instanceof ClientePF) {
 			System.out.println("Digite a placa do veículo cujo seguro será feito");
 			String placa = scanner.nextLine();
 			Veiculo veiculo = encontraVeiculo(placa, (ClientePF) cliente);
@@ -268,6 +267,29 @@ public class Seguradora {
 		return true;
 	}
 	
+	//Método que encontra um seguro a partir de seu ID:
+	public Seguro encontraSeguro(int ID) {
+		for(int i = 0; i < listaSeguros.size(); i++) {
+			if(listaSeguros.get(i).getID() == ID) {
+				return listaSeguros.get(i);
+			}
+		}
+		return null;
+	}
+	
+	//Método que, a partir de informações do input, cadastra um condutor em um seguro:
+	public void cadastrarCondutor() {
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite o ID do seguro em que o condutor será cadastrado");
+		int id = scanner.nextInt();
+		scanner.nextLine();
+		
+		Seguro seguro = encontraSeguro(id);
+		seguro.autorizarCondutor(Condutor.criaCondutor());
+	}
+	
+	
 	// Método que cadastra um novo cliente na seguradora
 	public boolean cadastrarCliente(Cliente novoCliente) {
 		if (listaClientes.contains(novoCliente)) {
@@ -279,6 +301,20 @@ public class Seguradora {
 
 		return true;
 	}
+	
+	//Método que cadastra um novo sinistro em um seguro da Seguradora, a partir de dados do input:
+	public void cadastrarSinistro() {
+		Scanner scanner = new Scanner(System.in);
+		int IDSin;
+		
+		System.out.println("Digite o ID do seguro relacionado ao sinistro:");
+		IDSin = scanner.nextInt();
+		scanner.nextLine();
+		
+		Seguro seguro = encontraSeguro(IDSin);
+		seguro.gerarSinistro();
+	}
+	
 	
 	//Método que remove um cliente da lista de clientes. Se o nome do cliente dado na entrada for válido, retorna true; caso contrário, retorna false.
 	public boolean excluirCliente() {
@@ -433,6 +469,8 @@ public class Seguradora {
 	}
 
 	//Método que remove um sinistro a partir de seu ID. Se o ID for válido, retorna true. Caso contrário, retorna false.
+	
+	//Método que, a partir de informaçõe do input. exclui um sinistro:
 	public boolean excluirSinistro() {
 		Scanner scanner = new Scanner(System.in);
 		int IdExcluir;

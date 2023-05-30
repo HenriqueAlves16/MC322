@@ -2,6 +2,7 @@ package projeto.lab05;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import java.time.LocalDate;
 
@@ -89,9 +90,26 @@ public class Condutor {
 	
 	//Métodos:
 	
+	//Método que cria um objeto Condutor a partir do input:
+	public static Condutor criaCondutor() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Digite o CPF do condutor:");
+		String cpf = Validacao.recebeDocumentoValido();
+		System.out.println("Digite o nome, telefone, endereço, email e data de nascimento (dd/mm/aaaa) do condutor:");
+		String nome = scanner.nextLine();
+		String telefone = scanner.nextLine();
+		String endereco = scanner.nextLine();
+		String email = scanner.nextLine();
+		String dataNascimento = scanner.nextLine();
+		
+		Condutor condutor = new Condutor(cpf, nome, telefone, endereco, email, dataNascimento);
+		return condutor;
+	}
+
+	
 	//Método que adiciona um sinistro na lista de sinistros:
-	public boolean adicionarSinistro() {
-		return true;
+	public void adicionarSinistro(Sinistro sinistro) {
+		this.listaSinistros.add(sinistro);
 	}
 	
 	public String getIdentificacao() {

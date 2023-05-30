@@ -48,7 +48,7 @@ public class SeguroPF extends Seguro {
 	public boolean gerarSinistro() {
 		Scanner scanner = new Scanner(System.in);
 		
-		System.out.println("Digite, respectivamente, a data (dd/mm/aaaa), endereço, número do documento do condutor relativo ao sinistro:");
+		System.out.println("Digite, respectivamente, a data (dd/mm/aaaa), endereço e número do documento do condutor relativos ao sinistro:");
 		String data = scanner.nextLine();
 		String endereco = scanner.nextLine();
 		String documento = Validacao.recebeDocumentoValido();

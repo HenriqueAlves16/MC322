@@ -144,13 +144,13 @@ public class Menu {
 				seguradoraAtiva.cadastrarVeiculo();
 				break;
 			case CADASTRAR_SEGURO:
-				seguradoraAtiva.cadastrarSeguro();
+				seguradoraAtiva.gerarSeguro();
 				break;
 			case CADASTRAR_CONDUTOR:
 				seguradoraAtiva.cadastrarCondutor();
 				break;
 			case CADASTRAR_SINISTRO:
-				Seguradora.cadastrarSinistro();
+				seguradoraAtiva.cadastrarSinistro();
 				break;
 			case CADASTRAR_SEGURADORA:
 				Seguradora.cadastrarSeguradora();

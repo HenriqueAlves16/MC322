@@ -288,10 +288,64 @@ public class Seguradora {
 		return true;
 	}
 	
+	//Método que exclui um seguro a partir de dados do input:
+	public void leituraExcluirSeguro() {
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite o ID do seguro que você deseja excluir:");
+		int id = scanner.nextInt();
+		scanner.nextLine();
+		
+		Seguro seguro = encontraSeguro(id);
+		cancelarSeguro(seguro);
+	}
+	
+	//Método que exclui um veículo a partir de informações do input:
+	public void excluirVeiculo() {
+		System.out.println("Digite o CPF do cliente que você deseja excluir o veículo:");
+		String cpf = Validacao.recebeDocumentoValido();
+		Cliente cliente = encontraCliente(cpf);
+		try {
+			((ClientePF)cliente).excluirVeiculo();
+			encontraSeguro(cpf).atualizaValorMensal();;
+		} catch (ClassCastException e) {
+			System.out.println("Esta operação vale apenas para clientes do tipo pessoa física.");
+			System.out.println("Para excluir um veículo de uma frota, acesse a operação 'Atualizar frota'.");
+		}
+	
+	}
+	
+	//Método que desautoriza um condutor em um seguro:
+	public void excluirCondutor() {
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Digite o CPF do condutor que será excluído:");
+		String cpf = scanner.nextLine();
+		
+		System.out.println("Digite o ID do seguro relativo ao condutor que será excluído:");
+		int id = scanner.nextInt();
+		scanner.nextLine();
+		
+		Seguro seguro = encontraSeguro(id);
+		Condutor condutor = seguro.encontraCondutor(cpf);
+		
+		seguro.desautorizarCondutor(condutor);
+	}
+	
 	//Método que encontra um seguro a partir de seu ID:
 	public Seguro encontraSeguro(int ID) {
 		for(int i = 0; i < listaSeguros.size(); i++) {
 			if(listaSeguros.get(i).getID() == ID) {
+				return listaSeguros.get(i);
+			}
+		}
+		return null;
+	}
+	
+	//Método que encontra um seguro a partir do documento do cliente:
+	public Seguro encontraSeguro(String documento) {
+		for(int i = 0; i < listaSeguros.size(); i++) {
+			if(listaSeguros.get(i).getCliente().getDocumento().equals(documento)) {
 				return listaSeguros.get(i);
 			}
 		}
@@ -309,7 +363,6 @@ public class Seguradora {
 		Seguro seguro = encontraSeguro(id);
 		seguro.autorizarCondutor(Condutor.criaCondutor());
 	}
-	
 	
 	// Método que cadastra um novo cliente na seguradora
 	public boolean cadastrarCliente(Cliente novoCliente) {
@@ -335,7 +388,6 @@ public class Seguradora {
 		Seguro seguro = encontraSeguro(IDSin);
 		seguro.gerarSinistro();
 	}
-	
 	
 	//Método que remove um cliente da lista de clientes. Se o nome do cliente dado na entrada for válido, retorna true; caso contrário, retorna false.
 	public boolean excluirCliente() {

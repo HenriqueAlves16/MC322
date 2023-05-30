@@ -273,17 +273,14 @@ public class Menu {
 		case EXCLUIR_CLIENTE:
 			seguradoraAtiva.excluirCliente();
 			break;
-		case EXCLUIR_FROTA:
-			seguradoraAtiva.excluirVeiculo();
-			break;
 		case EXCLUIR_VEICULO:
 			seguradoraAtiva.excluirVeiculo();
 			break;
 		case EXCLUIR_SEGURO:
-			seguradoraAtiva.excluirVeiculo();
+			seguradoraAtiva.leituraExcluirSeguro();
 			break;
 		case EXCLUIR_CONDUTOR:
-			seguradoraAtiva.excluirSinistro();
+			seguradoraAtiva.excluirCondutor();
 			break;
 		case EXCLUIR_SINISTRO:
 			seguradoraAtiva.excluirSinistro();

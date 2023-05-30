@@ -110,7 +110,6 @@ public class ClientePF extends Cliente {
 			String placa = (listaVeiculos.get(j)).getPlaca();
 			if(placa.equals(placaExcluir)) {
 				listaVeiculos.remove(j);
-				setListaVeiculos(listaVeiculos);
 				System.out.println("Veículo excluído com sucesso!");
 				return true;
 			}

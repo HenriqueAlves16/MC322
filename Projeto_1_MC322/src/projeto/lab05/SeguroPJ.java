@@ -90,11 +90,11 @@ public class SeguroPJ extends Seguro {
 	//Método que calcula o valor do seguroPJ:
 	public double calcularValor() {
 		double valor;
-		int quantidadeFunc = this.getCliente().getQtdeFuncionarios();
-		int quantidadeVeiculos = qtdVeiculosSegurados();
-		int anosPosFundacao = getCliente().getIdade();
-		int quantidadeSinistrosCliente = quantidadeSinistrosCliente(this.getCliente());
-		int quantidadeSinistrosCondutor = quantidadeSinistrosCondutores(this.getListaCondutores());
+		double quantidadeFunc = this.getCliente().getQtdeFuncionarios();
+		double quantidadeVeiculos = qtdVeiculosSegurados();
+		double anosPosFundacao = getCliente().getIdade();
+		double quantidadeSinistrosCliente = quantidadeSinistrosCliente(this.getCliente());
+		double quantidadeSinistrosCondutor = quantidadeSinistrosCondutores(this.getListaCondutores());
 		
 		valor = CalcSeguro.VALOR_BASE.getNum() * (10 + (quantidadeFunc) / 10) * (1 + 1/(quantidadeVeiculos + 2)) * 
 				(1 + 1/(anosPosFundacao + 2)) * (2 + quantidadeSinistrosCliente / 10) * (5 + quantidadeSinistrosCondutor / 10);

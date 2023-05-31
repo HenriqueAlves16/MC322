@@ -541,15 +541,13 @@ public class Seguradora {
 			boolean temSinistro = false;
 			String documentoClienteSeguradora = clienteSeguradora.getDocumento();
 			System.out.println("* " + clienteSeguradora + ":");
-
+			int i = 0;
 			for(Sinistro sinistro : getSinistrosPorCliente()) {
 				Seguro seguro = sinistro.getSeguro();
 				Cliente clienteSinistro = seguro.getCliente();
-				
 				String documentoClienteSinistro = clienteSinistro.getDocumento();
 				
 				if(documentoClienteSeguradora.equals(documentoClienteSinistro)) {
-					int i = 0;
 					temSinistro = true;
 					DateTimeFormatter formatterSTR = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					String dataSinistroFormatada = (sinistro.getData()).format(formatterSTR);
@@ -731,6 +729,12 @@ public class Seguradora {
 		
 		receitaFormatada = formato.format(receita);
 		return receitaFormatada;
+	}
+	
+	public void atualizarValores() {
+		for(int i = 0; i < listaSeguros.size(); i++) {
+			listaSeguros.get(i).atualizaValorMensal();
+		}		
 	}
 	
 	//Método que imprime a receita da seguradora:

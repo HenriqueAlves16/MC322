@@ -102,9 +102,6 @@ public class SeguroPF extends Seguro {
 		valor = CalcSeguro.VALOR_BASE.getNum() * fatorIdade * (1 + 1/(quantidadeVeiculos + 2)) * 
 				(2 + quantidadeSinistrosCliente/10) * (5 + quantidadeSinistrosCondutor/10);
 		
-		
-		System.out.println(cliente);
-
 		return valor;
 	}
 	

@@ -91,7 +91,7 @@ public class ClientePJ extends Cliente {
 	}
 	
 	//Método que recebe o input para adicionar veículo em alguma frota
-	public boolean leituraAdicionaVeiculo() {
+	public void leituraAdicionaVeiculo() {
 		System.out.println("Escreva o código da frota e as informações do veículo que você deseja adicionar:");
 		Scanner scanner = new Scanner(System.in);
 		String code = scanner.nextLine();
@@ -103,7 +103,6 @@ public class ClientePJ extends Cliente {
 		}	else	{
 			System.out.println("Falha ao adicionar veículo. Tente novamente.");
 		}
-		return sucesso;
 	}
 	
 	//Método que remove veículo da frota:
@@ -142,7 +141,7 @@ public class ClientePJ extends Cliente {
 	
 	//Método que remove veículo da frota:
 	public boolean removeFrota(String code) {
-		ArrayList<Frota> listaFrotas = new ArrayList<Frota>(getListaFrotas());
+		ArrayList<Frota> listaFrotas = getListaFrotas();
 		
 		for(int i = 0; i < listaFrotas.size(); i++) {
 			Frota frota = listaFrotas.get(i);
@@ -160,7 +159,7 @@ public class ClientePJ extends Cliente {
 		System.out.println("Escreva o código da frota que você deseja remover:");
 		Scanner scanner = new Scanner(System.in);
 		String code = scanner.nextLine();
-		boolean sucesso = removeVeiculoFrota(code);
+		boolean sucesso = removeFrota(code);
 		
 		if(sucesso) {
 			System.out.println("Frota removida com sucesso!");
@@ -170,7 +169,7 @@ public class ClientePJ extends Cliente {
 		return sucesso;
 	}
 	
-	public boolean atualizarFrota() {
+	public void atualizarFrota() {
 		Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("Selecione o número da operação que você deseja fazer na frota:");
@@ -182,14 +181,17 @@ public class ClientePJ extends Cliente {
 		scanner.nextLine();
 		
 		switch(op) {
-			case '1':
-				return leituraAdicionaVeiculo();
-			case '2':
-				return leituraRemoveVeiculo();
-			case '3':
-				return leituraRemoveFrota();
+			case 1:
+				leituraAdicionaVeiculo();
+				break;
+			case 2:
+				leituraRemoveVeiculo();
+				break;
+			case 3:
+				leituraRemoveFrota();
+				break;
 		}
-		return false;
+		
 	}
 	
 	//Método que retorna a quantidade de tempo passada após a fundação deste ClientePJ

@@ -119,6 +119,10 @@ class Main {
 		seguradora1.cadastrarSeguro(seguro4);
 		seguradora1.visualizarSegurosCliente();
 
+		//Chamando o método de atualizar a frota:
+		cliente1.atualizarFrota();
+		seguradora1.atualizarValores();
+		
 		// Gerando sinistro:
 		seguradora1.visualizarReceita();
 		
@@ -127,7 +131,7 @@ class Main {
 		Sinistro sinistro3 = new Sinistro("14/07/2023", "Monte Verde", condutor1, seguro3);
 		Sinistro sinistro4 = new Sinistro("24/10/2022", "Extrema", condutor3, seguro1);
 		Sinistro sinistro5 = new Sinistro("24/04/2017", "Belo Horizonte", condutor4, seguro4);
-		
+				
 		seguradora1.visualizarSinistrosPorCliente();
 		Seguradora.visualizarSinistrosPorSeg();
 		
@@ -135,10 +139,26 @@ class Main {
 		// Calculando a receita total da seguradora:
 		seguradora1.visualizarReceita();
 		
+		//Excluindo elementos:
+		seguradora1.cancelarSeguro(seguro4);
+		seguradora1.visualizarReceita();
+		
+		seguradora1.visualizarSinistrosPorCliente();
+		seguradora1.excluirSinistro();
+		seguradora1.visualizarReceita();
+		
+		
+		Seguradora.visualizarSegurosPorSeg();
+		seguradora1.excluirCliente();
+		Seguradora.visualizarSegurosPorSeg();
+		seguradora1.visualizarReceita();
+		
+		
+		
 		// Chamando o menu interativo. Note que ainda nenhuma seguradoraa foi cadastrada na lista de seguradoras
-		//Menu menu = new Menu();
-	    //menu.exibirMenuPrincipal();
-	    //System.out.println("Programa finalizado.");
+		Menu menu = new Menu();
+	    menu.exibirMenuPrincipal();
+	    System.out.println("Programa finalizado.");
 	    
 	}
 }

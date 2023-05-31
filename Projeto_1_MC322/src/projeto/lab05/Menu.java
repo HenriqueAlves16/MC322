@@ -64,9 +64,8 @@ public class Menu {
 			System.out.println("2 - Listar");
 			System.out.println("3 - Excluir");
 			System.out.println("4 - Atualizar Frota");
-			System.out.println("5 - Transferir Seguro");
-			System.out.println("6 - Calcular a receita da seguradora");
-			System.out.println("7 - Alterar a seguradora ativa");
+			System.out.println("5 - Calcular a receita da seguradora");
+			System.out.println("6 - Alterar a seguradora ativa");
 			System.out.println("0 - Sair");
 	
 			c = scanner.nextInt();
@@ -94,9 +93,7 @@ public class Menu {
 				break;
 			case ATUALIZAR_FROTA:
 				seguradoraAtiva.atualizarFrota(operacao);
-				break;
-			case TRANSFERIR_SEGURO:
-				//seguradoraAtiva.transferirSeguro();
+				seguradoraAtiva.atualizarValores();
 				break;
 			case CALCULAR_RECEITA_SEGURADORA:
 				seguradoraAtiva.visualizarReceita();

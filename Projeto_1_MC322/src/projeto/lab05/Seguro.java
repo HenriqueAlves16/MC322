@@ -174,7 +174,6 @@ public abstract class Seguro {
 		if(listaSinistros.contains(sinistro)) {
 			return false;
 		}
-		
 		listaSinistros.add(sinistro);
 		setListaSinistros(listaSinistros);
 		atualizaValorMensal();

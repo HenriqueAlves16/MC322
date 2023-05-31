@@ -87,9 +87,9 @@ public class SeguroPF extends Seguro {
 		double valor;
 		int idade = getCliente().getIdade();
 		double fatorIdade;
-		int quantidadeVeiculos = qtdVeiculosSegurados();
-		int quantidadeSinistrosCliente = quantidadeSinistrosCliente(this.getCliente());
-		int quantidadeSinistrosCondutor = quantidadeSinistrosCondutores(this.getListaCondutores());
+		double quantidadeVeiculos = qtdVeiculosSegurados();
+		double quantidadeSinistrosCliente = quantidadeSinistrosCliente(this.getCliente());
+		double quantidadeSinistrosCondutor = quantidadeSinistrosCondutores(this.getListaCondutores());
 		
 		if(getCliente().getIdade() < 30) {
 			fatorIdade = CalcSeguro.FATOR_18_30.getNum();
@@ -102,13 +102,8 @@ public class SeguroPF extends Seguro {
 		valor = CalcSeguro.VALOR_BASE.getNum() * fatorIdade * (1 + 1/(quantidadeVeiculos + 2)) * 
 				(2 + quantidadeSinistrosCliente/10) * (5 + quantidadeSinistrosCondutor/10);
 		
-		System.out.println("VALORBASE:" + CalcSeguro.VALOR_BASE.getNum());
-		System.out.println("FATOR IDADE:" + fatorIdade);
-		System.out.println("VEICULOS:" + (1 + 1/(quantidadeVeiculos + 2)));
-		System.out.println("SIN CLIENTE:" + (2 + quantidadeSinistrosCliente/10));
-		System.out.println("SIN CDT:" + (5 + quantidadeSinistrosCondutor/10) + "\n");
 		
-		
+		System.out.println(cliente);
 
 		return valor;
 	}

@@ -70,6 +70,8 @@ public abstract class Seguro {
 	public int getID() {
 		return ID;
 	}
+	
+	public abstract double getValorMensal();
 
 	//Métodos:
 	//Método que inclui um Condutor na lista de condutores. Se ele já está nela retorna false; caso contrário, retorna true:
@@ -131,8 +133,14 @@ public abstract class Seguro {
 	//Método que calcula a quantidade de sinistros de todas as pessoas na lista de condutores:
 	public int quantidadeSinistrosCondutores(ArrayList<Condutor> listaCondutores) {
 		int qtdSinistros = 0;
-		for(Condutor condutor : listaCondutores) {
-			qtdSinistros += condutor.getListaSinistros().size();
+		for(Condutor cdt : this.getListaCondutores()) {
+			for(Seguro seguro : getSeguradora().getListaSeguros()) {
+				for(Condutor condutor : seguro.getListaCondutores()) {
+					if(cdt.getCPF().equals(condutor.getCPF())) {
+						qtdSinistros += condutor.getListaSinistros().size();
+					}
+				}
+			}
 		}
 		return qtdSinistros;
 	}
@@ -141,11 +149,8 @@ public abstract class Seguro {
 	public int quantidadeSinistrosCliente(Cliente cliente) {
 		int qtdSinistros = 0;
 		for(Seguro seguro : getSeguradora().getListaSeguros()) {
-			if(seguro instanceof SeguroPF) {
-				String cpfClienteIteracao = ((SeguroPF) seguro).getCliente().getDocumento();
-				if(cpfClienteIteracao.equals(cliente.getDocumento())){
-					qtdSinistros++;
-				}
+			if(seguro.getCliente().getDocumento().equals(cliente.getDocumento())) {
+				qtdSinistros += seguro.getListaSinistros().size();
 			}
 		}
 		return qtdSinistros;

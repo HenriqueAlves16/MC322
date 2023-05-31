@@ -31,6 +31,14 @@ public class SeguroPJ extends Seguro {
 	public void setCliente(ClientePJ cliente) {
 		this.cliente = cliente;
 	}
+	
+	public double getValorMensal() {
+		return valorMensal;
+	}
+
+	public void setValorMensal(double valorMensal) {
+		this.valorMensal = valorMensal;
+	}
 
 	//toString():
 	@Override
@@ -65,11 +73,25 @@ public class SeguroPJ extends Seguro {
 		return sucesso;
 	}
 
+	//Método que retorna a quantidade de veículos segurados que o cliente tem cadastrados na seguradora:
+	public int qtdVeiculosSegurados() {
+		int qtd = 0;
+		for(Seguro seguro : getSeguradora().getListaSeguros()) {
+			if(seguro.getCliente().getDocumento().equals(this.getCliente().getDocumento())) {
+				for(Veiculo veiculo : ((SeguroPJ)seguro).getFrota().getListaVeiculos()) {
+					qtd++;
+				}
+			}
+		}
+		return qtd;
+	}
+	
+	
 	//Método que calcula o valor do seguroPJ:
 	public double calcularValor() {
 		double valor;
 		int quantidadeFunc = this.getCliente().getQtdeFuncionarios();
-		int quantidadeVeiculos = getCliente().totalVeiculos();
+		int quantidadeVeiculos = qtdVeiculosSegurados();
 		int anosPosFundacao = getCliente().getIdade();
 		int quantidadeSinistrosCliente = quantidadeSinistrosCliente(this.getCliente());
 		int quantidadeSinistrosCondutor = quantidadeSinistrosCondutores(this.getListaCondutores());

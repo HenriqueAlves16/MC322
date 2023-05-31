@@ -268,7 +268,7 @@ public class Seguradora {
 		Seguro seguro;
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Digite as datas de início e fim (dd/mm/aaaa), documento do cliente titular do seguro.");
+		System.out.println("Digite as datas de início e fim (dd/mm/aaaa) do seguro e o número do documento do cliente titular do seguro.");
 		String dataInicio = scanner.nextLine();
 		String dataFim = scanner.nextLine();
 		String documento = Validacao.recebeDocumentoValido();
@@ -335,13 +335,16 @@ public class Seguradora {
 		Cliente cliente = encontraCliente(cpf);
 		try {
 			((ClientePF)cliente).excluirVeiculo();
-			encontraSeguro(cpf).atualizaValorMensal();;
 		} catch (ClassCastException e) {
 			System.out.println("Esta operação vale apenas para clientes do tipo pessoa física.");
 			System.out.println("Para excluir um veículo de uma frota, acesse a operação 'Atualizar frota'.");
 		} catch (NullPointerException e) {
 			System.out.println("Cliente não encontrado.");
 		}
+		
+		try {
+			encontraSeguro(cpf).atualizaValorMensal();
+		}	catch(NullPointerException e) {}
 	
 	}
 	
@@ -367,6 +370,7 @@ public class Seguradora {
 		Condutor condutor = seguro.encontraCondutor(cpf);
 		
 		seguro.desautorizarCondutor(condutor);
+		System.out.println("Condutor excluído com sucesso!");
 	}
 	
 	//Método que encontra um seguro a partir de seu ID:
@@ -392,13 +396,20 @@ public class Seguradora {
 	//Método que, a partir de informações do input, cadastra um condutor em um seguro:
 	public void cadastrarCondutor() {
 		Scanner scanner = new Scanner(System.in);
+		int id;
 		
 		System.out.println("Digite o ID do seguro em que o condutor será cadastrado");
-		int id = scanner.nextInt();
-		scanner.nextLine();
+		try {
+			id = scanner.nextInt();
+			scanner.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("O ID deve ser um inteiro.");
+			return;
+		}
 		
 		Seguro seguro = encontraSeguro(id);
 		seguro.autorizarCondutor(Condutor.criaCondutor());
+		System.out.println("Condutor cadastrado com sucesso!");
 	}
 	
 	// Método que cadastra um novo cliente na seguradora
@@ -478,7 +489,7 @@ public class Seguradora {
 			boolean temSeguro = false;
 			String documento = cliente.getDocumento();
 			
-			System.out.println("* " + cliente.getNome() + "(" + documento + ")" + ":");
+			System.out.println("* " + cliente + ":");
 			
 			for(Seguro seguro : getListaSeguros())  {
 				if(seguro.getCliente().getDocumento().equals(documento)) {
@@ -487,7 +498,7 @@ public class Seguradora {
 				}
 			}
 			if(!temSeguro) {
-				System.out.println("Nenhum seguro cadastrado para o cliente " + cliente.getNome() + "(" + documento + ")");
+				System.out.println("Nenhum seguro cadastrado para o cliente " + cliente);
 			}
 			System.out.println("");
 		}
@@ -677,6 +688,10 @@ public class Seguradora {
 		
 		//Caso de clientes cadastrados:
 		for (Cliente cliente : listaClientes) {
+			if(cliente.getListaVeiculos().isEmpty()) {
+				System.out.println("Nenhum veículo cadastrado para o cliente " + cliente);
+				return;
+			}
 			System.out.println("Veículos do cliente " + cliente + ":");
 			cliente.visualizarVeiculos();
 			System.out.println("");
@@ -688,11 +703,15 @@ public class Seguradora {
 	//Método que imprime todos os veículos relacionados a cada seguradora
 	public static void visualizarVeiculosPorSeg() {
 		for(Seguradora seguradora : listaSeguradoras) {
-			System.out.println("* Lista de veículos da seguradora" + seguradora.getNome() + ":");
+			if(seguradora.listarVeiculos().isEmpty()) {
+				System.out.println("Nenhum veículo cadaastrado na seguradora " + seguradora.getNome() + ".");
+			}
+			System.out.println("* Lista de veículos da seguradora " + seguradora.getNome() + ":");
 			ArrayList<Veiculo> listaVeiculos = seguradora.listarVeiculos();
 			for(Veiculo veiculo : listaVeiculos) {
 				System.out.println("    - " + veiculo);
 			}
+			System.out.println("");
 		}
 	}
 	
@@ -700,17 +719,18 @@ public class Seguradora {
 	
 	//Método que calcula a receita total da seguradora:
 	//Método que calcula a receita total da seguradora
-	public double calcularReceitaSeguradora() {
+	public String calcularReceitaSeguradora() {
 		double receita = 0;
 		DecimalFormat formato = new DecimalFormat("0.00");
 		String receitaFormatada;
 		
 		for(Seguro seguro : getListaSeguros()) {
-			receita += seguro.calcularValor();
+			seguro.atualizaValorMensal();
+			receita += seguro.getValorMensal();
 		}
 		
 		receitaFormatada = formato.format(receita);
-		return receita;
+		return receitaFormatada;
 	}
 	
 	//Método que imprime a receita da seguradora:

@@ -57,10 +57,9 @@ public class Frota {
 		
 		scanner.nextLine();
 		do {
-			System.out.println("Veiculo " + i + ":");
+			System.out.println("Veiculo " + ++i + ":");
 			Veiculo veiculo = Veiculo.criaVeiculo();
 			listaVeiculos.add(veiculo);
-			i++;
 		}	while(i < qtd);
 		
 		System.out.println("Frota criada com sucesso!\n");

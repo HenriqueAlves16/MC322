@@ -20,6 +20,7 @@ public class Sinistro {
 		this.seguro = seguro;
 		this.ID = n;
 		n++;
+		condutor.adicionarSinistro(this);
 		seguro.cadastrarSinistro(this);
 	}
 		
@@ -64,7 +65,7 @@ public class Sinistro {
 	//toString
 	@Override
 	public String toString() {
-		return "ID: " + getID() + ", Condutor: " + getCondutor() + ", Data: " + getData() + ", Seguro: " + getSeguro();
+		return "ID: " + getID() + ", Condutor: " + getCondutor() + ", ID do seguro: " + getSeguro().getID();
 	}
 
 	

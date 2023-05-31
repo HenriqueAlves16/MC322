@@ -5,7 +5,7 @@ class Main {
 	public static void main(String[] args) {
 		
 		// Criando veículos:
-		/*Veiculo veiculo1 = new Veiculo("ABC0001", "Volkswagen", "Gol", 1990);
+		Veiculo veiculo1 = new Veiculo("ABC0001", "Volkswagen", "Gol", 1990);
 		Veiculo veiculo2 = new Veiculo("DEF0002", "Fiat", "Uno",  2015);
 		Veiculo veiculo3 = new Veiculo("GHI0003", "Chevrolet", "Ônix", 2020);
 		Veiculo veiculo4 = new Veiculo("JKL0004", "Volkswagen", "Fusca",  2000);
@@ -65,8 +65,8 @@ class Main {
 
 		cliente3.cadastrarVeiculo(veiculo3);
 		
-		seguradora1.visualizarVeiculosPorCliente();
-		Seguradora.visualizarVeiculosPorSeg();
+		//seguradora1.visualizarVeiculosPorCliente();
+		//Seguradora.visualizarVeiculosPorSeg();
 
 		//Criando seguros para os clientes:
 		SeguroPJ seguro1 = new SeguroPJ("10/02/2015", "14/09/2015", seguradora1, frota2, cliente1);
@@ -75,7 +75,8 @@ class Main {
 		SeguroPF seguro4 = new SeguroPF("31/01/2020", "31/12/2025", seguradora1, veiculo3, cliente3);
 
 		System.out.println(seguro1 + "\n" + seguro2 + "\n" + seguro3 + "\n" + seguro4 + "\n");
-	
+		seguradora1.visualizarReceita();
+
 		
 		//Cadastrando os condutores na lista de condutores dos seguros:
 		seguro1.autorizarCondutor(condutor1);
@@ -89,50 +90,53 @@ class Main {
 		seguro3.autorizarCondutor(condutor1);
 		seguro3.autorizarCondutor(condutor6);
 		
-		seguro1.visualizarListaCondutores();
-		seguro2.visualizarListaCondutores();
-		seguro3.visualizarListaCondutores();
-		seguro4.visualizarListaCondutores();
+		seguro4.autorizarCondutor(condutor4);
+		
+		//seguradora1.visualizarCondutoresPorSeguro();
 		
 		//Fazendo alterações na lista de condutores com os métodos de autorização:
 		seguro1.desautorizarCondutor(condutor3);
 		seguro1.autorizarCondutor(condutor7);
-		seguro1.visualizarListaCondutores();
+		//seguro1.visualizarListaCondutores();
 		
 		seguro2.desautorizarCondutor(condutor4);
 		seguro4.autorizarCondutor(condutor4);
-		seguro2.visualizarListaCondutores();
-		seguro4.visualizarListaCondutores();
+		//seguro2.visualizarListaCondutores();
+		//seguro4.visualizarListaCondutores();
 
 		//Cadastrando alguns seguros na seguradora:
 		seguradora1.cadastrarSeguro(seguro1);
 		seguradora1.cadastrarSeguro(seguro2);
 		seguradora1.cadastrarSeguro(seguro3);
-		seguradora1.visualizarSegurosCliente();
+		//seguradora1.visualizarSegurosCliente();
 		
 		//Alterando a lista de seguros:
 		seguradora1.cancelarSeguro(seguro1);
 		seguradora1.cadastrarSeguro(seguro4);
-		seguradora1.visualizarSegurosCliente();
+		//seguradora1.visualizarSegurosCliente();
 
 		// Gerando sinistro:
+		seguradora1.visualizarReceita();
+
 		Sinistro sinistro1 = new Sinistro("24/04/2015", "Araraquara", condutor4, seguro4);
 		Sinistro sinistro2 = new Sinistro("26/08/2017", "Limeira", condutor1, seguro1);
 		Sinistro sinistro3 = new Sinistro("14/07/2023", "Monte Verde", condutor1, seguro3);
 		Sinistro sinistro4 = new Sinistro("24/10/2022", "Extrema", condutor3, seguro1);
+		Sinistro sinistro5 = new Sinistro("24/04/2017", "Belo Horizonte", condutor4, seguro4);
+
 		System.out.println("");
 		
-		seguradora1.visualizarSinistrosPorCliente();
-		Seguradora.visualizarSinistrosPorSeg();
-
+		//seguradora1.visualizarSinistrosPorCliente();
+		//Seguradora.visualizarSinistrosPorSeg();
 		
+
 		// Calculando a receita total da seguradora:
-		seguradora1.calcularReceitaSeguradora();
-		*/
+		seguradora1.visualizarReceita();
+		
 		// Chamando o menu interativo. Note que ainda nenhuma seguradoraa foi cadastrada na lista de seguradoras
-		Menu menu = new Menu();
-	    menu.exibirMenuPrincipal();
-	    System.out.println("Programa finalizado.");
+		//Menu menu = new Menu();
+	    //menu.exibirMenuPrincipal();
+	    //System.out.println("Programa finalizado.");
 	    
 	}
 }

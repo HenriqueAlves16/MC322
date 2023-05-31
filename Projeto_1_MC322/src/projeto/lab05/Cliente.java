@@ -65,7 +65,7 @@ public abstract class Cliente {
 	public static Cliente criaCliente() {
 		Scanner scanner = new Scanner(System.in);
 		Cliente cliente = null;
-		System.out.println("Digite o nome, endereço, data de licença (dd/mm/aaaa) e tipo de cliente ('PF' ou 'PJ'), respectivamente:");
+		System.out.println("Digite o nome, endereço, telefone, email e tipo de cliente ('PF' ou 'PJ'), respectivamente:");
 
 		String nome = scanner.nextLine();
 		String endereco = scanner.nextLine();

@@ -33,6 +33,13 @@ public class SeguroPF extends Seguro {
 		this.cliente = cliente;
 	}
 
+	public double getValorMensal() {
+		return valorMensal;
+	}
+
+	public void setValorMensal(double valorMensal) {
+		this.valorMensal = valorMensal;
+	}
 	//toString():
 	@Override
 	public String toString() {
@@ -56,7 +63,23 @@ public class SeguroPF extends Seguro {
 		
 		Sinistro sinistro = new Sinistro(data, endereco, condutor, this);
 		boolean sucesso = cadastrarSinistro(sinistro);
+		if(sucesso) {
+			System.out.println("Sinistro cadastrado com sucesso para o condutor " + condutor + "!");
+		}	else	{
+			System.out.println("Sinistro já cadastrado.");
+		}
 		return sucesso;
+	}
+	
+	//Método que retorna a quantidade de veículos segurados que o cliente tem cadastrados na seguradora:
+	public int qtdVeiculosSegurados() {
+		int qtd = 0;
+		for(Seguro seguro : getSeguradora().getListaSeguros()) {
+			if(seguro.getCliente().getDocumento().equals(this.getCliente().getDocumento())) {
+				qtd++;
+			}
+		}
+		return qtd;
 	}
 	
 	//Método que calcula o valor do seguroPJ:
@@ -64,11 +87,9 @@ public class SeguroPF extends Seguro {
 		double valor;
 		int idade = getCliente().getIdade();
 		double fatorIdade;
-		int quantidadeVeiculos = getCliente().getListaVeiculos().size();
+		int quantidadeVeiculos = qtdVeiculosSegurados();
 		int quantidadeSinistrosCliente = quantidadeSinistrosCliente(this.getCliente());
 		int quantidadeSinistrosCondutor = quantidadeSinistrosCondutores(this.getListaCondutores());
-
-		
 		
 		if(getCliente().getIdade() < 30) {
 			fatorIdade = CalcSeguro.FATOR_18_30.getNum();
@@ -81,6 +102,14 @@ public class SeguroPF extends Seguro {
 		valor = CalcSeguro.VALOR_BASE.getNum() * fatorIdade * (1 + 1/(quantidadeVeiculos + 2)) * 
 				(2 + quantidadeSinistrosCliente/10) * (5 + quantidadeSinistrosCondutor/10);
 		
+		System.out.println("VALORBASE:" + CalcSeguro.VALOR_BASE.getNum());
+		System.out.println("FATOR IDADE:" + fatorIdade);
+		System.out.println("VEICULOS:" + (1 + 1/(quantidadeVeiculos + 2)));
+		System.out.println("SIN CLIENTE:" + (2 + quantidadeSinistrosCliente/10));
+		System.out.println("SIN CDT:" + (5 + quantidadeSinistrosCondutor/10) + "\n");
+		
+		
+
 		return valor;
 	}
 	
